@@ -12,6 +12,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _BUILTIN_ALPHATEST_ON
   - _BUILTIN_AlphaClip
   - _USE_VERTEX_COLOR
@@ -22,7 +23,8 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: TransparentCutout
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -71,8 +73,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
     - _Alpha_Clip: 1
     - _BUILTIN_AlphaClip: 1
     - _BUILTIN_Blend: 0
@@ -85,20 +101,37 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 1
     - _BUILTIN_ZWriteControl: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _CUSTOM_INSTANCING: 0
+    - _CastShadows: 1
     - _ColorBottomLevel: -0.66
     - _ColorBottomMaskFade: -1
     - _Color_Intensity: 0
+    - _Cull: 2
     - _Cutoff: 0.59
     - _Dither_Bottom_Level: 0
     - _Dither_Fade: 2
     - _DitheringON: 0
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
+    - _Emissive_Intensity: 0
+    - _Gradience_Height: 1
+    - _Gradience_Power: 1
     - _InteractionAlpha: 1
     - _Normal_Intensity: 1
     - _PivotLockPower: 0.6
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Smoothness: -0.067
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
     - _USE_DITHER: 0
     - _USE_GRADIENT_MAP: 0
+    - _USE_GRADIENT_MAP_INSTEAD: 0
+    - _USE_HEIGHT_GRADIENT: 0
     - _USE_NORMAL_MAP: 0
     - _USE_VERTEX_COLOR: 1
     - _UV_Pivot_Lock_Strangth: 1
@@ -113,12 +146,17 @@ Material:
     - _Wind_Large_Scale: 60
     - _Wind_Small_Intensity: 0.2
     - _Wind_Small_Scale: 40
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     - __dirty: 1
     m_Colors:
     - _ColorBottom: {r: 0.37178555, g: 0.6603774, b: 0.04049486, a: 1}
     - _ColorTop: {r: 0.6586081, g: 0.93333334, b: 0, a: 1}
     - _ColorTopVariation: {r: 0.6586081, g: 0.93333334, b: 0, a: 1}
     - _ColorWave: {r: 0.21823503, g: 0.4056604, b: 0, a: 1}
+    - _Color_Base: {r: 0.2713315, g: 0.4528302, b: 0.1644713, a: 1}
     - _Color_Bottom: {r: 0.05448028, g: 0.17788847, b: 0.002124689, a: 1}
     - _Color_Tint: {r: 0.17788847, g: 0.3813261, b: 0, a: 1}
     - _Color_Top: {r: 0.17788847, g: 0.3813261, b: 0, a: 1}
@@ -140,3 +178,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 0
+--- !u!114 &3404177573582499820
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10

@@ -25,6 +25,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
+  - _ALPHATEST_ON
   - _BUILTIN_ALPHATEST_ON
   - _BUILTIN_AlphaClip
   - _USE_VERTEX_COLOR
@@ -36,7 +37,8 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap:
     RenderType: TransparentCutout
-  disabledShaderPasses: []
+  disabledShaderPasses:
+  - MOTIONVECTORS
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
@@ -85,8 +87,22 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 1
+    - _AlphaToMask: 1
     - _Alpha_Clip: 0.5
     - _BUILTIN_AlphaClip: 1
     - _BUILTIN_Blend: 0
@@ -99,22 +115,34 @@ Material:
     - _BUILTIN_ZTest: 4
     - _BUILTIN_ZWrite: 1
     - _BUILTIN_ZWriteControl: 0
+    - _Blend: 0
+    - _BlendModePreserveSpecular: 1
     - _CUSTOM_INSTANCING: 0
+    - _CastShadows: 1
     - _ColorBottomLevel: -0.66
     - _ColorBottomMaskFade: -1
     - _Color_Intensity: 0
+    - _Cull: 2
     - _Cutoff: 0.59
     - _DitherMultiplier: 0.3
     - _Dither_Bottom_Level: 0
     - _Dither_Fade: 2
     - _DitheringON: 0
+    - _DstBlend: 0
+    - _DstBlendAlpha: 0
     - _Emissive_Intensity: 0
     - _Gradience_Height: 1
     - _Gradience_Power: 1
     - _InteractionAlpha: 1
     - _Normal_Intensity: 1
     - _PivotLockPower: 0.6
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _Smoothness: -0.067
+    - _SrcBlend: 1
+    - _SrcBlendAlpha: 1
+    - _Surface: 0
     - _USE_DITHER: 0
     - _USE_GRADIENT_MAP: 1
     - _USE_GRADIENT_MAP_INSTEAD: 0
@@ -133,6 +161,10 @@ Material:
     - _Wind_Large_Scale: 60
     - _Wind_Small_Intensity: 0.5
     - _Wind_Small_Scale: 40
+    - _WorkflowMode: 1
+    - _ZTest: 4
+    - _ZWrite: 1
+    - _ZWriteControl: 0
     - __dirty: 1
     m_Colors:
     - _ColorBottom: {r: 0.37178555, g: 0.6603774, b: 0.04049486, a: 1}
@@ -148,3 +180,16 @@ Material:
     - _Wind_Small_Speed: {r: -0.15, g: 1.8, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!114 &153477999924803197
+MonoBehaviour:
+  m_ObjectHideFlags: 11
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0353a89b1f911e48b9e16bdc9f2e058, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Editor::UnityEditor.Rendering.Universal.AssetVersion
+  version: 10
