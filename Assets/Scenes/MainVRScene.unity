@@ -3413,9 +3413,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandAfterimage
   handRenderer: {fileID: 702167169}
   ghostMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
-  spawnInterval: 0.03
-  ghostLifetime: 0.2
-  minVelocity: 0.6
+  distanceThreshold: 0.01
+  ghostLifetime: 0.16
+  initialAlpha: 0.1
+  scaleGrowth: 0.01
 --- !u!114 &1760928608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3872,9 +3873,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandAfterimage
   handRenderer: {fileID: 2138032343}
   ghostMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
-  spawnInterval: 0.03
-  ghostLifetime: 0.2
-  minVelocity: 0.1
+  distanceThreshold: 0.01
+  ghostLifetime: 0.16
+  initialAlpha: 0.1
+  scaleGrowth: 0.01
 --- !u!1 &2137604785
 GameObject:
   m_ObjectHideFlags: 0
