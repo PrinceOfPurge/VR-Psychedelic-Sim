@@ -119,6 +119,27 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &29448820 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8093717414090421701, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+  m_PrefabInstance: {fileID: 358638517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &29448821
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29448820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e3a869a0ba8fef46b18e30681b3689c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  masterVolume: 1
+  musicVolume: 1
+  ambienceVolume: 1
+  SFXVolume: 1
 --- !u!114 &32741034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -862,9 +883,9 @@ GameObject:
   m_Component:
   - component: {fileID: 334032649}
   - component: {fileID: 334032653}
-  - component: {fileID: 334032652}
   - component: {fileID: 334032651}
   - component: {fileID: 334032650}
+  - component: {fileID: 334032654}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1040,14 +1061,6 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
---- !u!81 &334032652
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 334032648}
-  m_Enabled: 1
 --- !u!20 &334032653
 Camera:
   m_ObjectHideFlags: 0
@@ -1099,6 +1112,85 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &334032654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334032648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioListener
+  nonRigidbodyVelocity: 0
+  attenuationObject: {fileID: 0}
+--- !u!1001 &358638517
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.07363
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.35524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.03126
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8093717414090421701, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      propertyPath: m_Name
+      value: AudioManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3408540140039436163, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+    - {fileID: 7346253736496124653, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8093717414090421701, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 29448821}
+    - targetCorrespondingSourceObject: {fileID: 364139051952539429, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1013582862}
+  m_SourcePrefab: {fileID: 100100000, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
 --- !u!114 &395609275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2044,6 +2136,37 @@ Transform:
   - {fileID: 1419032577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1013582860 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 364139051952539429, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+  m_PrefabInstance: {fileID: 358638517}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1013582862
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013582860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c2a7e0f407b536448e986d9a0a53bfa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FMODEvents
+  <ambience>k__BackingField:
+    Guid:
+      Data1: -1327819475
+      Data2: 1217580356
+      Data3: 956021411
+      Data4: -1842493544
+    Path: event:/Music/MenuMusic
+  <music>k__BackingField:
+    Guid:
+      Data1: -1327819475
+      Data2: 1217580356
+      Data3: 956021411
+      Data4: -1842493544
+    Path: event:/Music/MenuMusic
 --- !u!1 &1041540833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3997,3 +4120,4 @@ SceneRoots:
   - {fileID: 1003271457}
   - {fileID: 1487149296}
   - {fileID: 789715735}
+  - {fileID: 358638517}
