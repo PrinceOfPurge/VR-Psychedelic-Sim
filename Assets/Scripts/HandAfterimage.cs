@@ -76,22 +76,21 @@ public class HandAfterimage : MonoBehaviour
             timer += Time.deltaTime;
             float t = timer / ghostLifetime;
 
-            // Ease-out fade
-            float eased = 1f - (t * t);
+            // 1. Shift color through a HSV
+            // This gives that "shimmering" psychedelic feel
+            mat.color = Color.HSVToRGB((Time.time * 0.5f) % 1f, 0.6f, 1f);
 
-            mat.color = new Color(
-                startColor.r,
-                startColor.g,
-                startColor.b,
-                initialAlpha * eased
-            );
+            // 2. Add an Alpha fade
+            Color c = mat.color;
+            c.a = initialAlpha * (1f - t);
+            mat.color = c;
 
-            // subtle expansion
-            ghost.transform.localScale += Vector3.one * scaleGrowth * Time.deltaTime;
+            // 3. Instead of just scaling up, we could "jitter" the position
+            ghost.transform.position += Random.insideUnitSphere * 0.001f;
 
             yield return null;
-        }
 
-        Destroy(ghost);
+            Destroy(ghost);
+        }
     }
 }

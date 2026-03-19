@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{bdfe65ab-5a5e-4881-8a6b-031410e7fa55}">
+		<property name="name">
+			<value>TracerIntensity</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1602d5dd-a3be-4ebe-8f99-434439796e88}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{232892aa-cee6-45fa-9bb0-5c510408d27c}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{232892aa-cee6-45fa-9bb0-5c510408d27c}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

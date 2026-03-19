@@ -224,6 +224,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: e6005f29-e4c1-4f3b-8bf7-3a28bab5ca9c
+--- !u!4 &275973921 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109434732395451477, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 1674205195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &305341699
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1680,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.XR.Interaction.Toolkit::UnityEngine.XR.Interaction.Toolkit.Inputs.InputActionManager
   m_ActionAssets:
   - {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
+--- !u!4 &594783515 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109434732395451493, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 1674205195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &621603248
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1855,6 +1865,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6972f4bfc5301414ba01b6e8606ff09d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 928757950}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6972f4bfc5301414ba01b6e8606ff09d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 928757954}
   m_SourcePrefab: {fileID: 100100000, guid: 6972f4bfc5301414ba01b6e8606ff09d, type: 3}
 --- !u!1 &832575517
 GameObject:
@@ -2085,6 +2098,32 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.057458, y: 0.1340448, z: 0.011861794}
   m_Center: {x: 0.00033964217, y: -0.0024952479, z: -0.0010874043}
+--- !u!114 &928757954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928757944}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f5592b56f2e8fd4e852e49bfb60230c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledAfterImage
+  handRenderer: {fileID: 0}
+  tracerMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
+  minVelocity: 0.7
+  maxVelocity: 5
+  sliceSpacing: 0.005
+  trailLifetime: 0.22
+  audioDeadzone: 1.2
+  trailTint: {r: 0.627451, g: 0.60784316, b: 0.6039216, a: 1}
+  maxAlpha: 0.022
+  startScaleShrink: 0.05
+  endScaleShrink: 0.35
+  enableHueShift: 1
+  hueShiftIntensity: 0.1
+  audioLerpSpeed: 15
 --- !u!114 &947766131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2167,6 +2206,13 @@ MonoBehaviour:
       Data3: 956021411
       Data4: -1842493544
     Path: event:/Music/MenuMusic
+  <AfterImage>k__BackingField:
+    Guid:
+      Data1: 200443437
+      Data2: 1338538513
+      Data3: 1353126550
+      Data4: -1162775150
+    Path: event:/SFX/AfterImage
 --- !u!1 &1041540833
 GameObject:
   m_ObjectHideFlags: 0
@@ -3007,6 +3053,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &1420290026 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109434732395451487, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 1674205195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1436219546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3403,6 +3454,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -268597958947560776, guid: 6972f4bfc5301414ba01b6e8606ff09d, type: 3}
   m_PrefabInstance: {fileID: 789715735}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1646245682 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109434732395451463, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 1674205195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1674205195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3468,7 +3524,10 @@ PrefabInstance:
       addedObject: {fileID: 1674205199}
     - targetCorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1674205200}
+      addedObject: {fileID: 1674205201}
+    - targetCorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674205202}
   m_SourcePrefab: {fileID: 100100000, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
 --- !u!4 &1674205196 stripped
 Transform:
@@ -3522,7 +3581,31 @@ MonoBehaviour:
       m_Flags: 0
     m_Reference: {fileID: 57195878}
   handAnimator: {fileID: 1674205198}
---- !u!114 &1674205200
+--- !u!114 &1674205201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674205197}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a6da37d8a1c69046853f19fa82e12e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PsychedelicTracer
+  anchorPoints:
+  - {fileID: 1646245682}
+  - {fileID: 1420290026}
+  - {fileID: 275973921}
+  - {fileID: 1789672783}
+  - {fileID: 594783515}
+  trailMaterial: {fileID: 2100000, guid: 0881183f4deccf54b9dbe0ceb5af28e8, type: 2}
+  trailTime: 0.3
+  minVertexDistance: 0.01
+  startWidth: 0.01
+  endWidth: 0
+  velocityThreshold: 0.53
+--- !u!114 &1674205202
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3531,15 +3614,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1674205197}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21fe4e1acd7d6d54caf5d38e3160ccd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f5592b56f2e8fd4e852e49bfb60230c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandAfterimage
+  m_EditorClassIdentifier: Assembly-CSharp::PooledAfterImage
   handRenderer: {fileID: 702167169}
-  ghostMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
-  distanceThreshold: 0.01
-  ghostLifetime: 0.16
-  initialAlpha: 0.1
-  scaleGrowth: 0.01
+  tracerMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
+  minVelocity: 0.5
+  maxVelocity: 3.5
+  sliceSpacing: 0.005
+  trailLifetime: 0.25
+  audioDeadzone: 1.5
+  trailTint: {r: 0.3372549, g: 0.7803922, b: 1, a: 1}
+  maxAlpha: 0.031
+  startScaleShrink: 0.12
+  endScaleShrink: 0.25
+  enableHueShift: 0
+  hueShiftIntensity: 0.1
+  audioLerpSpeed: 3
 --- !u!114 &1760928608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3821,6 +3912,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!4 &1789672783 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 109434732395451501, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+  m_PrefabInstance: {fileID: 1674205195}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1853042367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3928,7 +4024,7 @@ PrefabInstance:
       addedObject: {fileID: 2128874144}
     - targetCorrespondingSourceObject: {fileID: 5686134208185362930, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2128874146}
+      addedObject: {fileID: 2128874147}
   m_SourcePrefab: {fileID: 100100000, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
 --- !u!4 &2128874142 stripped
 Transform:
@@ -3982,7 +4078,7 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 5686134208192617028, guid: 1fd3a7c43c8190f4d8c167ebde694364, type: 3}
   m_PrefabInstance: {fileID: 2128874141}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2128874146
+--- !u!114 &2128874147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3991,15 +4087,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 2128874143}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 21fe4e1acd7d6d54caf5d38e3160ccd3, type: 3}
+  m_Script: {fileID: 11500000, guid: 7f5592b56f2e8fd4e852e49bfb60230c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HandAfterimage
+  m_EditorClassIdentifier: Assembly-CSharp::PooledAfterImage
   handRenderer: {fileID: 2138032343}
-  ghostMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
-  distanceThreshold: 0.01
-  ghostLifetime: 0.16
-  initialAlpha: 0.1
-  scaleGrowth: 0.01
+  tracerMaterial: {fileID: 2100000, guid: afccb7486e884f74da24533aece5e125, type: 2}
+  minVelocity: 0.5
+  maxVelocity: 3.5
+  sliceSpacing: 0.005
+  trailLifetime: 0.25
+  audioDeadzone: 1.5
+  trailTint: {r: 0.32156864, g: 0.74509805, b: 1, a: 1}
+  maxAlpha: 0.031
+  startScaleShrink: 0.12
+  endScaleShrink: 0.25
+  enableHueShift: 1
+  hueShiftIntensity: 0.1
+  audioLerpSpeed: 3
 --- !u!1 &2137604785
 GameObject:
   m_ObjectHideFlags: 0
