@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 8105016687592461f977c054a80ce2f2
-NativeFormatImporter:
+guid: 73e28017862178e46a338ef7589426cd
+DefaultImporter:
   externalObjects: {}
-  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -11,5 +10,5 @@ AssetOrigin:
   productId: 236633
   packageName: Kaleidoscope VFX
   packageVersion: 1.0.0
-  assetPath: Assets/Readme.asset
+  assetPath: Assets/Darcy_Studios/Kaleidoscope_Effect_Package/Example_Scene/Kaleidoscope_Example_Scene.unity
   uploadId: 541205

@@ -1,8 +1,7 @@
 fileFormatVersion: 2
-guid: 8105016687592461f977c054a80ce2f2
-NativeFormatImporter:
+guid: 6e592ed28d0504b15a312adc7bf4ceb9
+PrefabImporter:
   externalObjects: {}
-  mainObjectFileID: 0
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -11,5 +10,5 @@ AssetOrigin:
   productId: 236633
   packageName: Kaleidoscope VFX
   packageVersion: 1.0.0
-  assetPath: Assets/Readme.asset
+  assetPath: Assets/Darcy_Studios/Kaleidoscope_Effect_Package/Prefabs/Global Volume.prefab
   uploadId: 541205

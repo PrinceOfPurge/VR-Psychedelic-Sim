@@ -1,8 +1,11 @@
 fileFormatVersion: 2
-guid: 8105016687592461f977c054a80ce2f2
-NativeFormatImporter:
+guid: 9f803b827ae82480d9ff23752b469e3b
+MonoImporter:
   externalObjects: {}
-  mainObjectFileID: 0
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -11,5 +14,5 @@ AssetOrigin:
   productId: 236633
   packageName: Kaleidoscope VFX
   packageVersion: 1.0.0
-  assetPath: Assets/Readme.asset
+  assetPath: Assets/Darcy_Studios/Kaleidoscope_Effect_Package/Scripts/Kaleidoscope.cs
   uploadId: 541205
