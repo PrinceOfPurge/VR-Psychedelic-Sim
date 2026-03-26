@@ -2562,6 +2562,50 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: c3ca6ed7-3d25-44a2-b1d8-5be4eb699370
+--- !u!1 &694447286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 694447288}
+  - component: {fileID: 694447287}
+  m_Layer: 0
+  m_Name: Audio_KaleidoscopeMusicController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &694447287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694447286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b998656a0a19904788de2859889ec2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KaleidoscopeMusicController
+--- !u!4 &694447288
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 694447286}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.63816, y: 0, z: -4.22229}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &702167169 stripped
 SkinnedMeshRenderer:
   m_CorrespondingSourceObject: {fileID: 109434732392105323, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
@@ -2619,9 +2663,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
   rotationSpeed: {x: 1.1, y: 2.7, z: 0.8}
-  useChaoticMotion: 1
-  pulseFrequency: 0.5
-  pulseIntensity: 2
+  baseDistance: 200
+  pulseAmount: 50
+  pulseSpeed: 0.5
 --- !u!1001 &740613324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3262,6 +3306,13 @@ MonoBehaviour:
       Data3: 956021411
       Data4: -1842493544
     Path: event:/Music/MenuMusic
+  <KaleidoscopeMusic>k__BackingField:
+    Guid:
+      Data1: 1094362483
+      Data2: 1125968979
+      Data3: -547339880
+      Data4: 514683814
+    Path: event:/Music/KaleidoscopeMusic
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -6035,3 +6086,4 @@ SceneRoots:
   - {fileID: 358638517}
   - {fileID: 788682525}
   - {fileID: 734206728}
+  - {fileID: 694447288}
