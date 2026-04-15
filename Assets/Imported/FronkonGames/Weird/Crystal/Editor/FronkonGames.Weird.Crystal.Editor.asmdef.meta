@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a985769e2c4ac764a8ed9c4e20de2dee
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Editor/FronkonGames.Weird.Crystal.Editor.asmdef
+  uploadId: 878994

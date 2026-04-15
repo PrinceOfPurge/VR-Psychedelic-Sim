@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6e8789cfe7b8e09428b566d36a07ff75
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Runtime/Internal/Log.cs
+  uploadId: 879004

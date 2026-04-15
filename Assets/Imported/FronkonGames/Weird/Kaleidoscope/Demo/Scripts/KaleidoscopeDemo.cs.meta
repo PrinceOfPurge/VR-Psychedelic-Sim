@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 9de5e8e8092433a4e8906343e747bfd1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Demo/Scripts/KaleidoscopeDemo.cs
+  uploadId: 879006

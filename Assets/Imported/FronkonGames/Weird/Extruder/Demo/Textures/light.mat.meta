@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: af7a115f2d88081469caf85deb285ba8
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Demo/Textures/light.mat
+  uploadId: 879002

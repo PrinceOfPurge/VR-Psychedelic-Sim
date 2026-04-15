@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d07d441585146554b916e6e94d497146
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Demo/Textures/purple.mat
+  uploadId: 879008

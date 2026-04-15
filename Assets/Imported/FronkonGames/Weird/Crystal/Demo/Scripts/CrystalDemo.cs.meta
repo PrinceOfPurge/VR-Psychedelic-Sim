@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 68856e437806ac74881bb114a566a1aa
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Demo/Scripts/CrystalDemo.cs
+  uploadId: 878994

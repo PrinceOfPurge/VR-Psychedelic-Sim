@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 70a082ccc9843004087a81d920a2d4f9
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Demo/Settings/Extruder Universal
+    Render Pipeline Asset.asset
+  uploadId: 879002

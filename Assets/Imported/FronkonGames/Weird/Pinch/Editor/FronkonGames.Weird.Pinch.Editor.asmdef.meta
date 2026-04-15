@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7f2972de5fa0e444fb9af248ad1f5ce7
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Editor/FronkonGames.Weird.Pinch.Editor.asmdef
+  uploadId: 879008

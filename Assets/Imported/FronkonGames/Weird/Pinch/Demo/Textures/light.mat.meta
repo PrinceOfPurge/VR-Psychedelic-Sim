@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b0c617143e41cb246b1d4697c6434cf2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Demo/Textures/light.mat
+  uploadId: 879008

@@ -1,0 +1,28 @@
+fileFormatVersion: 2
+guid: b95c933ec4e7abc4ea36f4f59cb56ede
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Fronkon Games
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Editor/Internal/FronkonGames-Black.otf
+  uploadId: 878992

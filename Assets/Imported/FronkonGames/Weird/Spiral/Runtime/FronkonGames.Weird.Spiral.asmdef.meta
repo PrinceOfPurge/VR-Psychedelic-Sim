@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ba2cf92cdc13d3247a72a413a2326be6
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Runtime/FronkonGames.Weird.Spiral.asmdef
+  uploadId: 879010

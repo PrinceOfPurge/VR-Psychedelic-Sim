@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: a18021970748e3a4094ea3ae465d8dad
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Resources/Shaders/WeirdExtruder_URP.shader
+  uploadId: 879002

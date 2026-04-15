@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f9d701bfea276634f8778cb16e4739c9
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Resources/Shaders/Weird.hlsl
+  uploadId: 878994

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: fc2fa4b2674d7894bad21afe3622d6c5
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Resources/Shaders/WeirdSpiral_URP.shader
+  uploadId: 879010

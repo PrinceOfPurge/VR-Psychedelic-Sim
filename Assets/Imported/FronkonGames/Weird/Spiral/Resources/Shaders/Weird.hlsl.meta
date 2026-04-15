@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: e8a6eaa231e67bd45a7f0c86714dec85
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Resources/Shaders/Weird.hlsl
+  uploadId: 879010

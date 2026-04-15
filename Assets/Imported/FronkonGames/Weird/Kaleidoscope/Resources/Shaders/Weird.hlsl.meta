@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 6795a76f47613514ab2849b992bdc06a
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Resources/Shaders/Weird.hlsl
+  uploadId: 879006

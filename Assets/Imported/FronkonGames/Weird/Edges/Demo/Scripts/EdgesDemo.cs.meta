@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b45c438a6e74765469b319ba81292f09
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Demo/Scripts/EdgesDemo.cs
+  uploadId: 879000

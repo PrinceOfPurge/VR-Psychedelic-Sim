@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 2cd2a473ba389304c8aa00bf5aded220
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Demo/Scripts/BubblesDemo.cs
+  uploadId: 878992

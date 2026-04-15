@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2296d4b3ed670b04e91f6b10b7410774
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347718
+  packageName: 'Weird: Dither Fog'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/DitherFog/Demo/Textures/purple.mat
+  uploadId: 878996

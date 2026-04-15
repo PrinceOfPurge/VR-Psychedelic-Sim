@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 892aaa391e10dc64c9e227f022cde941
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Resources/Shaders/Weird.hlsl
+  uploadId: 879004

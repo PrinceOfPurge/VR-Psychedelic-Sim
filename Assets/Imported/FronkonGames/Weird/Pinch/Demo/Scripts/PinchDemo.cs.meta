@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 18d6640bc8046e24eb6eed4daa88d460
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Demo/Scripts/PinchDemo.cs
+  uploadId: 879008

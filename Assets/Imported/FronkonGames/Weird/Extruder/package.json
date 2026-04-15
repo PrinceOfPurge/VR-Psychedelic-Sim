@@ -1,0 +1,16 @@
+{
+  "name": "com.fronkongames.weird.extruder",
+  "version": "2.0.0",
+  "displayName": "Weird: Extruder",
+  "description": "Transform your rendered scene into a stunning 3D voxel-extruded world with customizable lighting, camera, and colors",
+  "unity": "6000.0",
+  "unityRelease": "58f2",
+  "dependencies":  {  },
+  "keywords": [ "unity", "fps", "vr", "extruded", "voxel", "weird", "extrude", "effect", "pixelart", "pixelated" ],
+  "author":
+  {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/store/weird/"
+  }
+}

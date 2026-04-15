@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 71ee6e4816efd1047bcfb0099382f45f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Demo/Scripts/Rotate.cs
+  uploadId: 879006

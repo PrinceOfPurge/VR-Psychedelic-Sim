@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 712124adc23d30c4b8af398ec2c35c61
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Demo/Textures/green.mat
+  uploadId: 879002

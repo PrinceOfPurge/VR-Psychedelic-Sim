@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7e2e35519de26c843a48d73a107a3137
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Resources/Shaders/Weird.hlsl
+  uploadId: 879000

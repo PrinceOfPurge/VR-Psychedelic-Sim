@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 3df87a977de10be4c82eae33e9a4ddda
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Resources/Shaders/WeirdEdges_URP.shader
+  uploadId: 879000

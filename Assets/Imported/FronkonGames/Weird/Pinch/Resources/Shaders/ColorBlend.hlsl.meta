@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 457a3194a0d15df469c70fe9504f753d
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 879008

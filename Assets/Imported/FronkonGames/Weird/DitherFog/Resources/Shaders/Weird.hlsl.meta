@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 3cdd88770ef446c46b5041ac940f8e7e
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347718
+  packageName: 'Weird: Dither Fog'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/DitherFog/Resources/Shaders/Weird.hlsl
+  uploadId: 878996

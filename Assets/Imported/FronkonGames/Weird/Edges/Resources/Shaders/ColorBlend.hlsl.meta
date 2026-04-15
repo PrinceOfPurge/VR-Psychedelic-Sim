@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: d4b36e84cb10b9c488b3024f36ceb9cc
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 879000

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6eab1145cedbd954cbfe601cc5c10dbb
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Demo/Settings/Fire Tunnel Universal
+    Render Pipeline Asset_Renderer.asset
+  uploadId: 879004

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3c2674be3f97a654e8406440fda49a34
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Demo/Scripts/Swing.cs
+  uploadId: 879004

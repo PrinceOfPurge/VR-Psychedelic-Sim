@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a028944410b14d64e892da1ee3877872
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Editor/FronkonGames.Weird.Extruder.Editor.asmdef
+  uploadId: 879002

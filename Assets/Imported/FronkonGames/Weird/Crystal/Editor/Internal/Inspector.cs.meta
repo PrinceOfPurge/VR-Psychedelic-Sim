@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: adf9669c05980734481ab0ad54fd8ba1
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Editor/Internal/Inspector.cs
+  uploadId: 878994
