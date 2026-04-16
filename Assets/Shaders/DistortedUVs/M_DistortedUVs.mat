@@ -74,7 +74,7 @@ Material:
     - _Amplitude: 0.1
     - _BumpScale: 1
     - _EffectStrength: 1
-    - _FragmentStrength: 0
+    - _FragmentStrength: 1
     - _FragmentStrength_1: 0
     - _Frequency: 1.5
     - _Metallic: 0.146
