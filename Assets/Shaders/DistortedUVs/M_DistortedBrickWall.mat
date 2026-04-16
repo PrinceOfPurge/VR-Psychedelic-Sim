@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_DistortedUVs
+  m_Name: M_DistortedBrickWall
   m_Shader: {fileID: -6465566751694194690, guid: e494503e6cdda2f4e996b679b7394e9a, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -46,7 +46,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 21e7008d8de49134885cd77e2485f864, type: 3}
+        m_Texture: {fileID: 2800000, guid: a836a7e8b2385ad44ab8070eebdd7728, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _HeightMap:
@@ -74,7 +74,7 @@ Material:
     - _Amplitude: 0.1
     - _BumpScale: 1
     - _EffectStrength: 1
-    - _FragmentStrength: 1
+    - _FragmentStrength: 0
     - _FragmentStrength_1: 0
     - _Frequency: 1.5
     - _Metallic: 0.146

@@ -1999,7 +1999,7 @@
     "m_ObjectId": "32c38e2c11124e3bba7f8dcbc9b507a7",
     "m_Title": "Normal Map",
     "m_Position": {
-        "x": 56.00004577636719,
+        "x": 56.0,
         "y": -193.0
     }
 }
@@ -2666,8 +2666,8 @@
     "m_ObjectId": "60cc0e76d8814371ae013171cf8cfdfb",
     "m_Title": "\"Heartbeat\"",
     "m_Position": {
-        "x": -2057.000244140625,
-        "y": -865.0000610351563
+        "x": -2057.0,
+        "y": -865.0
     }
 }
 
@@ -2884,7 +2884,7 @@
     "m_ObjectId": "7288565609cb41f1aff437753e330c3d",
     "m_Title": "MainTex",
     "m_Position": {
-        "x": 60.0,
+        "x": 59.999786376953128,
         "y": -583.0
     }
 }
@@ -4589,8 +4589,8 @@
     "m_ObjectId": "b05ae699c5714416add5852ef7fd5340",
     "m_Title": "Fragment Based Distortion",
     "m_Position": {
-        "x": -1590.000244140625,
-        "y": -365.00006103515627
+        "x": -1590.0,
+        "y": -365.0
     }
 }
 
@@ -4650,7 +4650,7 @@
     "m_Title": "\"Organic\" texture",
     "m_Position": {
         "x": -2822.0,
-        "y": -596.0001220703125
+        "y": -596.0
     }
 }
 
@@ -6280,8 +6280,8 @@
     "m_ObjectId": "f617abba60654415bdad34192c64060b",
     "m_Title": "Vertex offset",
     "m_Position": {
-        "x": -1564.0001220703125,
-        "y": -1037.0
+        "x": -1564.0,
+        "y": -1036.9998779296875
     }
 }
 
