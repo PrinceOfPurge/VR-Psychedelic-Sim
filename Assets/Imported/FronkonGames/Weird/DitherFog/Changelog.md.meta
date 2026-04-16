@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8e7b5b325928aeb4ca59b6e1942804c6
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347718
+  packageName: 'Weird: Dither Fog'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/DitherFog/Changelog.md
+  uploadId: 878996

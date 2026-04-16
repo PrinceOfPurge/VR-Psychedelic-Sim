@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 03e9f49c4e9e4d94394488a986d77b7d
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Resources/Shaders/WeirdPinch_URP.shader
+  uploadId: 879008

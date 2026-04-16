@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6dc1101feac81c44ba4521a41ca271ea
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Demo/Scripts/SpiralDemo.cs
+  uploadId: 879010

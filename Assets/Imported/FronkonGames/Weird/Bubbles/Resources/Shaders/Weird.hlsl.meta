@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 479fa4e2db3748642944eb93b71d4f63
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Resources/Shaders/Weird.hlsl
+  uploadId: 878992

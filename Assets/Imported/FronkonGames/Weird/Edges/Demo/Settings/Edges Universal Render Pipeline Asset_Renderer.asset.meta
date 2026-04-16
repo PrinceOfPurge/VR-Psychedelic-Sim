@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 1039d3cd514edcc47ab3229b78123d27
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Demo/Settings/Edges Universal Render
+    Pipeline Asset_Renderer.asset
+  uploadId: 879000

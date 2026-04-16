@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8c449c3771cc7a24f97e6ef4edef9763
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Demo/Settings/Kaleidoscope Universal
+    Render Pipeline Asset_Renderer.asset
+  uploadId: 879006

@@ -1,0 +1,16 @@
+{
+  "name": "com.fronkongames.weird.pinch",
+  "version": "2.0.0",
+  "displayName": "Weird: Pinch",
+  "description": "A raymarching-based dynamic pinch distortion",
+  "unity": "6000.0",
+  "unityRelease": "58f2",
+  "dependencies":  {  },
+  "keywords": [ "unity", "fps", "vr", "pinch", "weird", "effect", "postprocessing", "urp" ],
+  "author":
+  {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/store/weird/"
+  }
+}

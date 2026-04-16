@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: acd818d69888a7242ab33beda3755794
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Demo/Textures/light.mat
+  uploadId: 879010

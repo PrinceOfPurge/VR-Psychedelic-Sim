@@ -1,0 +1,9 @@
+fileFormatVersion: 2
+guid: cfcfbea049344c74a868f3c5fe7d9320
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Editor/ExtruderVolumeInspector.cs
+  uploadId: 879002

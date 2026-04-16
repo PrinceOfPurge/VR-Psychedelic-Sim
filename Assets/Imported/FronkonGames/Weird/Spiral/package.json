@@ -1,0 +1,15 @@
+{
+  "name": "com.fronkongames.weird.spiral",
+  "version": "2.0.0",
+  "displayName": "Weird: Spiral",
+  "description": "A mesmerizing Droste effect that warps image-space to recursively appear within itself, creating infinite spiral tunnels and recursive patterns",
+  "unity": "6000.0",
+  "unityRelease": "58f2",
+  "dependencies": {},
+  "keywords": [ "unity", "spiral", "droste", "weird", "effect", "pixelart", "pixelated" ],
+  "author": {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/store/weird/"
+  }
+}

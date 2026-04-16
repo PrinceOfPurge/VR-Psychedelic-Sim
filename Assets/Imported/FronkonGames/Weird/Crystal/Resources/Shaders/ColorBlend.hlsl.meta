@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 86a09f4ea9f0fc24b8fe5153aa2c62ed
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 878994

@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4e8a38fa7d305b1498b6d9d88988aee4
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344468
+  packageName: 'Weird: Crystal'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Crystal/Demo/Scripts/Rotate.cs
+  uploadId: 878994

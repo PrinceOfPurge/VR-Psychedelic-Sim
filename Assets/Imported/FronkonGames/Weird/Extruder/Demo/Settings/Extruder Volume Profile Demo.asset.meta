@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 680833a8c18d36142bf6a73b37967073
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Demo/Settings/Extruder Volume Profile
+    Demo.asset
+  uploadId: 879002

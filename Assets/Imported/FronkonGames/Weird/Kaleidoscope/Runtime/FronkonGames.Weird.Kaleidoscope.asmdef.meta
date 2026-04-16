@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 23ec2e9b6f6290945b741acaad9d0da1
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Runtime/FronkonGames.Weird.Kaleidoscope.asmdef
+  uploadId: 879006

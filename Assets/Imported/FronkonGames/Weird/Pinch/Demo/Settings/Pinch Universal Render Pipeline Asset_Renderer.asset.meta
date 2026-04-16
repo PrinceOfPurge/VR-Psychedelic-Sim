@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 66b68c63a41eebe40937a6dba02f29e0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Demo/Settings/Pinch Universal Render
+    Pipeline Asset_Renderer.asset
+  uploadId: 879008

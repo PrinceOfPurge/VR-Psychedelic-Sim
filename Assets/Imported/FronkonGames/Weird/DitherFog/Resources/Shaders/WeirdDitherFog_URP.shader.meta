@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9c63be4956976dc4ba16362a79dd14d5
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347718
+  packageName: 'Weird: Dither Fog'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/DitherFog/Resources/Shaders/WeirdDitherFog_URP.shader
+  uploadId: 878996

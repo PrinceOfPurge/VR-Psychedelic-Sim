@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 958c3412d538a8149acc0d1524232c34
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/package.json
+  uploadId: 879006

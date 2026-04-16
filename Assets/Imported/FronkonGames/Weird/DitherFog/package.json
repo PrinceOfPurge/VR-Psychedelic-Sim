@@ -1,0 +1,16 @@
+{
+  "name": "com.fronkongames.weird.ditherfog",
+  "version": "2.0.0",
+  "displayName": "Weird: Dither Fog",
+  "description": "A retro-styled post-processing fog effect that mimics the dithered fog from classic games",
+  "unity": "6000.0",
+  "unityRelease": "58f2",
+  "dependencies":  {  },
+  "keywords": [ "unity", "dither", "fog", "retro", "vintage", "weird", "effect", "pixelart", "pixelated" ],
+  "author":
+  {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/store/weird/"
+  }
+}

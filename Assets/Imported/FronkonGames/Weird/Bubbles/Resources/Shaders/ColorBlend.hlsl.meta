@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 03de415bf788bb747850035459481e35
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 878992

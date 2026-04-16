@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b9ceada6908957643a36a7dcaf85edf2
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Editor/FronkonGames.Weird.Bubbles.Editor.asmdef
+  uploadId: 878992

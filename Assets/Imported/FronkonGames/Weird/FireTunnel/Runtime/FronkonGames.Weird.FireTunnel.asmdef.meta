@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 46fc41527b7c8414b9cb824308157723
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Runtime/FronkonGames.Weird.FireTunnel.asmdef
+  uploadId: 879004

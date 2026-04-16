@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: fca3a661bce7ff34bbf618fb7b31ce5c
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Editor/FronkonGames.Weird.Edges.Editor.asmdef
+  uploadId: 879000

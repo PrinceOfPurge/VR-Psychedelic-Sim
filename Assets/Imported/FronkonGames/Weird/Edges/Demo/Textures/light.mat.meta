@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 461b4761a1933914dafd65c62238f80e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 348780
+  packageName: 'Weird: Edges'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Edges/Demo/Textures/light.mat
+  uploadId: 879000

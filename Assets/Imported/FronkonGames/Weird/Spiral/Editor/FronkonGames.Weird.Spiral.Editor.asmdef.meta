@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 8eb333a0788d20847a5953930153d474
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347368
+  packageName: 'Weird: Spiral'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Spiral/Editor/FronkonGames.Weird.Spiral.Editor.asmdef
+  uploadId: 879010

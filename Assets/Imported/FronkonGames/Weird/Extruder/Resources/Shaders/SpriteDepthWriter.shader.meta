@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: eaa99eb7864b30c4994230bca55b9548
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Resources/Shaders/SpriteDepthWriter.shader
+  uploadId: 879002

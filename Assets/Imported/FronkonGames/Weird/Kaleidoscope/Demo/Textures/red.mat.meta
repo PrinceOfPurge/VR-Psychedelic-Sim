@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 1dfc07f37366cb64a872d624410c9a16
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Demo/Textures/red.mat
+  uploadId: 879006

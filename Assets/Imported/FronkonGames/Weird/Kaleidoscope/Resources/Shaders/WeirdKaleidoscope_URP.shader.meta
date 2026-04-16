@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 9cf21e1587638594293a6066cd6df052
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Resources/Shaders/WeirdKaleidoscope_URP.shader
+  uploadId: 879006

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 3efb75830424bca42a791692d20ccaba
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Demo/Textures/green.mat
+  uploadId: 879006

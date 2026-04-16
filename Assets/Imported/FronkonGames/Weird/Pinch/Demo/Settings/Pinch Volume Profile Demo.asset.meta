@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f33a5f0c04079ca42a33af3eab392550
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 345684
+  packageName: 'Weird: Pinch'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Pinch/Demo/Settings/Pinch Volume Profile Demo.asset
+  uploadId: 879008

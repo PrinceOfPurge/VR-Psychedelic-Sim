@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 5dd357ea5b7f5e4489fc06a1be6b8ccc
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 344944
+  packageName: 'Weird: Bubbles'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Bubbles/Resources/Shaders/WeirdBubbles_URP.shader
+  uploadId: 878992

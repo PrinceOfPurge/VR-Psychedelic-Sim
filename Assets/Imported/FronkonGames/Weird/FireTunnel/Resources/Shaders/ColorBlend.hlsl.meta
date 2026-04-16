@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 9beef306ab940b246889106740175706
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 879004

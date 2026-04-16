@@ -1,0 +1,16 @@
+{
+  "name": "com.fronkongames.weird.bubbles",
+  "version": "2.0.0",
+  "displayName": "Weird: Bubbles",
+  "description": "A mesmerizing bubble-like effect with customizable lighting, shapes, and colors",
+  "unity": "6000.0",
+  "unityRelease": "58f2",
+  "dependencies":  {  },
+  "keywords": [ "unity", "fps", "vr", "bubbles", "weird", "dots", "pops", "magic", "effect", "pixelart", "pixelated" ],
+  "author":
+  {
+    "name": "Fronkon Games",
+    "email": "fronkongames@gmail.com",
+    "url": "https://fronkongames.github.io/store/weird/"
+  }
+}

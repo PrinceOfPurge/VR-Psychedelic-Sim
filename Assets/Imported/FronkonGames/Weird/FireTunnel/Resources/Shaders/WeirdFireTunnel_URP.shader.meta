@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 8abcc1780d2cb834e963989acafe987f
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Resources/Shaders/WeirdFireTunnel_URP.shader
+  uploadId: 879004

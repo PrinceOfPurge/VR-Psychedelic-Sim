@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: f9554fc14bff1eb47b9031d9720c6c84
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 346522
+  packageName: 'Weird: Kaleidoscope'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Kaleidoscope/Resources/Shaders/ColorBlend.hlsl
+  uploadId: 879006

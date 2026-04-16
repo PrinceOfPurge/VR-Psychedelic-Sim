@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7d03cdc2fe2752a42966b2ee636c1517
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 342436
+  packageName: 'Weird: Fire Tunnel'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/FireTunnel/Demo/Textures/red.mat
+  uploadId: 879004

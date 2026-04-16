@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: a8f3c9e4b2d7094e8ba1fc456ab23901
+ShaderIncludeImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 343886
+  packageName: 'Weird: Extruder'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/Extruder/Resources/Shaders/Extruder.hlsl
+  uploadId: 879002

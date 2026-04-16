@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9089a2d0f76281144a181bfb79ca74b6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 347718
+  packageName: 'Weird: Dither Fog'
+  packageVersion: 2.0.0
+  assetPath: Assets/FronkonGames/Weird/DitherFog/Demo/Textures/green.mat
+  uploadId: 878996
