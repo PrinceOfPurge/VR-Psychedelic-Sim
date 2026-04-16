@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic; // Required for Lists
 
 public class VRGrindFeedback : MonoBehaviour
 {
@@ -10,45 +11,72 @@ public class VRGrindFeedback : MonoBehaviour
     [Range(0f, 1f)]
     public float hapticIntensity = 0.7f;
 
+    [Header("Progression System")]
+    [Tooltip("Drag objects from your scene/table here in the order you want them to appear.")]
+    public List<GameObject> objectsToActivate;
+    public float secondsPerObject = 2.0f; // How long to grind to spawn the next item
+    
+    private float totalGrindTime = 0f;
+    private int lastActivatedIndex = -1;
+
     void Start()
     {
         grinderCollider = GetComponent<Collider>();
         if (sparkVFX != null) sparkVFX.Stop();
+
+        // Optional: Ensure all objects in the list start as inactive
+        foreach (GameObject obj in objectsToActivate)
+        {
+            if (obj != null) obj.SetActive(false);
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
-        // 1. Bulletproof check: Look for the XRGrabInteractable anywhere on the object hitting the belt
         var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
 
-        // 2. If it is a grab item, AND its main object is tagged "Key"
         if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
         {
-            Debug.Log("SUCCESS: The Key is touching the grinder!");
-
-            // VISUALS
+            // 1. VISUALS
             if (sparkVFX != null)
             {
                 sparkVFX.transform.position = grinderCollider.ClosestPoint(other.transform.position);
                 if (!sparkVFX.isPlaying) sparkVFX.Play();
             }
 
-            // HAPTICS
+            // 2. PROGRESSION LOGIC
+            totalGrindTime += Time.deltaTime;
+            CheckProgression();
+
+            // 3. HAPTICS (Improved Check)
             if (grabItem.isSelected) 
             {
-                Debug.Log("SUCCESS: The Key is being held, sending haptics!");
                 foreach (var interactor in grabItem.interactorsSelecting)
                 {
+                    // Using XRBaseControllerInteractor for better compatibility in URP/Unity 6
                     if (interactor is UnityEngine.XR.Interaction.Toolkit.Interactors.XRBaseInputInteractor controllerInteractor)
                     {
                         controllerInteractor.SendHapticImpulse(hapticIntensity, 0.1f);
                     }
                 }
             }
-            else
+        }
+    }
+
+    void CheckProgression()
+    {
+        // Calculate which index we should be at based on time
+        int targetIndex = Mathf.FloorToInt(totalGrindTime / secondsPerObject);
+
+        // If we have reached a new index and it's within the list bounds
+        if (targetIndex > lastActivatedIndex && targetIndex < objectsToActivate.Count)
+        {
+            if (objectsToActivate[targetIndex] != null)
             {
-                Debug.Log("WARNING: Key is touching, but is NOT being held by a player.");
+                objectsToActivate[targetIndex].SetActive(true);
+                Debug.Log($"Progression: Activated {objectsToActivate[targetIndex].name}");
             }
+            lastActivatedIndex = targetIndex;
         }
     }
 
@@ -57,7 +85,6 @@ public class VRGrindFeedback : MonoBehaviour
         var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
         {
-            Debug.Log("EXIT: Key removed from grinder.");
             if (sparkVFX != null) sparkVFX.Stop();
         }
     }
