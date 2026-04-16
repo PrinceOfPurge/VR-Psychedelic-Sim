@@ -72,7 +72,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Amplitude: 0.1
+    - _AuraFresnelStrength: 15
+    - _AuraStrength: 2
     - _BumpScale: 1
+    - _ColorEffectStrength: 1
     - _EffectStrength: 1
     - _FragmentStrength: 0
     - _FragmentStrength_1: 0
@@ -83,11 +86,14 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0
     - _VertexEffectStrength: 0
+    - _hue: 0
     m_Colors:
     - _Albedo: {r: 1, g: 1, b: 1, a: 1}
+    - _AuraGlowColor: {r: 7.129739, g: 2.987294, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _ContrastLerpValues: {r: 1, g: 2, b: 0, a: 0}
     - _FragmentBasedDistortionAmpltidue: {r: 0, g: 10, b: 0, a: 0}
+    - _HueShiftRange: {r: -100, g: 100, b: 0, a: 0}
     - _SaturationLerpValues: {r: 1, g: 2.5, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
