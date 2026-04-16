@@ -29,225 +29,226 @@ public class KaleidoscopeDemo : MonoBehaviour
   private void Awake()
   {
     styleTitle = styleLabel = styleButton = null;
-
-    if (Kaleidoscope.IsInRenderFeatures() == false)
-    {
-      Debug.LogWarning($"Effect '{Constants.Asset.Name}' not found. You must add it as a Render Feature.");
+/*
+if (Kaleidoscope.IsInRenderFeatures() == false)
+{
+  Debug.LogWarning($"Effect '{Constants.Asset.Name}' not found. You must add it as a Render Feature.");
+  
 #if UNITY_EDITOR
-      if (UnityEditor.EditorUtility.DisplayDialog($"Effect '{Constants.Asset.Name}' not found", $"You must add '{Constants.Asset.Name}' as a Render Feature.", "Quit") == true)
-        UnityEditor.EditorApplication.isPlaying = false;
+  if (UnityEditor.EditorUtility.DisplayDialog($"Effect '{Constants.Asset.Name}' not found", $"You must add '{Constants.Asset.Name}' as a Render Feature.", "Quit") == true)
+    UnityEditor.EditorApplication.isPlaying = false;
 #endif
-    }
+}
+*/
+volume = volumeProfile != null && volumeProfile.TryGet(out KaleidoscopeVolume vol) ? vol : null;
+this.enabled = volume != null;
+}
 
-    volume = volumeProfile != null && volumeProfile.TryGet(out KaleidoscopeVolume vol) ? vol : null;
-    this.enabled = Kaleidoscope.IsInRenderFeatures() && volume != null;
-  }
+private void Start() => ResetEffect();
 
-  private void Start() => ResetEffect();
+private void OnGUI()
+{
+styleTitle ??= new GUIStyle(GUI.skin.label)
+{
+  alignment = TextAnchor.LowerCenter,
+  fontSize = 32,
+  fontStyle = FontStyle.Bold
+};
 
-  private void OnGUI()
+styleLabel ??= new GUIStyle(GUI.skin.label)
+{
+  alignment = TextAnchor.UpperLeft,
+  fontSize = 24
+};
+
+styleButton ??= new GUIStyle(GUI.skin.button)
+{
+  fontSize = 24
+};
+
+GUILayout.BeginHorizontal();
+{
+  GUILayout.BeginVertical("box", GUILayout.Width(450.0f), GUILayout.Height(Screen.height));
   {
-    styleTitle ??= new GUIStyle(GUI.skin.label)
-    {
-      alignment = TextAnchor.LowerCenter,
-      fontSize = 32,
-      fontStyle = FontStyle.Bold
-    };
+    const float space = 10.0f;
 
-    styleLabel ??= new GUIStyle(GUI.skin.label)
-    {
-      alignment = TextAnchor.UpperLeft,
-      fontSize = 24
-    };
+    GUILayout.Space(space);
 
-    styleButton ??= new GUIStyle(GUI.skin.button)
-    {
-      fontSize = 24
-    };
+    GUILayout.Label("KALEIDOSCOPE DEMO", styleTitle);
 
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.BeginVertical("box", GUILayout.Width(450.0f), GUILayout.Height(Screen.height));
-      {
-        const float space = 10.0f;
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    volume.intensity.value = SliderField("Intensity", volume.intensity.value, 0.0f, 1.0f);
 
-        GUILayout.Label("KALEIDOSCOPE DEMO", styleTitle);
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    volume.center.value = Vector2Field("Center", volume.center.value);
+    volume.iterationCount.value = SliderField("  Iterations", volume.iterationCount.value, 1, 10);
+    volume.speed.value = SliderField("  Speed", volume.speed.value, -10.0f, 10.0f);
+    volume.scale.value = SliderField("  Scale", volume.scale.value, 0.1f, 10.0f);
 
-        volume.intensity.value = SliderField("Intensity", volume.intensity.value, 0.0f, 1.0f);
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    /// Offset UV
+    volume.offsetIntensity.value = SliderField("Offset UV", volume.offsetIntensity.value, 0.0f, 1.0f);
+    volume.offsetRedScale.value = Vector2Field("  Red", volume.offsetRedScale.value);
+    volume.offsetGreenScale.value = Vector2Field("  Green", volume.offsetGreenScale.value);
+    volume.offsetBlueScale.value = Vector2Field("  Blue", volume.offsetBlueScale.value);
+    volume.offsetScale.value = SliderField("  Scale", volume.offsetScale.value, 0.0f, 10.0f);
 
-        volume.center.value = Vector2Field("Center", volume.center.value);
-        volume.iterationCount.value = SliderField("  Iterations", volume.iterationCount.value, 1, 10);
-        volume.speed.value = SliderField("  Speed", volume.speed.value, -10.0f, 10.0f);
-        volume.scale.value = SliderField("  Scale", volume.scale.value, 0.1f, 10.0f);
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    /// Color
+    volume.colorIntensity.value = SliderField("Color", volume.colorIntensity.value, 0.0f, 1.0f);
+    volume.colorPalette.value = EnumField("  Palette", volume.colorPalette.value);
+    volume.blend.value = EnumField("  Blend", volume.blend.value);
+    volume.brightness.value = SliderField("  Brightness", volume.brightness.value, -1.0f, 1.0f);
+    volume.contrast.value = SliderField("  Contrast", volume.contrast.value, 0.0f, 10.0f);
+    volume.gamma.value = SliderField("  Gamma", volume.gamma.value, 0.1f, 10.0f);
+    volume.hue.value = SliderField("  Hue", volume.hue.value, 0.0f, 1.0f);
+    volume.saturation.value = SliderField("  Saturation", volume.saturation.value, 0.0f, 2.0f);
 
-        /// Offset UV
-        volume.offsetIntensity.value = SliderField("Offset UV", volume.offsetIntensity.value, 0.0f, 1.0f);
-        volume.offsetRedScale.value = Vector2Field("  Red", volume.offsetRedScale.value);
-        volume.offsetGreenScale.value = Vector2Field("  Green", volume.offsetGreenScale.value);
-        volume.offsetBlueScale.value = Vector2Field("  Blue", volume.offsetBlueScale.value);
-        volume.offsetScale.value = SliderField("  Scale", volume.offsetScale.value, 0.0f, 10.0f);
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    /// Segment
+    volume.segmentIntensity.value = SliderField("Segment", volume.segmentIntensity.value, 0.0f, 1.0f);
+    volume.segmentBlend.value = EnumField("  Blend", volume.segmentBlend.value);
+    volume.segmentColor.value = ColorField("  Color", volume.segmentColor.value);
+    volume.segmentWidth.value = SliderField("  Width", volume.segmentWidth.value, 0.0f, 1.0f);
 
-        /// Color
-        volume.colorIntensity.value = SliderField("Color", volume.colorIntensity.value, 0.0f, 1.0f);
-        volume.colorPalette.value = EnumField("  Palette", volume.colorPalette.value);
-        volume.blend.value = EnumField("  Blend", volume.blend.value);
-        volume.brightness.value = SliderField("  Brightness", volume.brightness.value, -1.0f, 1.0f);
-        volume.contrast.value = SliderField("  Contrast", volume.contrast.value, 0.0f, 10.0f);
-        volume.gamma.value = SliderField("  Gamma", volume.gamma.value, 0.1f, 10.0f);
-        volume.hue.value = SliderField("  Hue", volume.hue.value, 0.0f, 1.0f);
-        volume.saturation.value = SliderField("  Saturation", volume.saturation.value, 0.0f, 2.0f);
+    GUILayout.Space(space);
 
-        GUILayout.Space(space);
+    GUILayout.FlexibleSpace();
 
-        /// Segment
-        volume.segmentIntensity.value = SliderField("Segment", volume.segmentIntensity.value, 0.0f, 1.0f);
-        volume.segmentBlend.value = EnumField("  Blend", volume.segmentBlend.value);
-        volume.segmentColor.value = ColorField("  Color", volume.segmentColor.value);
-        volume.segmentWidth.value = SliderField("  Width", volume.segmentWidth.value, 0.0f, 1.0f);
+    if (GUILayout.Button("RESET", styleButton) == true)
+      ResetEffect();
 
-        GUILayout.Space(space);
+    GUI.enabled = true;
 
-        GUILayout.FlexibleSpace();
+    GUILayout.Space(4.0f);
 
-        if (GUILayout.Button("RESET", styleButton) == true)
-          ResetEffect();
+    if (GUILayout.Button("ONLINE DOCUMENTATION", styleButton) == true)
+      Application.OpenURL(Constants.Support.Documentation);
 
-        GUI.enabled = true;
+    GUILayout.Space(4.0f);
 
-        GUILayout.Space(4.0f);
+    if (GUILayout.Button("❤️ LEAVE A REVIEW ❤️", styleButton) == true)
+      Application.OpenURL(Constants.Support.Store);
 
-        if (GUILayout.Button("ONLINE DOCUMENTATION", styleButton) == true)
-          Application.OpenURL(Constants.Support.Documentation);
-
-        GUILayout.Space(4.0f);
-
-        if (GUILayout.Button("❤️ LEAVE A REVIEW ❤️", styleButton) == true)
-          Application.OpenURL(Constants.Support.Store);
-
-        GUILayout.Space(space * 2.0f);
-      }
-      GUILayout.EndVertical();
-
-      GUILayout.FlexibleSpace();
-    }
-    GUILayout.EndHorizontal();
+    GUILayout.Space(space * 2.0f);
   }
+  GUILayout.EndVertical();
 
-  private void OnDestroy()
-  {
-    ResetEffect();
-  }
+  GUILayout.FlexibleSpace();
+}
+GUILayout.EndHorizontal();
+}
 
-  private bool ToggleField(string label, bool value)
-  {
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.Label(label, styleLabel);
+private void OnDestroy()
+{
+ResetEffect();
+}
 
-      value = GUILayout.Toggle(value, string.Empty);
-    }
-    GUILayout.EndHorizontal();
+private bool ToggleField(string label, bool value)
+{
+GUILayout.BeginHorizontal();
+{
+  GUILayout.Label(label, styleLabel);
 
-    return value;
-  }
+  value = GUILayout.Toggle(value, string.Empty);
+}
+GUILayout.EndHorizontal();
 
-  private float SliderField(string label, float value, float min = 0.0f, float max = 1.0f)
-  {
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.Label(label, styleLabel);
+return value;
+}
 
-      value = GUILayout.HorizontalSlider(value, min, max);
-    }
-    GUILayout.EndHorizontal();
+private float SliderField(string label, float value, float min = 0.0f, float max = 1.0f)
+{
+GUILayout.BeginHorizontal();
+{
+  GUILayout.Label(label, styleLabel);
 
-    return value;
-  }
+  value = GUILayout.HorizontalSlider(value, min, max);
+}
+GUILayout.EndHorizontal();
 
-  private int SliderField(string label, int value, int min, int max)
-  {
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.Label(label, styleLabel);
+return value;
+}
 
-      value = (int)GUILayout.HorizontalSlider(value, min, max);
-    }
-    GUILayout.EndHorizontal();
+private int SliderField(string label, int value, int min, int max)
+{
+GUILayout.BeginHorizontal();
+{
+  GUILayout.Label(label, styleLabel);
 
-    return value;
-  }
+  value = (int)GUILayout.HorizontalSlider(value, min, max);
+}
+GUILayout.EndHorizontal();
 
-  private Color ColorField(string label, Color value, bool alpha = true)
-  {
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.Label(label, styleLabel);
+return value;
+}
 
-      float originalAlpha = value.a;
+private Color ColorField(string label, Color value, bool alpha = true)
+{
+GUILayout.BeginHorizontal();
+{
+  GUILayout.Label(label, styleLabel);
 
-      UnityEngine.Color.RGBToHSV(value, out float h, out float s, out float v);
-      h = GUILayout.HorizontalSlider(h, 0.0f, 1.0f);
-      value = UnityEngine.Color.HSVToRGB(h, s, v);
+  float originalAlpha = value.a;
 
-      if (alpha == false)
-        value.a = originalAlpha;
-    }
-    GUILayout.EndHorizontal();
+  UnityEngine.Color.RGBToHSV(value, out float h, out float s, out float v);
+  h = GUILayout.HorizontalSlider(h, 0.0f, 1.0f);
+  value = UnityEngine.Color.HSVToRGB(h, s, v);
 
-    return value;
-  }
+  if (alpha == false)
+    value.a = originalAlpha;
+}
+GUILayout.EndHorizontal();
 
-  private Vector2 Vector2Field(string label, Vector2 value, string x = "X", string y = "Y", float min = 0.0f, float max = 1.0f)
-  {
-    GUILayout.Label(label, styleLabel);
+return value;
+}
 
-    value.x = SliderField($"   {x}", value.x, min, max);
-    value.y = SliderField($"   {y}", value.y, min, max);
+private Vector2 Vector2Field(string label, Vector2 value, string x = "X", string y = "Y", float min = 0.0f, float max = 1.0f)
+{
+GUILayout.Label(label, styleLabel);
 
-    return value;
-  }
+value.x = SliderField($"   {x}", value.x, min, max);
+value.y = SliderField($"   {y}", value.y, min, max);
 
-  private Vector3 Vector3Field(string label, Vector3 value, string x = "X", string y = "Y", string z = "Z", float min = 0.0f, float max = 1.0f)
-  {
-    GUILayout.Label(label, styleLabel);
+return value;
+}
 
-    value.x = SliderField($"   {x}", value.x, min, max);
-    value.y = SliderField($"   {y}", value.y, min, max);
-    value.z = SliderField($"   {z}", value.z, min, max);
+private Vector3 Vector3Field(string label, Vector3 value, string x = "X", string y = "Y", string z = "Z", float min = 0.0f, float max = 1.0f)
+{
+GUILayout.Label(label, styleLabel);
 
-    return value;
-  }
+value.x = SliderField($"   {x}", value.x, min, max);
+value.y = SliderField($"   {y}", value.y, min, max);
+value.z = SliderField($"   {z}", value.z, min, max);
 
-  private T EnumField<T>(string label, T value) where T : Enum
-  {
-    string[] names = System.Enum.GetNames(typeof(T));
-    Array values = System.Enum.GetValues(typeof(T));
-    int index = Array.IndexOf(values, value);
+return value;
+}
 
-    GUILayout.BeginHorizontal();
-    {
-      GUILayout.Label(label, styleLabel);
+private T EnumField<T>(string label, T value) where T : Enum
+{
+string[] names = System.Enum.GetNames(typeof(T));
+Array values = System.Enum.GetValues(typeof(T));
+int index = Array.IndexOf(values, value);
 
-      if (GUILayout.Button("<", styleButton) == true)
-        index = index > 0 ? index - 1 : values.Length - 1;
+GUILayout.BeginHorizontal();
+{
+  GUILayout.Label(label, styleLabel);
 
-      GUILayout.Label(names[index], styleLabel);
+  if (GUILayout.Button("<", styleButton) == true)
+    index = index > 0 ? index - 1 : values.Length - 1;
 
-      if (GUILayout.Button(">", styleButton) == true)
-        index = index < values.Length - 1 ? index + 1 : 0;
-    }
-    GUILayout.EndHorizontal();
+  GUILayout.Label(names[index], styleLabel);
 
-    return (T)(object)index;
-  }
+  if (GUILayout.Button(">", styleButton) == true)
+    index = index < values.Length - 1 ? index + 1 : 0;
+}
+GUILayout.EndHorizontal();
+
+return (T)(object)index;
+}
 }
