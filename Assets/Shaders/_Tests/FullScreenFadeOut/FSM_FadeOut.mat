@@ -37,9 +37,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _BlackoutIntensity: 1
+    - _BlurOffsetAmount: 0.01
+    - _BlurOffsetFrequency: 1.7
+    - _ChromaticAberrationScale: 1
+    - _Fade: 0
+    - _MasterFade: 0
     - _NoiseFrequency: 15
-    - _NoiseIntensity: 0.05
+    - _NoiseIntensity: 0.02
     - _NoiseScale: 800
+    - _OnlyColorFade: 0
+    - _VisualField: 1
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
