@@ -47,6 +47,7 @@ Material:
     - _NoiseIntensity: 0.02
     - _NoiseScale: 800
     - _OnlyColorFade: 0
+    - _StereoOffset: 0.13
     - _VisualField: 1
     m_Colors: []
   m_BuildTextureStacks: []
