@@ -93,7 +93,7 @@ Material:
     - _AuraGlowColor: {r: 7.129738, g: 5.767653, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _ContrastLerpValues: {r: 1, g: 2.5, b: 0, a: 0}
-    - _CustomGlowColor: {r: 5.263262, g: 6.7924533, b: 0, a: 1}
+    - _CustomGlowColor: {r: 27.169811, g: 27.127136, b: 0, a: 1}
     - _FragmentBasedDistortionAmpltidue: {r: 0, g: 10, b: 0, a: 0}
     - _HueShiftRange: {r: -50, g: 50, b: 0, a: 0}
     - _SaturationLerpValues: {r: 1, g: 2.5, b: 0, a: 0}
