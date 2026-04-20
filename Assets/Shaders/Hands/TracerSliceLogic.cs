@@ -2,14 +2,16 @@ using UnityEngine;
 
 public class TracerSliceLogic : MonoBehaviour
 {
-    public float lifetime = 0.8f; // Increased slightly to see the effect better
+    public float lifetime = 1.0f; 
+    
+    // Add this line so you can tweak the size in the Unity Inspector!
+    public float maxSmokeStretch = 0.5f; 
+    
     private float timer;
     private Material mat;
 
     void Awake()
     {
-        // We use .material to ensure we are talking to a unique instance, 
-        // otherwise all hands will melt at the exact same time.
         mat = GetComponent<MeshRenderer>().material;
     }
 
@@ -17,14 +19,11 @@ public class TracerSliceLogic : MonoBehaviour
     {
         timer = lifetime;
         gameObject.SetActive(true);
-        
-        // Ensure scale is always full
         transform.localScale = Vector3.one;
 
-        // Reset Shader properties
         if (mat != null)
         {
-            mat.SetFloat("_FadeProgress", 1f);
+            mat.SetFloat("_FadeProgress", 1f); 
             mat.SetFloat("_WarpStrength", 0f);
         }
     }
@@ -34,19 +33,15 @@ public class TracerSliceLogic : MonoBehaviour
         if (timer > 0)
         {
             timer -= Time.deltaTime;
-            float normalizedLife = timer / lifetime; // 1.0 (start) to 0.0 (end)
+            float normalizedLife = timer / lifetime; 
 
             if (mat != null)
             {
-                // 1. THE MELT: Starts at 0 and goes up to 2.0 (High intensity)
-                // We use (1 - normalizedLife) so it gets stronger as it dies
-                float meltIntensity = (1f - normalizedLife) * 2.0f;
+                // Multiply by your new Inspector variable instead of 2.5f
+                float meltIntensity = (1f - normalizedLife) * maxSmokeStretch;
                 mat.SetFloat("_WarpStrength", meltIntensity);
 
-                // 2. THE DISSOLVE: Controls the Alpha/Transparency
-                // Hand stays fully visible for the first half, then fades out
-                float alphaFade = Mathf.Clamp01(normalizedLife * 2.0f);
-                mat.SetFloat("_FadeProgress", alphaFade);
+                mat.SetFloat("_FadeProgress", normalizedLife);
             }
 
             if (timer <= 0)
