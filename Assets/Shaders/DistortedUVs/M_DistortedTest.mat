@@ -71,7 +71,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Amplitude: 0.2
+    - _Amplitude: 0.35
     - _AuraFresnelStrength: 15
     - _AuraStrength: 1
     - _BumpScale: 0
@@ -79,9 +79,9 @@ Material:
     - _EffectStrength: 1
     - _FragmentStrength: 0
     - _FragmentStrength_1: 0
-    - _Frequency: 0.8
+    - _Frequency: 1.2
     - _Metallic: 0
-    - _NoiseScale: 2.5
+    - _NoiseScale: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
@@ -92,7 +92,7 @@ Material:
     - _Albedo: {r: 1, g: 1, b: 1, a: 1}
     - _AuraGlowColor: {r: 7.129738, g: 5.767653, b: 0, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
-    - _ContrastLerpValues: {r: 1, g: 1.5, b: 0, a: 0}
+    - _ContrastLerpValues: {r: 1, g: 2.5, b: 0, a: 0}
     - _CustomGlowColor: {r: 5.263262, g: 6.7924533, b: 0, a: 1}
     - _FragmentBasedDistortionAmpltidue: {r: 0, g: 10, b: 0, a: 0}
     - _HueShiftRange: {r: -50, g: 50, b: 0, a: 0}
