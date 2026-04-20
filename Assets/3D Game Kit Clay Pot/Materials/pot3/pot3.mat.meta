@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ba2481873714ac347bfb7af63c27f400
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 217692
+  packageName: 3D Game Asset - Clay Pots
+  packageVersion: 1.0.0
+  assetPath: Assets/3D Game Kit Clay Pot/Materials/pot3/pot3.mat
+  uploadId: 492311
