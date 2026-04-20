@@ -2870,6 +2870,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1571426909
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5929306799530633904, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_Name
+      value: Tracer_Slice_Template
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9141992016058232567, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
 --- !u!114 &1575721555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3239,6 +3296,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1674205202}
+    - targetCorrespondingSourceObject: {fileID: 109434732395284509, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1674205203}
   m_SourcePrefab: {fileID: 100100000, guid: 65847589f926b734d9eaed6e25f0046b, type: 3}
 --- !u!4 &1674205196 stripped
 Transform:
@@ -3323,7 +3383,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1674205197}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7f5592b56f2e8fd4e852e49bfb60230c, type: 3}
   m_Name: 
@@ -3342,6 +3402,32 @@ MonoBehaviour:
   enableHueShift: 0
   hueShiftIntensity: 0.1
   audioLerpSpeed: 3
+--- !u!114 &1674205203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1674205197}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4386875e18a888748a37547e5dcf0bd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OptimizedPsychoTracer
+  slicePrefab: {fileID: 5929306799530633904, guid: 958d5c52ac3e59a478d5bbfb3bd7aea1, type: 3}
+  poolSize: 30
+  minVelocity: 15
+  maxVelocity: 20
+  sliceSpacing: 0.05
+  afterImageEvent:
+    Guid:
+      Data1: 200443437
+      Data2: 1338538513
+      Data3: 1353126550
+      Data4: -1162775150
+    Path: event:/SFX/AfterImage
+  audioDeadzone: 1.2
+  audioLerpSpeed: 15
 --- !u!114 &1760928608
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3935,3 +4021,4 @@ SceneRoots:
   - {fileID: 1003271457}
   - {fileID: 1487149296}
   - {fileID: 358638517}
+  - {fileID: 1571426909}
