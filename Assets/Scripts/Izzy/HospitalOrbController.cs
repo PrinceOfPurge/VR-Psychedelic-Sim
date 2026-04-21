@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [ExecuteAlways]
 public class HospitalOrbController : MonoBehaviour
 {
     [Header("Core References")]
     [SerializeField] private Renderer orbRenderer;
+    [SerializeField] private Material voidMaterial;
     [SerializeField] private Light childLight;
     [SerializeField] private Transform playerCamera;
 
     [Header("Shader Integration")]
-    [SerializeField] private string colorPropertyName = "_AuraGlowColor";
+    [SerializeField] private string orbGlowColorPropertyName = "_AuraGlowColor";
     [SerializeField] private string intensityPropertyName = "_EffectStrength";
+    [SerializeField] private string voidColorPropertyName = "_Color";
 
     [Header("Global Intensity Control")]
     [Range(0f, 1f)] [SerializeField] private float sceneIntensity = 0.1f;
@@ -96,8 +99,13 @@ public class HospitalOrbController : MonoBehaviour
             float currentBoost = Mathf.Lerp(hdrBoostMin, hdrBoostMax, clampedIntensity);
             Color hdrColor = currentColor * currentBoost;
             
-            orbMaterial.SetColor(colorPropertyName, hdrColor);
+            orbMaterial.SetColor(orbGlowColorPropertyName, hdrColor);
             orbMaterial.SetFloat(intensityPropertyName, finalIntensity);
+        }
+
+        if (voidMaterial != null)
+        {
+            voidMaterial.SetColor(voidColorPropertyName, currentColor);
         }
 
         // --- Jitter & Floating ---
