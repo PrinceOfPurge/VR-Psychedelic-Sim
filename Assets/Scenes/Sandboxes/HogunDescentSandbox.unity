@@ -1113,6 +1113,7 @@ Transform:
   - {fileID: 2111064980}
   - {fileID: 1795842323}
   - {fileID: 1874722756}
+  - {fileID: 942588185}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &395609275
@@ -1793,7 +1794,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 0}
+    m_TransformParent: {fileID: 388643310}
     m_Modifications:
     - target: {fileID: 771224741396531827, guid: af11e26fdfab0f243899b443362a7370, type: 3}
       propertyPath: m_Name
@@ -2336,6 +2337,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 914954526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &942588185 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4751251274728910253, guid: af11e26fdfab0f243899b443362a7370, type: 3}
+  m_PrefabInstance: {fileID: 675943858}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &947766131
 MonoBehaviour:
@@ -4177,7 +4183,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706742876}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4253,7 +4259,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ca49674d43ebf46a1f6fa8702805ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMedicine
-  envPsy:
+  environmentalPsychedelicMaterials:
   - mat: {fileID: 2100000, guid: 4efff96505406264e900ecac9e43617d, type: 2}
     shaderEffectParamName: _VertexEffectStrength
   - mat: {fileID: 2100000, guid: 0d3bf9ac8e257494a87bea69f8296deb, type: 2}
@@ -4263,6 +4269,7 @@ MonoBehaviour:
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
   descentVolume: {fileID: 832575518}
+  transitionDuration: 6
 --- !u!1001 &1719516192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6063,4 +6070,3 @@ SceneRoots:
   - {fileID: 1654333690}
   - {fileID: 388643310}
   - {fileID: 1706742880}
-  - {fileID: 675943858}
