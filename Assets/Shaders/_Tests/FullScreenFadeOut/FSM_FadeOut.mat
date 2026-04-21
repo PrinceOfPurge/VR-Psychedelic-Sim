@@ -42,7 +42,7 @@ Material:
     - _BlurOffsetFrequency: 1.7
     - _ChromaticAberrationScale: 1
     - _Fade: 0
-    - _MasterFade: 0
+    - _MasterFade: 1
     - _NoiseFrequency: 15
     - _NoiseIntensity: 0.02
     - _NoiseScale: 800
