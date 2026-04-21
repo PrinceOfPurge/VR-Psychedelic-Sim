@@ -1267,6 +1267,20 @@ MonoBehaviour:
       Data3: 1353126550
       Data4: -1162775150
     Path: event:/SFX/AfterImage
+  <grinding>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <keyDrop>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!4 &1061452981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2247618186249608152, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
@@ -1453,8 +1467,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.057721473, y: 0.13761894, z: -0.007985112, w: -0.98876965}
-  m_LocalPosition: {x: 0.029999971, y: -0.46086252, z: -0.5999999}
+  m_LocalRotation: {x: 0.48353642, y: 0.72962487, z: 0.37312052, w: 0.30760556}
+  m_LocalPosition: {x: 0.029999971, y: -0.7150881, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:
