@@ -129,6 +129,7 @@ public class VRGrindFeedback : MonoBehaviour
         grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
+    /*
     private IEnumerator TransitionSequence()
     {
         isTransitioning = true;
@@ -157,6 +158,40 @@ public class VRGrindFeedback : MonoBehaviour
         }
 
         Shader.SetGlobalFloat(shaderReferenceName, 1f);
+        SceneManager.LoadScene(nextSceneName);
+    }
+    */
+    private IEnumerator TransitionSequence()
+    {
+        isTransitioning = true;
+        if (sparkVFX != null) sparkVFX.Stop();
+        grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+        yield return new WaitForSeconds(transitionOffsetTime);
+
+        float elapsed = 0f;
+        float startAudioVol = AudioManager.instance.masterVolume;
+
+        while (elapsed < fadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+
+            // THE FIX: Use the Property ID (fadePropID) for the Global call.
+            // This is faster and more reliable than string-matching in Play Mode.
+            Shader.SetGlobalFloat(fadePropID, t);
+        
+            // We can keep the direct material call as a backup, 
+            // but the Global call is what will fix Omid's machine.
+            if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
+        
+            if (AudioManager.instance != null)
+                AudioManager.instance.masterVolume = Mathf.Lerp(startAudioVol, 0f, t);
+
+            yield return null;
+        }
+
+        Shader.SetGlobalFloat(fadePropID, 1f);
         SceneManager.LoadScene(nextSceneName);
     }
 
