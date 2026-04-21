@@ -21419,8 +21419,6 @@ MonoBehaviour:
   playerTransform: {fileID: 334032649}
   hideDistance: 1.5
   sparkVFX: {fileID: 1719516761}
-  hapticIntensity: 0.5
-  hapticInterval: 0.05
   radioEmitter: {fileID: 304667760}
   radioParameterName: TimePassage
   objectsToActivate:
@@ -21428,10 +21426,10 @@ MonoBehaviour:
   - {fileID: 1017612888}
   - {fileID: 526962309}
   secondsPerObject: 5
-  fadeMaterial: {fileID: 0}
+  fadeMaterial: {fileID: -876546973899608171, guid: 3f86a4efef70be644802ca71ed42411d, type: 3}
   transitionOffsetTime: 1.5
   fadeDuration: 2
-  nextSceneName: MainVRScene
+  nextSceneName: Level2_Hospital
 --- !u!136 &1970422677
 CapsuleCollider:
   m_ObjectHideFlags: 0

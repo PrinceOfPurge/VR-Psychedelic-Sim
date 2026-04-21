@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using FMOD.Studio;
-using UnityEngine.SceneManagement; // Needed for the industry standard Async scene loading
+using UnityEngine.SceneManagement;
 
 public class VRGrindFeedback : MonoBehaviour
 {
@@ -14,12 +14,6 @@ public class VRGrindFeedback : MonoBehaviour
     [Header("Visual Feedback")]
     public ParticleSystem sparkVFX;
     private Collider grinderCollider;
-
-    [Header("Haptic Feedback")]
-    [Range(0f, 1f)]
-    public float hapticIntensity = 0.7f;
-    public float hapticInterval = 0.15f;
-    private float nextHapticTime = 0f;
 
     [Header("FMOD Audio")]
     public FMODUnity.StudioEventEmitter radioEmitter;
@@ -34,18 +28,14 @@ public class VRGrindFeedback : MonoBehaviour
     private int lastActivatedIndex = -1;
 
     [Header("Scene Transition & Shader")]
-    [Tooltip("Drag the Material that has your friend's shader on it here.")]
-    public Material fadeMaterial;
-    
-    [Tooltip("How many seconds to wait after the final object appears before fading out.")]
+    [Tooltip("Drag the actual Material asset from your project folder here.")]
+    public Material fadeMaterial; 
     public float transitionOffsetTime = 1.5f;
-    
-    [Tooltip("How long the fade to black/out actually takes.")]
     public float fadeDuration = 2.0f;
-    
-    [Tooltip("The exact name of the next scene in your Build Settings.")]
     public string nextSceneName = "Hospital";
     
+    // THE LINK: This caches the property ID for the GPU
+    private int fadePropertyID;
     private bool isTransitioning = false;
 
     void Start()
@@ -53,23 +43,25 @@ public class VRGrindFeedback : MonoBehaviour
         grinderCollider = GetComponent<Collider>();
         if (sparkVFX != null) sparkVFX.Stop();
 
-        if (playerTransform == null && Camera.main != null)
-        {
-            playerTransform = Camera.main.transform;
-        }
-
-        foreach (GameObject obj in objectsToActivate)
-        {
-            if (obj != null) obj.SetActive(false);
-        }
-
-        maxGrindTime = objectsToActivate.Count * secondsPerObject;
-
-        // Reset the shader fade to 0 so you don't start the game blind if the material saved its state!
+        // 1. INITIALIZE THE LINK TO THE MATERIAL
         if (fadeMaterial != null)
         {
-            fadeMaterial.SetFloat("_MasterFade", 0f);
+            // This 'calls' the property from the shader and turns it into a number the GPU understands
+            fadePropertyID = Shader.PropertyToID("_MasterFade");
+            
+            // Immediately force it to 0 (Clear) so the player can see
+            fadeMaterial.SetFloat(fadePropertyID, 0f);
+            Debug.Log("✅ Material Linked: Ready to fade " + fadeMaterial.name);
         }
+        else
+        {
+            Debug.LogError("❌ ERROR: No Material assigned to the 'Fade Material' slot!");
+        }
+
+        // Setup Player & FMOD
+        if (playerTransform == null && Camera.main != null) playerTransform = Camera.main.transform;
+        foreach (GameObject obj in objectsToActivate) if (obj != null) obj.SetActive(false);
+        maxGrindTime = objectsToActivate.Count * secondsPerObject;
 
         grinderInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.grinding);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(grinderInstance, transform);
@@ -79,74 +71,46 @@ public class VRGrindFeedback : MonoBehaviour
     {
         if (grindPromptUI != null && playerTransform != null && !isTransitioning)
         {
-            if (totalGrindTime > 0)
-            {
-                if (grindPromptUI.activeSelf) grindPromptUI.SetActive(false);
-                return;
-            }
-
+            if (totalGrindTime > 0) { grindPromptUI.SetActive(false); return; }
             float distance = Vector3.Distance(transform.position, playerTransform.position);
-            bool shouldBeVisible = distance > hideDistance;
-            if (grindPromptUI.activeSelf != shouldBeVisible)
-            {
-                grindPromptUI.SetActive(shouldBeVisible);
-            }
+            grindPromptUI.SetActive(distance > hideDistance);
         }
     }
 
     void OnTriggerEnter(Collider other)
     {
-        // Don't let them start grinding again if we are already fading out
         if (isTransitioning) return;
-
         var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-        if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
-        {
-            grinderInstance.start();
-        }
+        if (grabItem != null && grabItem.gameObject.CompareTag("Key")) grinderInstance.start();
     }
 
     void OnTriggerStay(Collider other)
     {
         if (isTransitioning) return;
-
         var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
 
         if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
         {
-            // 1. VISUALS
             if (sparkVFX != null)
             {
                 sparkVFX.transform.position = grinderCollider.ClosestPoint(other.transform.position);
                 if (!sparkVFX.isPlaying) sparkVFX.Play();
             }
 
-            // 2. PROGRESSION & RADIO AUDIO
             totalGrindTime += Time.deltaTime;
             CheckProgression();
 
             if (radioEmitter != null && maxGrindTime > 0)
-            {
-                float timeProgress = Mathf.Clamp01(totalGrindTime / maxGrindTime);
-                radioEmitter.SetParameter(radioParameterName, timeProgress);
-            }
+                radioEmitter.SetParameter(radioParameterName, totalGrindTime / maxGrindTime);
 
-            // 3. HAPTICS
-            if (grabItem.isSelected && Time.time >= nextHapticTime)
+            // Simple Haptic Logic
+            if (grabItem.isSelected)
             {
-                float pulseDuration = 0.15f;
                 foreach (var interactor in grabItem.interactorsSelecting)
                 {
-                    UnityEngine.XR.XRNode handNode = interactor.transform.name.Contains("Left") ?
-                    UnityEngine.XR.XRNode.LeftHand : UnityEngine.XR.XRNode.RightHand;
-
-                    UnityEngine.XR.InputDevice device = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(handNode);
-                    if (device.isValid)
-                    {
-                        device.SendHapticImpulse(0u, hapticIntensity, pulseDuration);
-                    }
+                    var device = UnityEngine.XR.InputDevices.GetDeviceAtXRNode(interactor.transform.name.Contains("Left") ? UnityEngine.XR.XRNode.LeftHand : UnityEngine.XR.XRNode.RightHand);
+                    if (device.isValid) device.SendHapticImpulse(0u, 0.5f, 0.1f);
                 }
-                nextHapticTime = Time.time + pulseDuration;
             }
         }
     }
@@ -154,82 +118,47 @@ public class VRGrindFeedback : MonoBehaviour
     void CheckProgression()
     {
         int targetIndex = Mathf.FloorToInt(totalGrindTime / secondsPerObject);
-
         if (targetIndex > lastActivatedIndex && targetIndex < objectsToActivate.Count)
         {
-            if (objectsToActivate[targetIndex] != null)
-            {
-                objectsToActivate[targetIndex].SetActive(true);
-            }
+            if (objectsToActivate[targetIndex] != null) objectsToActivate[targetIndex].SetActive(true);
             lastActivatedIndex = targetIndex;
         }
-
-        // TRIGGER THE END SEQUENCE
-        if (targetIndex >= objectsToActivate.Count && !isTransitioning)
-        {
-            StartCoroutine(TransitionSequence());
-        }
+        if (targetIndex >= objectsToActivate.Count && !isTransitioning) StartCoroutine(TransitionSequence());
     }
 
     void OnTriggerExit(Collider other)
     {
-        var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-        if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
-        {
-            if (sparkVFX != null) sparkVFX.Stop();
-            grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        }
+        if (sparkVFX != null) sparkVFX.Stop();
+        grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
-    // --- NEW: THE TRANSITION COROUTINE ---
     private IEnumerator TransitionSequence()
     {
-        isTransitioning = true; // Lock the script so this only fires once
-        
-        // Turn off VFX and stop the grinder audio immediately
+        isTransitioning = true;
         if (sparkVFX != null) sparkVFX.Stop();
         grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        // 1. Wait for your custom offset time
         yield return new WaitForSeconds(transitionOffsetTime);
 
-        // 2. Animate the shader from 0 to 1
         if (fadeMaterial != null)
         {
             float elapsed = 0f;
             while (elapsed < fadeDuration)
             {
                 elapsed += Time.deltaTime;
-                float currentFade = Mathf.Lerp(0f, 1f, elapsed / fadeDuration);
-                fadeMaterial.SetFloat("_MasterFade", currentFade);
-                yield return null; // Wait for the next frame
+                // This is the active 'call' to the material property
+                fadeMaterial.SetFloat(fadePropertyID, Mathf.Lerp(0f, 1f, elapsed / fadeDuration));
+                yield return null;
             }
-            // Ensure it firmly hits 1.0 at the end
-            fadeMaterial.SetFloat("_MasterFade", 1f); 
-        }
-        else
-        {
-            Debug.LogWarning("VRGrindFeedback: No Fade Material assigned! Skipping fade animation.");
+            fadeMaterial.SetFloat(fadePropertyID, 1f);
         }
 
-        // 3. Load the Hospital scene asynchronously
-        // Note: You must add "Hospital" to your Build Settings (File -> Build Settings -> Scenes in Build) for this to work!
-        AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(nextSceneName);
-        
-        // Optional: Wait until it's fully loaded (though the current scene will just destroy itself when it's done)
-        while (!asyncLoad.isDone)
-        {
-            yield return null;
-        }
+        SceneManager.LoadScene(nextSceneName);
     }
 
-    // Always keep this for FMOD cleanup!
-    void OnDestroy()
+    void OnApplicationQuit()
     {
-        if (grinderInstance.isValid())
-        {
-            grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            grinderInstance.release();
-        }
+        // Cleanup: Reset the material asset so your editor isn't stuck on black
+        if (fadeMaterial != null) fadeMaterial.SetFloat("_MasterFade", 0f);
     }
 }
