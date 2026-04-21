@@ -1009,6 +1009,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1 &315482038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 829772181}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &337815848 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 2069339224}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &344359402 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1458282952823139101, guid: 3f1d777326bb85345a60ba3b17ec3161, type: 3}
@@ -1363,6 +1373,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &474498295 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 1200257264}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &492855294
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1974,6 +1989,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: c3ca6ed7-3d25-44a2-b1d8-5be4eb699370
+--- !u!1 &778839530 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 1304988711}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &795996821
 GameObject:
   m_ObjectHideFlags: 0
@@ -2157,16 +2177,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (1)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 829772186}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &829772182 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 829772181}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &829772186
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315482038}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.21055314, z: 10}
+  m_Center: {x: 0, y: -0.10527657, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,7 +2245,7 @@ MonoBehaviour:
   m_IsGlobal: 0
   priority: 10
   blendDistance: 0
-  weight: 0
+  weight: 1
   sharedProfile: {fileID: 11400000, guid: 770a0b04cc8c92343a3e2bc43988e8de, type: 2}
 --- !u!4 &832575519
 Transform:
@@ -2328,10 +2373,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (2)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1168108918}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &914954527 stripped
 Transform:
@@ -2453,6 +2502,32 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+--- !u!1 &1168108914 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 914954526}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1168108918
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1168108914}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.18185614, z: 10}
+  m_Center: {x: 0, y: -0.09092807, z: 0}
 --- !u!1001 &1200257264
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2509,16 +2584,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (5)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1200257269}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &1200257265 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 1200257264}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1200257269
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474498295}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.26324618, z: 10}
+  m_Center: {x: 0, y: -0.13162309, z: 0}
 --- !u!114 &1225615994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,6 +2633,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: 44441ad6-5762-466d-ad54-aa44fcd61a5c
+--- !u!1 &1242769575 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 1614123870}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1280502450
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2608,16 +2713,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (3)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1304988716}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &1304988712 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 1304988711}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1304988716
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 778839530}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.23401572, z: 10}
+  m_Center: {x: 0, y: -0.11700786, z: 0}
 --- !u!1 &1317728770
 GameObject:
   m_ObjectHideFlags: 0
@@ -3092,6 +3222,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: c4990d70-7b8a-4ce1-b03c-da86716b8352
+--- !u!1 &1386242151 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+  m_PrefabInstance: {fileID: 2035865342}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1419032576
 GameObject:
   m_ObjectHideFlags: 0
@@ -4075,16 +4210,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1614123875}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &1614123871 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 1614123870}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1614123875
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242769575}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.25813115, z: 10}
+  m_Center: {x: 0, y: -0.12906557, z: 0}
 --- !u!1 &1654333688
 GameObject:
   m_ObjectHideFlags: 1
@@ -4241,8 +4401,8 @@ Transform:
   m_GameObject: {fileID: 1706742876}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.631, y: 1.05069, z: 0.011}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 6.416, y: 0.881, z: -0.08}
+  m_LocalScale: {x: 1.4866, y: 1, z: 0.016691}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4270,10 +4430,10 @@ MonoBehaviour:
     shaderEffectParamName: _FragmentStrength
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
-  hutDuration: 8
+  hutDuration: 5
   ppStartThreshold: 0.7
   descentVolume: {fileID: 832575518}
-  ppSequenceDuration: 12
+  ppSequenceDuration: 25
   ppSteps:
   - componentName: Extruder
     startAtNormalized: 0
@@ -4291,6 +4451,33 @@ MonoBehaviour:
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
+        time: 0.2129289
+        value: 0.1388861
+        inSlope: 0.30819446
+        outSlope: 0.30819446
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.20386462
+      - serializedVersion: 3
+        time: 0.41073912
+        value: 0.56693137
+        inSlope: 0.18886705
+        outSlope: 0.18886705
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.62048936
+        outWeight: 0.25198212
+      - serializedVersion: 3
+        time: 0.6674001
+        value: 0.5435853
+        inSlope: 1.0165627
+        outSlope: 1.0165627
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
         time: 1
         value: 1
         inSlope: 0
@@ -4304,8 +4491,8 @@ MonoBehaviour:
       m_RotationOrder: 4
     component: {fileID: 0}
   - componentName: Crystal
-    startAtNormalized: 0.3
-    endAtNormalized: 0.8
+    startAtNormalized: 0.5
+    endAtNormalized: 0.9
     intensityCurve:
       serializedVersion: 2
       m_Curve:
@@ -4318,6 +4505,24 @@ MonoBehaviour:
         weightedMode: 0
         inWeight: 0
         outWeight: 0
+      - serializedVersion: 3
+        time: 0.21864897
+        value: 0.8358265
+        inSlope: -0.36687887
+        outSlope: -0.36687887
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.15696336
+      - serializedVersion: 3
+        time: 0.5060767
+        value: 0.34710813
+        inSlope: 0.81179416
+        outSlope: 0.81179416
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
@@ -4333,7 +4538,7 @@ MonoBehaviour:
     component: {fileID: 0}
   - componentName: Kaleidoscope
     startAtNormalized: 0.3
-    endAtNormalized: 0.75
+    endAtNormalized: 0.7
     intensityCurve:
       serializedVersion: 2
       m_Curve:
@@ -4396,7 +4601,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     component: {fileID: 0}
   - componentName: Spiral
-    startAtNormalized: 0.6
+    startAtNormalized: 0.7
     endAtNormalized: 1
     intensityCurve:
       serializedVersion: 2
@@ -5562,16 +5767,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (6)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2035865347}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &2035865343 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 2035865342}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &2035865347
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1386242151}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.24351542, z: 10}
+  m_Center: {x: 0, y: -0.12175771, z: 0}
 --- !u!1 &2056338233
 GameObject:
   m_ObjectHideFlags: 0
@@ -5677,16 +5907,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: Floor (4)
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7238456123150552755, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7998957174121461654, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2069339229}
   m_SourcePrefab: {fileID: 100100000, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
 --- !u!4 &2069339225 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3625170320019956464, guid: abd53db544c422840bc1ec1b6c338bde, type: 3}
   m_PrefabInstance: {fileID: 2069339224}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &2069339229
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 337815848}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 0.26490816, z: 10}
+  m_Center: {x: 0, y: -0.13245408, z: 0}
 --- !u!1001 &2080742460
 PrefabInstance:
   m_ObjectHideFlags: 0

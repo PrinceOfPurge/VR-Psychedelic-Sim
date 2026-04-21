@@ -63,6 +63,11 @@ public class StartMedicine : MonoBehaviour
         HandleTransition();
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        StartTrip();
+    }
+
     private void OnApplicationQuit()
     {
         ResetEffects();
@@ -206,8 +211,8 @@ public class StartMedicine : MonoBehaviour
         }
         else if (comp is SpiralVolume s)
         {
-            s.intensity.overrideState = true;
-            s.intensity.value = value;
+            s.wrap.overrideState = true;
+            s.wrap.value = value;
         }
     }
 
