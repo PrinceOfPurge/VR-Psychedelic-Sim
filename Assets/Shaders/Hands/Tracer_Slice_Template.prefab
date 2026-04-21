@@ -102,4 +102,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04aae72deced0f544adc2515c30375f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TracerSliceLogic
-  lifetime: 2
+  lifetime: 2.5
+  maxSmokeStretch: 0.8

@@ -9,7 +9,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: FSM_FadeOut
   m_Shader: {fileID: -6465566751694194690, guid: 3f86a4efef70be644802ca71ed42411d, type: 3}
-  m_Parent: {fileID: 0}
+  m_Parent: {fileID: -876546973899608171, guid: 3f86a4efef70be644802ca71ed42411d, type: 3}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -19,36 +19,18 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _OnlyColorFade
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs:
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
+    m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _BlackoutIntensity: 1
     - _BlurOffsetAmount: 0.01
     - _BlurOffsetFrequency: 1.7
-    - _ChromaticAberrationScale: 1
-    - _Fade: 0
     - _MasterFade: 0
-    - _NoiseFrequency: 15
     - _NoiseIntensity: 0.02
     - _NoiseScale: 800
-    - _OnlyColorFade: 0
     - _StereoOffset: 0.13
-    - _VisualField: 1
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
