@@ -1,9 +1,44 @@
 fileFormatVersion: 2
-guid: 50ba6480a6d60b54c863c74c62ff3e78
+guid: a22ed04b671ec674ab9a049925ab0ccc
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: BlanketHos
+    second: {fileID: 2100000, guid: e0cdfbe2ed819aa468a5dffa8577e7f6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HosMain
+    second: {fileID: 2100000, guid: da5a5a548f6313f41905b81b5f237449, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HosPillow1
+    second: {fileID: 2100000, guid: bd0ece75945881e42bd2eaf7ebdcaaa0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: HosPillow2
+    second: {fileID: 2100000, guid: 0f4f424467a04af41b394b0918ecd854, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: MateressHos
+    second: {fileID: 2100000, guid: cf979101c4263c044a14288954eddfdf, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wheel
+    second: {fileID: 2100000, guid: bc9db4c53b862384a9dc075e04a76507, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WheelsDetail
+    second: {fileID: 2100000, guid: 9db9e28c2fe17254cb2facbf5eec9c56, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
