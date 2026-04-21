@@ -67,6 +67,12 @@ public class VRGrindFeedback : MonoBehaviour
             float distance = Vector3.Distance(transform.position, playerTransform.position);
             grindPromptUI.SetActive(distance > hideDistance);
         }
+
+        // Izzy: Added this to test out why the shader isn't working when called through code
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            StartCoroutine(TransitionSequence());
+        }
     }
 
     void OnTriggerEnter(Collider other)
