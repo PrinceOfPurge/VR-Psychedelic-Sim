@@ -14,6 +14,20 @@ public class PooledAfterImage : MonoBehaviour
     public float sliceSpacing = 0.005f; 
     public float trailLifetime = 0.22f;
 
+    [Header("Drop / Impact Sound")]
+    [Tooltip("Click the search icon to select the specific FMOD Event for this object's drop sound.")]
+    public EventReference dropSoundEvent;
+    
+    [Tooltip("How hard does it need to hit to make a sound? (Prevents sliding/rolling spam)")]
+    public float minImpactForce = 0.5f;
+
+    [Tooltip("Optional: If your FMOD event has a parameter for impact intensity, type its name here.")]
+    public string impactParameterName = "";
+
+    [Tooltip("Prevents the sound from playing 50 times a second if vibrating on the floor.")]
+    public float soundCooldown = 0.1f;
+    private float lastSoundTime = 0f;
+
     [Header("Audio Deadzone")]
     public float audioDeadzone = 1.2f; 
     
@@ -44,6 +58,7 @@ public class PooledAfterImage : MonoBehaviour
 
     void InitializeAudio()
     {
+        // Try/catch isn't strictly necessary, but good practice if AudioManager might not exist in some scenes
         if (AudioManager.instance && FMODEvents.instance)
         {
             tracerInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.AfterImage);
@@ -91,6 +106,41 @@ public class PooledAfterImage : MonoBehaviour
             tracerInstance.start();
         else if (smoothedIntensity <= 0.01f && state == PLAYBACK_STATE.PLAYING)
             tracerInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
+    // --- NEW PHYSICS IMPACT LOGIC ---
+    void OnCollisionEnter(Collision collision)
+    {
+        // Don't do anything if no sound is assigned or we are still on cooldown
+        if (dropSoundEvent.IsNull || Time.time < lastSoundTime + soundCooldown) return;
+
+        // Calculate how hard the object hit the surface
+        float impactForce = collision.relativeVelocity.magnitude;
+
+        // If it hit hard enough...
+        if (impactForce >= minImpactForce)
+        {
+            // Reset the cooldown timer
+            lastSoundTime = Time.time;
+
+            if (string.IsNullOrEmpty(impactParameterName))
+            {
+                // Simple Mode: Just play the sound at the object's position
+                RuntimeManager.PlayOneShot(dropSoundEvent, transform.position);
+            }
+            else
+            {
+                // Advanced Mode: Pass the impact force to FMOD to control volume/intensity
+                EventInstance impactInstance = RuntimeManager.CreateInstance(dropSoundEvent);
+                RuntimeManager.AttachInstanceToGameObject(impactInstance, transform);
+                
+                // You can tweak this math later. Currently sending the raw velocity magnitude (e.g., 1.0 to 15.0)
+                impactInstance.setParameterByName(impactParameterName, impactForce);
+                
+                impactInstance.start();
+                impactInstance.release(); // Tells FMOD to automatically destroy the instance when it finishes playing
+            }
+        }
     }
 
     void SpawnSlice(Vector3 pos, Quaternion rot, float alpha)

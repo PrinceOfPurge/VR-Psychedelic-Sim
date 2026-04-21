@@ -1,27 +1,17 @@
 using UnityEngine;
-using FMODUnity;
-using FMOD.Studio;
 using System.Collections.Generic;
 
 public class OptimizedPsychoTracer : MonoBehaviour
 {
     [Header("Pool Settings")]
-    public GameObject slicePrefab; // Your Tracer_Slice_Template
+    public GameObject slicePrefab; 
     public int poolSize = 30;
     private List<TracerSliceLogic> pool = new List<TracerSliceLogic>();
     private int currentPoolIndex = 0;
 
     [Header("Velocity Settings")]
-    public float minVelocity = 0.7f;   // Speed required to start spawning
-    public float maxVelocity = 5.0f;   // Speed for max FMOD volume
-    public float sliceSpacing = 0.05f; // Physical distance between slices
-
-    [Header("FMOD Audio")]
-    public EventReference afterImageEvent; 
-    private EventInstance tracerInstance;
-    public float audioDeadzone = 1.2f;
-    public float audioLerpSpeed = 15f;
-    private float smoothedIntensity;
+    public float minVelocity = 1.5f;   // Won't spawn if you move slowly
+    public float sliceSpacing = 0.08f; // Distance between each smoke ghost
 
     private Vector3 lastPosition;
 
@@ -29,7 +19,6 @@ public class OptimizedPsychoTracer : MonoBehaviour
     {
         lastPosition = transform.position;
         InitializePool();
-        InitializeAudio();
     }
 
     void InitializePool()
@@ -42,20 +31,10 @@ public class OptimizedPsychoTracer : MonoBehaviour
         }
     }
 
-    void InitializeAudio()
-    {
-        // Creates the FMOD instance using your event
-        tracerInstance = RuntimeManager.CreateInstance(afterImageEvent);
-        RuntimeManager.AttachInstanceToGameObject(tracerInstance, transform);
-        tracerInstance.start(); 
-    }
-
     void Update()
     {
         float dist = Vector3.Distance(transform.position, lastPosition);
         float velocity = dist / Time.deltaTime;
-
-        UpdateAudio(velocity);
 
         // ONLY SPAWN if moving fast enough AND moved far enough
         if (velocity > minVelocity && dist > sliceSpacing)
@@ -74,21 +53,5 @@ public class OptimizedPsychoTracer : MonoBehaviour
         slice.ActivateSlice(); 
 
         currentPoolIndex = (currentPoolIndex + 1) % poolSize;
-    }
-
-    void UpdateAudio(float velocity)
-    {
-        if (!tracerInstance.isValid()) return;
-        
-        float target = velocity > audioDeadzone ? Mathf.InverseLerp(audioDeadzone, maxVelocity, velocity) : 0f;
-        smoothedIntensity = Mathf.Lerp(smoothedIntensity, target, Time.deltaTime * audioLerpSpeed);
-        
-        tracerInstance.setParameterByName("TracerIntensity", smoothedIntensity);
-    }
-
-    void OnDestroy()
-    {
-        tracerInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        tracerInstance.release();
     }
 }

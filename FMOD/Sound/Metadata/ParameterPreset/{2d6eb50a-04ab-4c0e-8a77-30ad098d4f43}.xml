@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{2d6eb50a-04ab-4c0e-8a77-30ad098d4f43}">
+		<property name="name">
+			<value>Friction</value>
+		</property>
+		<relationship name="folder">
+			<destination>{1602d5dd-a3be-4ebe-8f99-434439796e88}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{abc6c43a-ce10-4d4a-a24f-81fd2404b341}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{abc6c43a-ce10-4d4a-a24f-81fd2404b341}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>
