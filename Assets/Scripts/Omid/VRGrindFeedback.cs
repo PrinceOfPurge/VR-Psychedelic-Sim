@@ -28,41 +28,33 @@ public class VRGrindFeedback : MonoBehaviour
     private int lastActivatedIndex = -1;
 
     [Header("Scene Transition & Shader")]
-    [Tooltip("Drag the actual Material asset from your project folder here.")]
+    [Tooltip("Drag the Material used in your FullScreen Pass Renderer Feature here.")]
     public Material fadeMaterial; 
+    public string shaderReferenceName = "_MasterFade";
     public float transitionOffsetTime = 1.5f;
     public float fadeDuration = 2.0f;
     public string nextSceneName = "Hospital";
     
-    // THE LINK: This caches the property ID for the GPU
-    private int fadePropertyID;
     private bool isTransitioning = false;
+    private int fadePropID;
 
     void Start()
     {
         grinderCollider = GetComponent<Collider>();
         if (sparkVFX != null) sparkVFX.Stop();
 
-        // 1. INITIALIZE THE LINK TO THE MATERIAL
-        if (fadeMaterial != null)
-        {
-            // This 'calls' the property from the shader and turns it into a number the GPU understands
-            fadePropertyID = Shader.PropertyToID("_MasterFade");
-            
-            // Immediately force it to 0 (Clear) so the player can see
-            fadeMaterial.SetFloat(fadePropertyID, 0f);
-            Debug.Log("✅ Material Linked: Ready to fade " + fadeMaterial.name);
-        }
-        else
-        {
-            Debug.LogError("❌ ERROR: No Material assigned to the 'Fade Material' slot!");
-        }
+        // CACHE Property ID for performance and reliability
+        fadePropID = Shader.PropertyToID(shaderReferenceName);
 
-        // Setup Player & FMOD
+        // Reset Shader and Audio
+        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0f);
+        Shader.SetGlobalFloat(shaderReferenceName, 0f);
+
         if (playerTransform == null && Camera.main != null) playerTransform = Camera.main.transform;
         foreach (GameObject obj in objectsToActivate) if (obj != null) obj.SetActive(false);
         maxGrindTime = objectsToActivate.Count * secondsPerObject;
 
+        // FMOD Grinder Sound
         grinderInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.grinding);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(grinderInstance, transform);
     }
@@ -80,30 +72,35 @@ public class VRGrindFeedback : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         if (isTransitioning) return;
-        var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
-        if (grabItem != null && grabItem.gameObject.CompareTag("Key")) grinderInstance.start();
+        if (other.CompareTag("Key") || other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>()?.gameObject.CompareTag("Key") == true)
+        {
+            grinderInstance.start();
+        }
     }
 
     void OnTriggerStay(Collider other)
     {
         if (isTransitioning) return;
-        var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
 
+        var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
         {
+            // Play VFX
             if (sparkVFX != null)
             {
                 sparkVFX.transform.position = grinderCollider.ClosestPoint(other.transform.position);
                 if (!sparkVFX.isPlaying) sparkVFX.Play();
             }
 
+            // Progression
             totalGrindTime += Time.deltaTime;
             CheckProgression();
 
+            // Radio FMOD Parameter
             if (radioEmitter != null && maxGrindTime > 0)
                 radioEmitter.SetParameter(radioParameterName, totalGrindTime / maxGrindTime);
 
-            // Simple Haptic Logic
+            // Haptics
             if (grabItem.isSelected)
             {
                 foreach (var interactor in grabItem.interactorsSelecting)
@@ -140,25 +137,33 @@ public class VRGrindFeedback : MonoBehaviour
 
         yield return new WaitForSeconds(transitionOffsetTime);
 
-        if (fadeMaterial != null)
+        float elapsed = 0f;
+        float startAudioVol = AudioManager.instance.masterVolume;
+
+        while (elapsed < fadeDuration)
         {
-            float elapsed = 0f;
-            while (elapsed < fadeDuration)
-            {
-                elapsed += Time.deltaTime;
-                // This is the active 'call' to the material property
-                fadeMaterial.SetFloat(fadePropertyID, Mathf.Lerp(0f, 1f, elapsed / fadeDuration));
-                yield return null;
-            }
-            fadeMaterial.SetFloat(fadePropertyID, 1f);
+            elapsed += Time.deltaTime;
+            float t = elapsed / fadeDuration;
+
+            // Visual Fade (Direct Material + Global fallback)
+            if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
+            Shader.SetGlobalFloat(shaderReferenceName, t);
+            
+            // Audio Fade (via your AudioManager instance)
+            if (AudioManager.instance != null)
+                AudioManager.instance.masterVolume = Mathf.Lerp(startAudioVol, 0f, t);
+
+            yield return null;
         }
 
+        Shader.SetGlobalFloat(shaderReferenceName, 1f);
         SceneManager.LoadScene(nextSceneName);
     }
 
-    void OnApplicationQuit()
+    private void OnApplicationQuit()
     {
-        // Cleanup: Reset the material asset so your editor isn't stuck on black
-        if (fadeMaterial != null) fadeMaterial.SetFloat("_MasterFade", 0f);
+        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0f);
+        Shader.SetGlobalFloat(shaderReferenceName, 0f);
+        if (AudioManager.instance != null) AudioManager.instance.masterVolume = 1f;
     }
 }
