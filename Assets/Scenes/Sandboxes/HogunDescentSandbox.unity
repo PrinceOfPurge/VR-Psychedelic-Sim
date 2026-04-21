@@ -4259,7 +4259,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0ca49674d43ebf46a1f6fa8702805ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMedicine
-  environmentalPsychedelicMaterials:
+  fogDuration: 5
+  targetFogDensity: 30
+  hutMaterials:
   - mat: {fileID: 2100000, guid: 4efff96505406264e900ecac9e43617d, type: 2}
     shaderEffectParamName: _VertexEffectStrength
   - mat: {fileID: 2100000, guid: 0d3bf9ac8e257494a87bea69f8296deb, type: 2}
@@ -4268,12 +4270,14 @@ MonoBehaviour:
     shaderEffectParamName: _FragmentStrength
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
+  hutDuration: 8
+  ppStartThreshold: 0.7
   descentVolume: {fileID: 832575518}
-  transitionDuration: 30
-  sequencedEffects:
-  - effectName: Extruder
-    startAtNormalizedTime: 0.1
-    endAtNormalizedTime: 0.5
+  ppSequenceDuration: 12
+  ppSteps:
+  - componentName: Extruder
+    startAtNormalized: 0
+    endAtNormalized: 0.3
     intensityCurve:
       serializedVersion: 2
       m_Curve:
@@ -4299,17 +4303,17 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     component: {fileID: 0}
-  - effectName: Crystal
-    startAtNormalizedTime: 0.3
-    endAtNormalizedTime: 0.7
+  - componentName: Crystal
+    startAtNormalized: 0.3
+    endAtNormalized: 0.8
     intensityCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 2
-        outSlope: 2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
@@ -4327,53 +4331,90 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     component: {fileID: 0}
-  - effectName: Kaleidoscope
-    startAtNormalizedTime: 0.6
-    endAtNormalizedTime: 1
+  - componentName: Kaleidoscope
+    startAtNormalized: 0.3
+    endAtNormalized: 0.75
     intensityCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 2
-        outSlope: 2
+        inSlope: 0
+        outSlope: 0
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
         outWeight: 0
       - serializedVersion: 3
-        time: 0.24803749
-        value: 0.99996567
-        inSlope: -0.043175764
-        outSlope: -0.043175764
+        time: 0.23425373
+        value: 0.8095467
+        inSlope: 0.021234114
+        outSlope: 0.021234114
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.50044656
+        outWeight: 0.1822609
       - serializedVersion: 3
-        time: 0.5197056
-        value: 0.4735409
-        inSlope: -0.033202264
-        outSlope: -0.033202264
+        time: 0.40263608
+        value: 0.390471
+        inSlope: -0.017703135
+        outSlope: -0.017703135
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.6357762
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.8296536
-        value: 1.141365
-        inSlope: 0.022425227
-        outSlope: 0.022425227
+        time: 0.546137
+        value: 0.9441696
+        inSlope: -0.18989256
+        outSlope: -0.18989256
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.30943736
+        outWeight: 0.72489697
       - serializedVersion: 3
-        time: 0.9919969
-        value: 0.42499846
+        time: 0.7308019
+        value: 0.66881007
+        inSlope: 0.19504945
+        outSlope: 0.19504945
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.48456308
+      - serializedVersion: 3
+        time: 0.9946783
+        value: 1.0187492
         inSlope: 0
         outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    component: {fileID: 0}
+  - componentName: Spiral
+    startAtNormalized: 0.6
+    endAtNormalized: 1
+    intensityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2
+        outSlope: 2
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
