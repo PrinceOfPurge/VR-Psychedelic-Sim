@@ -4269,7 +4269,119 @@ MonoBehaviour:
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
   descentVolume: {fileID: 832575518}
-  transitionDuration: 6
+  transitionDuration: 30
+  sequencedEffects:
+  - effectName: Extruder
+    startAtNormalizedTime: 0.1
+    endAtNormalizedTime: 0.5
+    intensityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    component: {fileID: 0}
+  - effectName: Crystal
+    startAtNormalizedTime: 0.3
+    endAtNormalizedTime: 0.7
+    intensityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    component: {fileID: 0}
+  - effectName: Kaleidoscope
+    startAtNormalizedTime: 0.6
+    endAtNormalizedTime: 1
+    intensityCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.24803749
+        value: 0.99996567
+        inSlope: -0.043175764
+        outSlope: -0.043175764
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.50044656
+      - serializedVersion: 3
+        time: 0.5197056
+        value: 0.4735409
+        inSlope: -0.033202264
+        outSlope: -0.033202264
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.6357762
+      - serializedVersion: 3
+        time: 0.8296536
+        value: 1.141365
+        inSlope: 0.022425227
+        outSlope: 0.022425227
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.30943736
+      - serializedVersion: 3
+        time: 0.9919969
+        value: 0.42499846
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    component: {fileID: 0}
 --- !u!1001 &1719516192
 PrefabInstance:
   m_ObjectHideFlags: 0
