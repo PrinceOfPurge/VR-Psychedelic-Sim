@@ -21,6 +21,8 @@ public class HandDissolver : MonoBehaviour
             Instance = this;
         else
             Destroy(this);
+        
+        if (handMaterial != null) handMaterial.SetFloat(dissolveAmountParam, 0f);
     }
 
     private void Update()

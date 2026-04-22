@@ -7,6 +7,7 @@ using FronkonGames.Weird.Crystal;
 using FronkonGames.Weird.Kaleidoscope;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 [Serializable]
 public struct SDFSequenceStep
@@ -28,6 +29,7 @@ public class EgoDeath : MonoBehaviour
     [SerializeField] private VisualEffect vfxGraph;
     [SerializeField] private Transform earthTransform;
     [SerializeField] private Volume globalVolume;
+    [SerializeField] private string nextSceneName;
     
     [Header("Warp Drive Settings")]
     [SerializeField] private VisualEffect warpVFX;
@@ -73,6 +75,7 @@ public class EgoDeath : MonoBehaviour
     private CrystalVolume crystalComp;
     private KaleidoscopeVolume kaleidoscopeComp;
     private Vignette vignetteComp;
+    private ChromaticAberration chromaticComp;
     private Vector3 earthAnchorPos;
 
     private void Start()
@@ -106,27 +109,12 @@ public class EgoDeath : MonoBehaviour
     
     private void CacheVolumeComponents()
     {
-        /*
-        if (globalVolume != null && globalVolume.profile.TryGet(out CrystalVolume crystal))
-        {
-            crystalComp = crystal;
-        }
-        
-        if (globalVolume != null && globalVolume.profile.TryGet(out KaleidoscopeVolume kal))
-        {
-            kaleidoscopeComp = kal;
-        }
-        
-        if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vig))
-        {
-            vignetteComp = vig;
-        }
-        */
         if (globalVolume != null)
         {
             globalVolume.profile.TryGet(out crystalComp);
             globalVolume.profile.TryGet(out kaleidoscopeComp);
             globalVolume.profile.TryGet(out vignetteComp);
+            globalVolume.profile.TryGet(out chromaticComp);
         }
     }
     
@@ -136,6 +124,8 @@ public class EgoDeath : MonoBehaviour
         Vector3 startAnchor = earthAnchorPos; // Store where we started
         Vector3 startScale = earthTransform.localScale;
         Vector3 targetAnchor = startAnchor + (earthPushDirection * earthPushDistance);
+        
+        // TODO: Ask Omid how to add haptics with this version of VR
 
         // --- PHASE 1: Launch (Ramp Up + Move Earth + Increase Vignette) ---
         while (elapsed < warpLaunchDuration)
@@ -169,17 +159,17 @@ public class EgoDeath : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / warpCoolDownDuration;
-            float ease = Mathf.SmoothStep(0, 1, t);
+            float ease = zoomCurve.Evaluate(1f - t);
 
             // Slowing down back to 0
-            float currentWarp = Mathf.Lerp(maxWarpSpeed, 0, ease);
+            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
             warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
             warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
             
             // Default vignette
             if (vignetteComp != null)
             {
-                vignetteComp.intensity.value = Mathf.Lerp(maxVignetteIntensity, minVignetteIntensity, ease);
+                vignetteComp.intensity.value = Mathf.Lerp(minVignetteIntensity, maxVignetteIntensity, ease);
             }
 
             yield return null;
@@ -258,41 +248,6 @@ public class EgoDeath : MonoBehaviour
         }
     }
 
-    private IEnumerator StartEarthZoom(float duration)
-    {
-        float elapsed = 0;
-        Vector3 startScale = earthTransform.localScale;
-        Vector3 startPos = earthTransform.position;
-    
-        // Use the Earth's forward vector to push it away
-        Vector3 targetPos = startPos + (earthTransform.forward * earthPushDistance);
-
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / duration;
-
-            // 1. Evaluate the Organic Curve
-            // Design this curve in the Inspector to have a long "tail" at the end
-            float ease = zoomCurve.Evaluate(t);
-
-            // 2. The Push & Scale
-            earthTransform.localScale = Vector3.Lerp(startScale, Vector3.one * earthTargetScale, ease);
-        
-            // 3. Add a "Float" Offset
-            // This adds a tiny bit of Sine-wave drift so the Earth isn't on a perfect laser-line
-            Vector3 drift = new Vector3(
-                Mathf.Sin(Time.time * floatFrequency) * floatAmplitude,
-                Mathf.Cos(Time.time * floatFrequency * 0.8f) * floatAmplitude,
-                0
-            );
-
-            earthTransform.position = Vector3.Lerp(startPos, targetPos, ease) + drift;
-
-            yield return null;
-        }
-    }
-
     private IEnumerator ShatterEgo()
     {
         float elapsed = 0;
@@ -315,6 +270,12 @@ public class EgoDeath : MonoBehaviour
             vfxGraph.SetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, 0f, ease));
             vfxGraph.SetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, shatterTurbulence, t));
             
+            if (chromaticComp != null)
+            {
+                chromaticComp.intensity.overrideState = true;
+                chromaticComp.intensity.value = t * UnityEngine.Random.Range(0.8f, 1.0f);
+            }
+            
             // Ramp Weird Post-Processing
             if (crystalComp != null)
             {
@@ -330,6 +291,9 @@ public class EgoDeath : MonoBehaviour
 
             yield return null;
         }
+        
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene(nextSceneName);
     }
 
     private void OnApplicationQuit()
