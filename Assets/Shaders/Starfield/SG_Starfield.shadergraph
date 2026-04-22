@@ -1176,8 +1176,8 @@
     "m_ObjectId": "4b3c9c20bedb44f28939c201287ea251",
     "m_Title": "Starfield 1",
     "m_Position": {
-        "x": -1035.0,
-        "y": 68.99996185302735
+        "x": -1034.9998779296875,
+        "y": 69.0
     }
 }
 
@@ -2072,8 +2072,8 @@
     "m_ObjectId": "978e355b968a4e9fbee15be66d1c44b6",
     "m_Title": "Starfield 1",
     "m_Position": {
-        "x": -1100.9998779296875,
-        "y": 347.0
+        "x": -1101.0,
+        "y": 346.99993896484377
     }
 }
 
@@ -2092,7 +2092,7 @@
     "m_AlphaMode": 0,
     "m_RenderFace": 2,
     "m_AlphaClip": false,
-    "m_CastShadows": true,
+    "m_CastShadows": false,
     "m_ReceiveShadows": true,
     "m_DisableTint": false,
     "m_AdditionalMotionVectorMode": 0,
@@ -3113,8 +3113,8 @@
     "m_ObjectId": "f1e5c58b44a64f6d8f5c08411d56401e",
     "m_Title": "Gradient color",
     "m_Position": {
-        "x": -156.0,
-        "y": -99.99996948242188
+        "x": -155.9999237060547,
+        "y": -100.0
     }
 }
 
