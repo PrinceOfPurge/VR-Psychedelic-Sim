@@ -5980,7 +5980,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 2af5919a2ba117f4d89c9e7c559b663c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -6021,7 +6021,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0.46558666, y: 0.60069233, z: 0.5067389, w: -0.4069565}
   m_LocalPosition: {x: 4.0778956, y: -1.5570492, z: -3.2501712}
-  m_LocalScale: {x: 0.57, y: 0.36, z: 0.06}
+  m_LocalScale: {x: 0.57, y: 0.36, z: 0.01}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1497359544}
@@ -10587,6 +10587,20 @@ MonoBehaviour:
       Data3: -1269916503
       Data4: 810930958
     Path: event:/SFX/keyDrop
+  <yell>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <kidLine>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
 --- !u!1 &1015001898
 GameObject:
   m_ObjectHideFlags: 0
