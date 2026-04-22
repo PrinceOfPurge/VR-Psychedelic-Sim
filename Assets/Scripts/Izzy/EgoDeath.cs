@@ -10,6 +10,7 @@ public struct SDFSequenceStep
     public string label;            
     public Texture3D sdfTexture;    
     public float duration;          // How long to stay in this form
+    [GradientUsage(true)]
     public Gradient colorGradient;  // HDR Gradient for this phase
     public float attractionSpeed;   // Snap speed to the shape
     public float stickForce;        // "Glue" strength to the surface
@@ -30,7 +31,8 @@ public class EgoDeath : MonoBehaviour
     [Header("The Final Shatter (Ego Dissolution)")]
     [SerializeField] private float shatterDuration = 8f;
     [SerializeField] private float shatterTurbulence = 60f;
-
+    [SerializeField, GradientUsage(true)] private Gradient finalShatterGradient;
+    
     [Header("Earth Overview Effect")]
     [SerializeField] private float earthTargetScale = 0.02f;
     [SerializeField] private float earthPushDistance = 100f;
@@ -112,6 +114,9 @@ public class EgoDeath : MonoBehaviour
 
     private IEnumerator ShatterEgo()
     {
+        // Swap to the final "Ascension" color
+        vfxGraph.SetGradient(KEY_COLOR, finalShatterGradient);
+
         float elapsed = 0;
         float startAttr = vfxGraph.GetFloat(KEY_ATTR_SPEED);
         float startStick = vfxGraph.GetFloat(KEY_STICK_FORCE);
@@ -121,11 +126,11 @@ public class EgoDeath : MonoBehaviour
         {
             elapsed += Time.deltaTime;
             float t = elapsed / shatterDuration;
+            float ease = t * t; // Use exponential for a "snap" dissolve
 
-            // Kill the "Self" (Forces) and explode into "Chaos" (Turbulence)
-            // Using t * t for an exponential "snap" at the end
-            vfxGraph.SetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, 0f, t * t));
-            vfxGraph.SetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, 0f, t * t));
+            // Zero out the ego (forces) and maximize the chaos (turbulence)
+            vfxGraph.SetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, 0f, ease));
+            vfxGraph.SetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, 0f, ease));
             vfxGraph.SetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, shatterTurbulence, t));
 
             yield return null;
