@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1.5
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: ad23c0297ac104016b47e1448b7653d8, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 9f79a0e3a0d92704eaab5e4ef2fcd543, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -627,6 +627,7 @@ GameObject:
   - component: {fileID: 1459379557}
   - component: {fileID: 1459379556}
   - component: {fileID: 1459379555}
+  - component: {fileID: 1459379559}
   m_Layer: 0
   m_Name: Earth
   m_TagString: Untagged
@@ -727,6 +728,19 @@ Transform:
   - {fileID: 1484877908}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 141.54, z: 0}
+--- !u!114 &1459379559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1459379554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa427c975f6de0341be81d999c17c532, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SimpleRotator
+  rotationSpeed: {x: 0, y: 1, z: 0}
 --- !u!114 &1468815747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,6 +767,7 @@ GameObject:
   - component: {fileID: 1484877911}
   - component: {fileID: 1484877910}
   - component: {fileID: 1484877909}
+  - component: {fileID: 1484877912}
   m_Layer: 0
   m_Name: EarthAtmosphere
   m_TagString: Untagged
@@ -770,7 +785,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
+  m_LocalScale: {x: 1.0599998, y: 1.06, z: 1.0599998}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1459379558}
@@ -852,6 +867,22 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1484877907}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1484877912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1484877907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84af14c8606d28e45bc074252a712013, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectRotator
+  rotationSpeed: {x: 1.5, y: 3.2, z: 0.8}
+  baseDistance: 200
+  pulseAmount: 50
+  pulseSpeed: 0.5
 --- !u!114 &1575721555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -997,7 +1028,7 @@ GameObject:
   - component: {fileID: 2056338235}
   - component: {fileID: 2056338234}
   m_Layer: 0
-  m_Name: Pre-Descent Volume
+  m_Name: Starweaver Volume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,7 +1050,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 1a118be7d515f664bae5cee2db93192d, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 0f948692e060b6046b85a1fb92a56879, type: 2}
 --- !u!4 &2056338235
 Transform:
   m_ObjectHideFlags: 0
@@ -1195,7 +1226,7 @@ PrefabInstance:
       objectReference: {fileID: 777583515}
     - target: {fileID: 4800903169763446009, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_ClearFlags
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4800903169763446009, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_BackGroundColor.b
