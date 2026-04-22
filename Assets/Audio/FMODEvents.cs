@@ -19,6 +19,8 @@ public class FMODEvents : MonoBehaviour
     [field: Header("World SFX")]
     [field: SerializeField] public EventReference grinding { get; private set; }
     [field: SerializeField] public EventReference keyDrop { get; private set; }
+    [field: SerializeField] public EventReference yell { get; private set; }
+    [field: SerializeField] public EventReference kidLine { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 
