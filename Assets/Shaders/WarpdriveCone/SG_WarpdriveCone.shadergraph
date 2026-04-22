@@ -948,10 +948,10 @@
     "m_Guid": {
         "m_GuidSerialized": "107a2f63-2e69-448b-b9c5-7640ec9d3296"
     },
-    "m_Name": "Intensity",
+    "m_Name": "WarpSpeed",
     "m_DefaultRefNameVersion": 1,
-    "m_RefNameGeneratedByDisplayName": "Intensity",
-    "m_DefaultReferenceName": "_Intensity",
+    "m_RefNameGeneratedByDisplayName": "WarpSpeed",
+    "m_DefaultReferenceName": "_WarpSpeed",
     "m_OverrideReferenceName": "",
     "m_GeneratePropertyBlock": true,
     "m_UseCustomSlotLabel": false,
@@ -2004,7 +2004,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector1MaterialSlot",
     "m_ObjectId": "dd2a6c919333406fa7d3013af58c83e8",
     "m_Id": 0,
-    "m_DisplayName": "Intensity",
+    "m_DisplayName": "WarpSpeed",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",

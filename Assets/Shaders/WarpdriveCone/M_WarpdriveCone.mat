@@ -59,6 +59,7 @@ Material:
     - _Intensity: 0
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _WarpSpeed: 0
     m_Colors:
     - _Color: {r: 1.7559999, g: 3.9999995, b: 3.9625998, a: 1}
     - _MainSpeed: {r: 0.015, g: -0.3, b: 0, a: 0}

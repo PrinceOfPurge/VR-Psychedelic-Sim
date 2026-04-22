@@ -6,6 +6,7 @@ using UnityEngine.VFX;
 using FronkonGames.Weird.Crystal;
 using FronkonGames.Weird.Kaleidoscope;
 using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 [Serializable]
 public struct SDFSequenceStep
@@ -27,6 +28,15 @@ public class EgoDeath : MonoBehaviour
     [SerializeField] private VisualEffect vfxGraph;
     [SerializeField] private Transform earthTransform;
     [SerializeField] private Volume globalVolume;
+    
+    [Header("Warp Drive Settings")]
+    [SerializeField] private VisualEffect warpVFX;
+    [SerializeField] private Material warpShaderMat;
+    [SerializeField] private float warpLaunchDuration = 3f;
+    [SerializeField] private float warpCoolDownDuration = 2f;
+    [SerializeField] private float maxWarpSpeed = 1f;
+    [SerializeField] private float minVignetteIntensity = 0.2f;
+    [SerializeField] private float maxVignetteIntensity = 0.45f;
 
     [Header("Transition Settings")]
     [SerializeField] private List<SDFSequenceStep> sequence;
@@ -41,7 +51,7 @@ public class EgoDeath : MonoBehaviour
     [Header("Earth Overview Effect")]
     [SerializeField] private float earthTargetScale = 0.02f;
     [SerializeField] private float earthPushDistance = 100f;
-    [SerializeField] private float zoomStartAtStepIndex = 1; // 0 = Hand, 1 = DNA, etc.
+    [SerializeField] private Vector3 earthPushDirection = new Vector3(0, 0, 1);
     
     [Header("Organic Zoom Settings")]
     [SerializeField] private AnimationCurve zoomCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
@@ -53,22 +63,49 @@ public class EgoDeath : MonoBehaviour
     private const string KEY_COLOR = "GradientColor";
     private const string KEY_ATTR_SPEED = "AttractionSpeed";
     private const string KEY_STICK_FORCE = "StickForce";
-    private const string KEY_TURBULENCE = "TurbulenceIntensity"; // Based on your screenshot
+    private const string KEY_TURBULENCE = "TurbulenceIntensity";
+    private const string KEY_SPAWN_INTENSITY = "SpawnIntensity"; // NEW: Control shape visibility
+    private const string KEY_WARP_SPEED = "WarpSpeed";
     
     private Gradient currentRuntimeGradient = new Gradient();
     private Gradient lastStepGradient;
     private CrystalVolume crystalComp;
     private KaleidoscopeVolume kaleidoscopeComp;
-    
-    
+    private Vignette vignetteComp;
+    private Vector3 earthAnchorPos;
+
     private void Start()
     {
         CacheVolumeComponents();
+        if (vignetteComp != null)
+        {
+            vignetteComp.intensity.value = minVignetteIntensity;
+        }
+        
         if (sequence.Count > 0) lastStepGradient = sequence[0].colorGradient;
+        if (vfxGraph != null) vfxGraph.SetFloat(KEY_SPAWN_INTENSITY, 0f);
+        earthAnchorPos = earthTransform.position;
+    }
+    
+    private void Update()
+    {
+        // Debug call
+        if (Input.GetKeyDown(KeyCode.F)) StartCoroutine(WarpLaunchSequence());
+        
+        // 1. Calculate the drift offset
+        Vector3 drift = new Vector3(
+            Mathf.Sin(Time.time * floatFrequency) * floatAmplitude,
+            Mathf.Cos(Time.time * floatFrequency * 0.8f) * floatAmplitude,
+            Mathf.Sin(Time.time * floatFrequency * 0.5f) * (floatAmplitude * 0.5f) // Added Z-drift for 3D depth
+        );
+
+        // 2. Apply position: Anchor + Drift
+        earthTransform.position = earthAnchorPos + drift;
     }
     
     private void CacheVolumeComponents()
     {
+        /*
         if (globalVolume != null && globalVolume.profile.TryGet(out CrystalVolume crystal))
         {
             crystalComp = crystal;
@@ -78,9 +115,80 @@ public class EgoDeath : MonoBehaviour
         {
             kaleidoscopeComp = kal;
         }
+        
+        if (globalVolume != null && globalVolume.profile.TryGet(out Vignette vig))
+        {
+            vignetteComp = vig;
+        }
+        */
+        if (globalVolume != null)
+        {
+            globalVolume.profile.TryGet(out crystalComp);
+            globalVolume.profile.TryGet(out kaleidoscopeComp);
+            globalVolume.profile.TryGet(out vignetteComp);
+        }
     }
     
-    public void StartEgoDeath()
+    public IEnumerator WarpLaunchSequence()
+    {
+        float elapsed = 0;
+        Vector3 startAnchor = earthAnchorPos; // Store where we started
+        Vector3 startScale = earthTransform.localScale;
+        Vector3 targetAnchor = startAnchor + (earthPushDirection * earthPushDistance);
+
+        // --- PHASE 1: Launch (Ramp Up + Move Earth + Increase Vignette) ---
+        while (elapsed < warpLaunchDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / warpLaunchDuration;
+            float ease = zoomCurve.Evaluate(t);
+
+            // Speeding up
+            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
+            warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
+            warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
+            
+            // Increasing vignette
+            if (vignetteComp != null)
+            {
+                vignetteComp.intensity.overrideState = true;
+                vignetteComp.intensity.value = Mathf.Lerp(0f, maxVignetteIntensity, ease);
+            }
+
+            // Pushing Earth (anchor)
+            earthAnchorPos = Vector3.Lerp(startAnchor, targetAnchor, ease);
+            earthTransform.localScale = Vector3.Lerp(startScale, Vector3.one * earthTargetScale, ease);
+            
+            yield return null;
+        }
+
+        // --- PHASE 2: Cool Down (Ramp Down to Stillness) ---
+        elapsed = 0;
+        while (elapsed < warpCoolDownDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / warpCoolDownDuration;
+            float ease = Mathf.SmoothStep(0, 1, t);
+
+            // Slowing down back to 0
+            float currentWarp = Mathf.Lerp(maxWarpSpeed, 0, ease);
+            warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
+            warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
+            
+            // Default vignette
+            if (vignetteComp != null)
+            {
+                vignetteComp.intensity.value = Mathf.Lerp(maxVignetteIntensity, minVignetteIntensity, ease);
+            }
+
+            yield return null;
+        }
+
+        // --- PHASE 3: Ego Death Starts ---
+        StartEgoDeath();
+    }
+    
+    private void StartEgoDeath()
     {
         if (sequence.Count > 0)
         {
@@ -92,20 +200,29 @@ public class EgoDeath : MonoBehaviour
 
     private IEnumerator EgoDeathConductor()
     {
+        // Slowly fade in the shape particles (vfxGraph) now that Earth is gone
+        StartCoroutine(FadeInShapeParticles(2f));
+
         for (int i = 0; i < sequence.Count; i++)
         {
-            // Trigger Earth Zoom partway through the sequence
-            if (i == zoomStartAtStepIndex) 
-                StartCoroutine(StartEarthZoom(sequence[i].duration + morphDuration));
-
+            // Note: StartEarthZoom call removed from here as it happened in WarpLaunch
             yield return StartCoroutine(MorphToSDF(sequence[i]));
             yield return new WaitForSeconds(sequence[i].duration);
-            
-            // Update the baseline for the next lerp
             lastStepGradient = sequence[i].colorGradient;
         }
 
         yield return StartCoroutine(ShatterEgo());
+    }
+    
+    private IEnumerator FadeInShapeParticles(float duration)
+    {
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            vfxGraph.SetFloat(KEY_SPAWN_INTENSITY, elapsed / duration);
+            yield return null;
+        }
     }
 
     private IEnumerator MorphToSDF(SDFSequenceStep step)
@@ -211,11 +328,6 @@ public class EgoDeath : MonoBehaviour
 
             yield return null;
         }
-    }
-
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F)) StartEgoDeath();
     }
 
     private void OnApplicationQuit()

@@ -33,24 +33,6 @@ MonoBehaviour:
     - model: {fileID: 8926484042661614681}
       id: 0
       isStickyNote: 0
-    - model: {fileID: 8926484042661614957}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614685}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614969}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614974}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 8926484042661614830}
-      id: 0
-      isStickyNote: 0
-    - model: {fileID: 0}
-      id: 0
-      isStickyNote: 0
     - model: {fileID: 8926484042661615015}
       id: 0
       isStickyNote: 0
@@ -125,8 +107,8 @@ MonoBehaviour:
     max: Infinity
     enumValues: []
     descendantCount: 0
-  - name: WarpAmount
-    path: WarpAmount
+  - name: WarpSpeed
+    path: WarpSpeed
     tooltip: 
     space: -1
     spaceable: 0
@@ -2950,7 +2932,7 @@ MonoBehaviour:
   m_InputSlots: []
   m_OutputSlots:
   - {fileID: 8926484042661615010}
-  m_ExposedName: WarpAmount
+  m_ExposedName: WarpSpeed
   m_Exposed: 1
   m_Order: 1
   m_Category: 
