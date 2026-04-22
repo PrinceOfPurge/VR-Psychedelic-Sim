@@ -201,8 +201,17 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0
+      - m_Value: 0.5
         m_Name: StickDistance
+        m_Overridden: 1
+      - m_Value: 1
+        m_Name: TurbulenceIntensity
+        m_Overridden: 1
+      - m_Value: 50
+        m_Name: AttractionSpeed
+        m_Overridden: 1
+      - m_Value: 5
+        m_Name: StickForce
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -222,7 +231,7 @@ VisualEffect:
       m_Array: []
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 11700000, guid: 92155994a815f4849bb3cabd59c1b520, type: 2}
+      - m_Value: {fileID: 0}
         m_Name: SDF
         m_Overridden: 1
     m_Bool:
@@ -710,6 +719,77 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: 41976d89-60de-4deb-bff9-16b4af96b290
+--- !u!1 &1315953048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1315953050}
+  - component: {fileID: 1315953049}
+  m_Layer: 0
+  m_Name: EgoDeathManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1315953049
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315953048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eafe4afe4c7b67459fd0ce75ae5d943, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EgoDeath
+  vfxGraph: {fileID: 29415281}
+  earthTransform: {fileID: 1459379558}
+  sequence:
+  - label: Glove
+    sdfTexture: {fileID: 11700000, guid: 92155994a815f4849bb3cabd59c1b520, type: 2}
+    duration: 5
+    attractionSpeed: 0.5
+    stickForce: 3
+    turbulence: 4
+  - label: DNA
+    sdfTexture: {fileID: 11700000, guid: 8cc97d919a2b7bb4bb4f41420369c9c6, type: 2}
+    duration: 8
+    attractionSpeed: 1
+    stickForce: 10
+    turbulence: 2
+  - label: Key
+    sdfTexture: {fileID: 11700000, guid: 86ba0abcda3d5d54f8ba16845807f66f, type: 2}
+    duration: 12
+    attractionSpeed: 13
+    stickForce: 20
+    turbulence: 3
+  morphDuration: 5
+  shatterDuration: 3
+  shatterTurbulence: 80
+  earthTargetScale: 10
+  earthPushDistance: -100
+  zoomDuration: 20
+--- !u!4 &1315953050
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1315953048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1378249836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1385,31 +1465,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 6.37
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -2.15
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -9.4
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.97673863
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.21443352
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1417,7 +1497,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -24.765
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1485,3 +1565,4 @@ SceneRoots:
   - {fileID: 1654333690}
   - {fileID: 1459379558}
   - {fileID: 29415282}
+  - {fileID: 1315953050}
