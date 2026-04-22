@@ -55,7 +55,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _StarDensity: 500
-    - _StarPower: 30
+    - _StarPower: 100
     m_Colors:
     - _StarColor: {r: 77.87429, g: 70.22191, b: 0, a: 1}
     - _StarColor1: {r: 37.271652, g: 1.1708373, b: 0, a: 1}

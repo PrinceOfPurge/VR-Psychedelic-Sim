@@ -245,7 +245,7 @@ Transform:
   m_GameObject: {fileID: 29415279}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.32, y: 0, z: 1.96307}
+  m_LocalPosition: {x: 0, y: -0.54, z: 6.46}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -757,24 +757,28 @@ MonoBehaviour:
     attractionSpeed: 0.5
     stickForce: 3
     turbulence: 4
+    vfxScale: 1
   - label: DNA
     sdfTexture: {fileID: 11700000, guid: 8cc97d919a2b7bb4bb4f41420369c9c6, type: 2}
     duration: 8
     attractionSpeed: 1
     stickForce: 10
-    turbulence: 2
+    turbulence: 1
+    vfxScale: 2.5
   - label: Key
     sdfTexture: {fileID: 11700000, guid: 86ba0abcda3d5d54f8ba16845807f66f, type: 2}
-    duration: 12
+    duration: 8
     attractionSpeed: 13
     stickForce: 20
     turbulence: 3
+    vfxScale: 4
   morphDuration: 5
   shatterDuration: 3
   shatterTurbulence: 80
   earthTargetScale: 10
-  earthPushDistance: -100
-  zoomDuration: 20
+  earthPushDistance: 50
+  zoomDuration: 12
+  zoomStartAtStepIndex: 2
 --- !u!4 &1315953050
 Transform:
   m_ObjectHideFlags: 0
@@ -924,7 +928,7 @@ Transform:
   m_GameObject: {fileID: 1459379554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9442054, z: -0, w: 0.32935724}
-  m_LocalPosition: {x: 0, y: 0, z: 100}
+  m_LocalPosition: {x: 42.3, y: 39, z: 143}
   m_LocalScale: {x: 50, y: 50, z: 50}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1465,31 +1469,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.15
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -9.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.97673863
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.21443352
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1497,7 +1501,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: -24.765
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -1543,6 +1547,18 @@ PrefabInstance:
       propertyPath: m_ActivateInput.m_InputActionReferencePerformed
       value: 
       objectReference: {fileID: 1280502450}
+    - target: {fileID: 8827623923654143421, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
+      propertyPath: m_MoveSpeed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827623923654143421, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8827623923654143421, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
+      propertyPath: m_EnableStrafe
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8827623923654143421, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LeftHandMoveInput.m_InputActionReference
       value: 
