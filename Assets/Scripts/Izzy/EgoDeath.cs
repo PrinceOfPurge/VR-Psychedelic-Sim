@@ -40,9 +40,10 @@ public class EgoDeath : MonoBehaviour
 
     [Header("Transition Settings")]
     [SerializeField] private List<SDFSequenceStep> sequence;
-    [SerializeField] private float morphDuration = 4f; 
+    [SerializeField] private float morphDuration = 4f;
+    [SerializeField] private int handDissolveInjectionPoint = 1;
 
-    [Header("The Final Shatter (Ego Dissolution)")]
+    [Header("The Final Shatter (Ego Dissolution)")] 
     [SerializeField] private float shatterDuration = 8f;
     [SerializeField] private float shatterTurbulence = 60f;
     [SerializeField, GradientUsage(true)] private Gradient finalShatterGradient;
@@ -205,7 +206,8 @@ public class EgoDeath : MonoBehaviour
 
         for (int i = 0; i < sequence.Count; i++)
         {
-            // Note: StartEarthZoom call removed from here as it happened in WarpLaunch
+            if (i == handDissolveInjectionPoint) HandDissolver.Instance.StartHandDissolve();
+            
             yield return StartCoroutine(MorphToSDF(sequence[i]));
             yield return new WaitForSeconds(sequence[i].duration);
             lastStepGradient = sequence[i].colorGradient;

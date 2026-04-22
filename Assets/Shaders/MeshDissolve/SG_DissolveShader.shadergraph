@@ -943,8 +943,8 @@
     "m_ObjectId": "40f59669ec5c46ff9f8d8bf3bb743810",
     "m_Title": "Normals",
     "m_Position": {
-        "x": -1016.0,
-        "y": 219.0
+        "x": -1015.9998779296875,
+        "y": 218.99998474121095
     }
 }
 
@@ -1007,7 +1007,7 @@
     "m_ObjectId": "49c17554276d46f7a18ea7f79368d8d0",
     "m_Title": "MainTex",
     "m_Position": {
-        "x": -801.0,
+        "x": -800.9998779296875,
         "y": -194.00001525878907
     }
 }
@@ -2329,7 +2329,7 @@
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "bab947a7f44a432f81a641adf78ea300",
     "m_Id": 0,
-    "m_DisplayName": "Emission",
+    "m_DisplayName": "DissolveEdgeEmission",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
