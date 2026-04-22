@@ -34,6 +34,9 @@ public class KidWalk : MonoBehaviour
             
             if (isEscaping && !agent.pathPending && agent.remainingDistance <= 0.5f)
             {
+                NightmareManager nm = FindObjectOfType<NightmareManager>();
+                if(nm != null) nm.StartNightmareSequence();
+                
                 Destroy(gameObject); 
             }
             return; 
@@ -84,7 +87,7 @@ public class KidWalk : MonoBehaviour
             FMODUnity.RuntimeManager.PlayOneShot(FMODEvents.instance.yell, transform.position);
         }
 
-        anim.SetTrigger("isYelledAt");
+        anim.SetTrigger("YelledAt");
 
         // Physics Fix for the Painting
         if(painting != null) {
@@ -122,8 +125,8 @@ public class KidWalk : MonoBehaviour
         fleeDir.y = 0; 
         transform.rotation = Quaternion.LookRotation(fleeDir);
 
-        agent.speed = 6.0f; 
-        agent.acceleration = 35.0f; 
+        agent.speed = 3.0f; 
+        agent.acceleration = 7.0f; 
         agent.SetDestination(escapePoint.position);
     
         anim.SetFloat("Speed", 1.0f); 
