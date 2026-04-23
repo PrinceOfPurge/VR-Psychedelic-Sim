@@ -8,6 +8,7 @@ public class FMODEvents : MonoBehaviour
     
     [field: Header("Ambience")]
     [field: SerializeField] public EventReference ambience { get; private set; }
+    [field: SerializeField] public EventReference Desert { get; private set; }
     
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
@@ -19,6 +20,11 @@ public class FMODEvents : MonoBehaviour
     [field: Header("World SFX")]
     [field: SerializeField] public EventReference grinding { get; private set; }
     [field: SerializeField] public EventReference keyDrop { get; private set; }
+    [field: SerializeField] public EventReference yell { get; private set; }
+    [field: SerializeField] public EventReference kidLine { get; private set; }
+    [field: SerializeField] public EventReference Stab { get; private set; }
+    [field: SerializeField] public EventReference Die { get; private set; }
+    [field: SerializeField] public EventReference KidFootsteps { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 
