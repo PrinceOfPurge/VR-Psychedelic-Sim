@@ -16326,7 +16326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
   growSpeed: 0.08
-  maxSize: 1
+  maxSize: 0.5
 --- !u!64 &1153205829
 MeshCollider:
   m_ObjectHideFlags: 0

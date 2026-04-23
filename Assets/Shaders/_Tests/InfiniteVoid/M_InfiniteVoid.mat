@@ -41,6 +41,7 @@ Material:
     - _DitherValue: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _XRMotionVectorsPass: 1
     m_Colors:
     - _Color: {r: 1, g: 0.90199333, b: 0.1745283, a: 1}
     - _YMultiplierRange: {r: -1, g: 1, b: 0, a: 0}

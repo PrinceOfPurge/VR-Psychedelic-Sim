@@ -21480,7 +21480,7 @@ MonoBehaviour:
   - {fileID: 266872107}
   - {fileID: 1017612888}
   - {fileID: 526962309}
-  secondsPerObject: 5
+  secondsPerObject: 3
   fadeMaterial: {fileID: 2100000, guid: d993acfc98b3bd445881330e8f2b9e0f, type: 2}
   shaderReferenceName: _MasterFade
   transitionOffsetTime: 1.5
