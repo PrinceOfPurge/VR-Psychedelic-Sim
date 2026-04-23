@@ -393,6 +393,11 @@ MonoBehaviour:
   musicVolume: 1
   ambienceVolume: 1
   SFXVolume: 1
+--- !u!4 &29448822 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+  m_PrefabInstance: {fileID: 358638517}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &32741034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6080,7 +6085,10 @@ PrefabInstance:
     - {fileID: 3408540140039436163, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
     - {fileID: 7346253736496124653, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2833743790919050014, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 586925950}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8093717414090421701, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
       insertIndex: -1
@@ -8818,6 +8826,69 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2774220344278030320, guid: 26f6cf65e6ea7464aa6914a575d4a156, type: 3}
   m_PrefabInstance: {fileID: 574949372}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &586925949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 586925950}
+  - component: {fileID: 586925951}
+  m_Layer: 0
+  m_Name: Desert_Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &586925950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586925949}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.66916, y: 3.38, z: -7.43}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 29448822}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &586925951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 586925949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1390957838
+      Data2: 1260502917
+      Data3: 1528340114
+      Data4: 1040098317
+    Path: event:/Ambience/Desert
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &587555005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14696,6 +14767,13 @@ MonoBehaviour:
       Data3: 956021411
       Data4: -1842493544
     Path: event:/Music/MenuMusic
+  <Desert>k__BackingField:
+    Guid:
+      Data1: -1390957838
+      Data2: 1260502917
+      Data3: 1528340114
+      Data4: 1040098317
+    Path: event:/Ambience/Desert
   <music>k__BackingField:
     Guid:
       Data1: -1327819475
@@ -14745,6 +14823,27 @@ MonoBehaviour:
       Data3: 605852572
       Data4: -1810721646
     Path: event:/SFX/kidsLine
+  <Stab>k__BackingField:
+    Guid:
+      Data1: 236435027
+      Data2: 1301172107
+      Data3: 986541707
+      Data4: 1828337531
+    Path: event:/SFX/Stab
+  <Die>k__BackingField:
+    Guid:
+      Data1: 1703335463
+      Data2: 1274379537
+      Data3: 275318710
+      Data4: -2002441151
+    Path: event:/SFX/Die
+  <KidFootsteps>k__BackingField:
+    Guid:
+      Data1: 445665340
+      Data2: 1118282624
+      Data3: 989781920
+      Data4: 1647654120
+    Path: event:/SFX/KidFootsteps
 --- !u!1001 &1021210483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16220,7 +16319,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
   growSpeed: 0.05
-  maxSize: 5
+  maxSize: 1
 --- !u!64 &1153205829
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -17884,6 +17983,31 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9021166242529845608, guid: db21cd8e08e0814498a2711e0b6ed107, type: 3}
   m_PrefabInstance: {fileID: 1273939673}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1273947009 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 200788233060229656, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+  m_PrefabInstance: {fileID: 6784283939282710920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1273947011 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 2975849118292183202, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+  m_PrefabInstance: {fileID: 6784283939282710920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1273947012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273947009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3022e2510c9985c479119ac862d289ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  floorPool: {fileID: 1153205828}
+  fatherAnim: {fileID: 1273947011}
+  soundDelay: 1.2
 --- !u!1001 &1276106741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29329,10 +29453,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2975849118292183202, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 9393b73c87e87a54ab617f8a1c4adadb, type: 3}
+    - target: {fileID: 2975849118292183202, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2975849118292183202, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+      propertyPath: m_ApplyRootMotion
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 200788233060229656, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1273947012}
   m_SourcePrefab: {fileID: 100100000, guid: 8817d3b726e38ce44a178ecf3fd31686, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
