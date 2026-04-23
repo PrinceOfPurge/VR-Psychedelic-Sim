@@ -2078,8 +2078,8 @@
     "m_ObjectId": "142981f97904489b9a8fd4bd6d6b2c95",
     "m_Title": "Desaturation",
     "m_Position": {
-        "x": -333.9998474121094,
-        "y": -283.0
+        "x": -334.00006103515627,
+        "y": -282.99993896484377
     }
 }
 
@@ -3785,8 +3785,8 @@
     "m_ObjectId": "4e65978128f644488d969d2e39969c86",
     "m_Title": "Eye based vignette",
     "m_Position": {
-        "x": -1126.9998779296875,
-        "y": 920.0001220703125
+        "x": -1127.0,
+        "y": 920.0
     }
 }
 
@@ -3976,7 +3976,7 @@
     "m_Title": "Visual snow",
     "m_Position": {
         "x": -1503.0,
-        "y": 103.0
+        "y": 103.00006103515625
     }
 }
 
@@ -6409,8 +6409,8 @@
     "m_ObjectId": "ac8f87bbefa04864a63ffe402326ef0a",
     "m_Title": "Time and screen pos based blur offset",
     "m_Position": {
-        "x": -3123.000244140625,
-        "y": -497.0
+        "x": -3122.999755859375,
+        "y": -496.99993896484377
     }
 }
 
@@ -7427,8 +7427,8 @@
     "m_ObjectId": "cede0845a942412394f9b4c817e4014d",
     "m_Title": "Kawase-Style Blur",
     "m_Position": {
-        "x": -2035.0001220703125,
-        "y": -625.0
+        "x": -2035.0,
+        "y": -624.9999389648438
     }
 }
 
@@ -7570,8 +7570,8 @@
     "m_ObjectId": "d2f9b1a78cf54eb2b5e13cd37f7cb98a",
     "m_Title": "Tunnel vision",
     "m_Position": {
-        "x": -323.9998474121094,
-        "y": 409.00006103515627
+        "x": -324.0000305175781,
+        "y": 409.0
     }
 }
 
@@ -8666,7 +8666,7 @@
     "m_ObjectId": "f05c787962864f16962fd75ef0ecfccf",
     "m_Title": "Master Control",
     "m_Position": {
-        "x": -1059.0,
+        "x": -1059.0001220703125,
         "y": 518.0
     }
 }
