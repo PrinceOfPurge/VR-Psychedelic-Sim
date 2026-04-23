@@ -7283,7 +7283,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &441975614
 Transform:
   m_ObjectHideFlags: 0
@@ -14844,6 +14844,13 @@ MonoBehaviour:
       Data3: 989781920
       Data4: 1647654120
     Path: event:/SFX/KidFootsteps
+  <sadKid>k__BackingField:
+    Guid:
+      Data1: -675097262
+      Data2: 1128842015
+      Data3: 1384328123
+      Data4: 1171218610
+    Path: event:/SFX/SadKid
 --- !u!1001 &1021210483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15046,7 +15053,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1041540834
 Transform:
   m_ObjectHideFlags: 0
@@ -16718,15 +16725,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166559943}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.83, y: 0, z: -12.25}
+  m_LocalRotation: {x: -0, y: -0.15212318, z: 0, w: -0.98836154}
+  m_LocalPosition: {x: 2.94, y: 0.37, z: -7.491}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1297294904}
   - {fileID: 441975614}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 377.5, z: 0}
 --- !u!143 &1166559947
 CharacterController:
   m_ObjectHideFlags: 0
@@ -18759,7 +18766,7 @@ Transform:
   m_GameObject: {fileID: 1324165583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.43915537, z: 0, w: 0.89841115}
-  m_LocalPosition: {x: -0.648, y: -0.564, z: -0.946}
+  m_LocalPosition: {x: -0.451, y: -0.564, z: -1.072}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29060,7 +29067,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2137604786
 Transform:
   m_ObjectHideFlags: 0
