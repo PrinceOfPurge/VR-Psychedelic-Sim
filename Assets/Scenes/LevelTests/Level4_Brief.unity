@@ -2696,7 +2696,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   narrativeText: {fileID: 1815541403}
   canvasGroup: {fileID: 586334764}
-  nextSceneName: HoganHut
+  nextSceneName: HogunDescentSandbox
   fadeDuration: 2
   displayDuration: 4
 --- !u!4 &1994446292

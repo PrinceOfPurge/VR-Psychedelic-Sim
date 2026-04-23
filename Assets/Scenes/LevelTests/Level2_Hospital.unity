@@ -1437,7 +1437,7 @@ MonoBehaviour:
   fadeInDuration: 6
   minToMaxIntensityDuration: 12
   waitAtMaxDuration: 2
-  nextSceneName: HogunDescentSandbox
+  nextSceneName: Level3_ValleyOfDeath
   hospitalOrbController: {fileID: 1285650919}
 --- !u!4 &1145371564
 Transform:
@@ -1565,8 +1565,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.35898778, y: 0.7285786, z: 0.30670184, w: -0.4962208}
-  m_LocalPosition: {x: 0.029999971, y: -1.3959758, z: -0.5999999}
+  m_LocalRotation: {x: 0.03607733, y: 0.29497367, z: 0.057522323, w: -0.95308983}
+  m_LocalPosition: {x: 0.029999971, y: -1.6959748, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:
