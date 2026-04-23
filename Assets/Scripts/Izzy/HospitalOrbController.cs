@@ -16,7 +16,7 @@ public class HospitalOrbController : MonoBehaviour
     [SerializeField] private string voidColorPropertyName = "_Color";
 
     [Header("Global Intensity Control")]
-    [Range(0f, 1f)] [SerializeField] private float sceneIntensity = 0.1f;
+    [Range(0f, 1f)] public float SceneIntensity = 0f;
     [SerializeField] private Gradient orbColorGradient;
     [SerializeField] private float hdrBoostMin = 5f;
     [SerializeField] private float hdrBoostMax = 25f;
@@ -61,7 +61,7 @@ public class HospitalOrbController : MonoBehaviour
         if (orbRenderer == null || childLight == null) return;
 
         // --- Intensity Logic ---
-        float finalIntensity = sceneIntensity;
+        float finalIntensity = SceneIntensity;
 
         if (playerCamera != null)
         {
@@ -71,7 +71,7 @@ public class HospitalOrbController : MonoBehaviour
             if (dot < 0.7f)
             {
                 float lookAwayFactor = Mathf.Clamp01(1f - dot);
-                finalIntensity += lookAwayFactor * lookAwayMultiplier * sceneIntensity;
+                finalIntensity += lookAwayFactor * lookAwayMultiplier * SceneIntensity;
             }
         }
 

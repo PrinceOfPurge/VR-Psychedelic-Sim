@@ -32,7 +32,6 @@ public class VRGrindFeedback : MonoBehaviour
     public Material fadeMaterial; 
     public string shaderReferenceName = "_MasterFade";
     public float transitionOffsetTime = 1.5f;
-    public float fadeDuration = 2.0f;
     public string nextSceneName = "Hospital";
     
     private bool isTransitioning = false;
@@ -164,35 +163,19 @@ public class VRGrindFeedback : MonoBehaviour
     private IEnumerator TransitionSequence()
     {
         isTransitioning = true;
-        if (sparkVFX != null) sparkVFX.Stop();
+        sparkVFX.Stop(); // Scene-specific cleanup
         grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
+        
+        // Using this line makes the shader glitch, not too sure why
         yield return new WaitForSeconds(transitionOffsetTime);
-
-        float elapsed = 0f;
-        float startAudioVol = AudioManager.instance.masterVolume;
-
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / fadeDuration;
-
-            // THE FIX: Use the Property ID (fadePropID) for the Global call.
-            // This is faster and more reliable than string-matching in Play Mode.
-            Shader.SetGlobalFloat(fadePropID, t);
+    
+        // Call the manager: 0 to 1, Load Hospital
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.PerformFade(false, nextSceneName);
+        else
+            Debug.LogError("CANNOT FIND SceneTransitionManager INSTANCE!!!");
         
-            // We can keep the direct material call as a backup, 
-            // but the Global call is what will fix Omid's machine.
-            if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
-        
-            if (AudioManager.instance != null)
-                AudioManager.instance.masterVolume = Mathf.Lerp(startAudioVol, 0f, t);
-
-            yield return null;
-        }
-
-        Shader.SetGlobalFloat(fadePropID, 1f);
-        SceneManager.LoadScene(nextSceneName);
+        yield return null;
     }
 
     private void OnApplicationQuit()

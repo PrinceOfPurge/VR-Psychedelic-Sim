@@ -1222,6 +1222,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: 9fb2eb2b-2fb6-4328-8167-10a1bf11b424
+--- !u!1 &979421424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 979421426}
+  - component: {fileID: 979421425}
+  m_Layer: 0
+  m_Name: SceneTransitionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &979421425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979421424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4b7ad4ff99ef9843b9afa8dd13839db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionManager
+  fadeMaterial: {fileID: 2100000, guid: d993acfc98b3bd445881330e8f2b9e0f, type: 2}
+  fadeDuration: 2
+  fadePropertyName: _MasterFade
+--- !u!4 &979421426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 979421424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1013582860 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 364139051952539429, guid: 2ac5c8f555003f84d82cd8794ee79c10, type: 3}
@@ -1246,6 +1293,13 @@ MonoBehaviour:
       Data3: 956021411
       Data4: -1842493544
     Path: event:/Music/MenuMusic
+  <Desert>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <music>k__BackingField:
     Guid:
       Data1: -1327819475
@@ -1275,6 +1329,48 @@ MonoBehaviour:
       Data4: 0
     Path: 
   <keyDrop>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <yell>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <kidLine>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Stab>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Die>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <KidFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <sadKid>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -1356,6 +1452,55 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: a22ed04b671ec674ab9a049925ab0ccc, type: 3}
   m_PrefabInstance: {fileID: 1140433311}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1145371562
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1145371564}
+  - component: {fileID: 1145371563}
+  m_Layer: 0
+  m_Name: HospitalSceneInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1145371563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145371562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fbda4683cad1cd4897f023e900187a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HospitalSceneInitializer
+  fadeInDuration: 6
+  minToMaxIntensityDuration: 12
+  waitAtMaxDuration: 2
+  nextSceneName: HogunDescentSandbox
+  hospitalOrbController: {fileID: 1285650919}
+--- !u!4 &1145371564
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145371562}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1225615994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1467,8 +1612,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.48353642, y: 0.72962487, z: 0.37312052, w: 0.30760556}
-  m_LocalPosition: {x: 0.029999971, y: -0.7150881, z: -0.5999999}
+  m_LocalRotation: {x: -0.3560484, y: -0.39913473, z: -0.25881228, w: -0.80432415}
+  m_LocalPosition: {x: 0.029999971, y: -0.9053145, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1494,7 +1639,7 @@ MonoBehaviour:
   orbGlowColorPropertyName: _CustomGlowColor
   intensityPropertyName: _FragmentStrength
   voidColorPropertyName: _Color
-  sceneIntensity: 0
+  SceneIntensity: 0
   orbColorGradient:
     serializedVersion: 2
     key0: {r: 1, g: 0.90199333, b: 0.1745283, a: 1}
@@ -2670,3 +2815,5 @@ SceneRoots:
   - {fileID: 1654333690}
   - {fileID: 1340858558}
   - {fileID: 1426287088}
+  - {fileID: 979421426}
+  - {fileID: 1145371564}
