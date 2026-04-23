@@ -5332,7 +5332,7 @@ MonoBehaviour:
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
   m_Cameras: []
-  m_RendererIndex: -1
+  m_RendererIndex: 0
   m_VolumeLayerMask:
     serializedVersion: 2
     m_Bits: 1
@@ -16325,7 +16325,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6014b5173afd188418e75f8d79f3f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
-  growSpeed: 0.05
+  growSpeed: 0.08
   maxSize: 1
 --- !u!64 &1153205829
 MeshCollider:
@@ -18015,6 +18015,7 @@ MonoBehaviour:
   floorPool: {fileID: 1153205828}
   fatherAnim: {fileID: 1273947011}
   soundDelay: 1.2
+  sceneLoadDelay: 5
 --- !u!1001 &1276106741
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18615,7 +18616,7 @@ MonoBehaviour:
   - {fileID: 377152324}
   - {fileID: 44401523}
   - {fileID: 1324165584}
-  delayAfterKidVanish: 2
+  delayAfterKidVanish: 1
   spawnInterval: 0.5
 --- !u!1001 &1308097964
 PrefabInstance:
@@ -26953,7 +26954,6 @@ MonoBehaviour:
   fadeMaterial: {fileID: 2100000, guid: d993acfc98b3bd445881330e8f2b9e0f, type: 2}
   shaderReferenceName: _MasterFade
   transitionOffsetTime: 1.5
-  fadeDuration: 2
   nextSceneName: Level2_Hospital
 --- !u!136 &1970422677
 CapsuleCollider:
