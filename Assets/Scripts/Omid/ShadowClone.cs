@@ -4,6 +4,9 @@ using FMOD.Studio; // Required for managing the looping footstep instance
 
 public class ShadowClone : MonoBehaviour
 {
+    [Header("Voice Settings")]
+    private bool hasSpoken = false; // Prevents the child from screaming multiple times
+    
     [Header("Blood Settings")]
     public GameObject bloodPrefab; 
     public Transform bloodSpawnPoint; 
@@ -123,10 +126,15 @@ public class ShadowClone : MonoBehaviour
                 hasReachedTarget = true;
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
+                
+                // --- ADDED VOICE LOGIC ---
+                PlayHurtVoice(); 
+
                 anim.SetTrigger("isAttacking");
                 anim.SetFloat("Speed", 0f);
             }
         }
+        
         // Staring Logic: Keep looking at Father while attacking, stop looking when fleeing
         else if (agent.enabled && agent.isStopped) 
         {
@@ -137,6 +145,16 @@ public class ShadowClone : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(lookDir);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
+        }
+    }
+    
+    private void PlayHurtVoice()
+    {
+        if (!hasSpoken)
+        {
+            // Play the "You never cared" lines from FMOD
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.CloneHurt, transform.position);
+            hasSpoken = true;
         }
     }
     
