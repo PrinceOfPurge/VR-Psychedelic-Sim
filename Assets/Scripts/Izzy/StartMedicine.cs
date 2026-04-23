@@ -1,12 +1,8 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-// Weird PP Namespaces
-using FronkonGames.Weird.Crystal;
-using FronkonGames.Weird.Kaleidoscope;
-using FronkonGames.Weird.Extruder;
-using FronkonGames.Weird.Spiral;
 
 [Serializable]
 public struct DistortedUVsInfoContainer
@@ -26,32 +22,31 @@ public class PPSequenceStep
     [HideInInspector] public VolumeComponent component;
 }
 
+
 public class StartMedicine : MonoBehaviour
 {
-    [Header("Phase 1: The Fog")]
+    [Header("Phase 1: The Fog (Durations must match Manager)")]
     [SerializeField] private float fogDuration = 5f;
-    [SerializeField] private float targetFogDensity = 30f;
 
-    [Header("Phase 2: The Hut (Shader Distortions)")]
+    [Header("Phase 2: The Hut (Local Shader Distortions)")]
     [SerializeField] private DistortedUVsInfoContainer[] hutMaterials;
     [SerializeField] private float hutDuration = 15f;
-    [Range(0, 1)] [SerializeField] private float ppStartThreshold = 0.8f;
 
     [Header("Phase 3: Weird Post-Processing")]
     [SerializeField] private Volume descentVolume;
-    [SerializeField] private float ppSequenceDuration = 30f;
-    [SerializeField] private List<PPSequenceStep> ppSteps;
-
-    private enum TripState { Idle, FogRising, HutDistorting, WeirdSequence, Complete }
-    private TripState currentState = TripState.Idle;
-
-    private float timer;
-    private bool ppStarted = false;
-
     
+    [Header("Transition Settings")]
+    [SerializeField] private string starweaverSceneName = "Level5_Starweaver";
+    [SerializeField] private float peakWaitDuration = 2f;
+
+    private bool isTripActive = false;
+
     private void Start()
     {
-        CacheComponents();
+        // Ensure the scene starts without any lingering fade effects
+        if (SceneTransitionManager.Instance != null) 
+            SceneTransitionManager.Instance.ResetFadeEffect();
+        
         ResetEffects();
     }
 
@@ -59,178 +54,65 @@ public class StartMedicine : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F)) StartTrip();
         if (Input.GetKeyDown(KeyCode.G)) ResetEffects();
-
-        HandleTransition();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        StartTrip();
+        if (other.CompareTag("Player")) StartTrip();
     }
 
-    private void OnApplicationQuit()
+    public void StartTrip()
     {
-        ResetEffects();
-    }
+        if (isTripActive) return;
+        isTripActive = true;
 
-    private void StartTrip()
-    {
-        if (currentState != TripState.Idle) return;
-        
+        // 1. Tell the Manager to ZERO OUT the effects first
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.StartTrippyEffects(descentVolume, starweaverSceneName, peakWaitDuration);
+
+        // 2. NOW it is safe to turn the Volume weight up
         if (descentVolume != null) descentVolume.weight = 1f;
-        
-        currentState = TripState.FogRising;
-        timer = 0;
+
+        // 3. Start the local wall-melting distortions
+        StartCoroutine(HutMaterialDistortionRoutine());
     }
 
-    private void HandleTransition()
+    private IEnumerator HutMaterialDistortionRoutine()
     {
-        switch (currentState)
+        // Wait for Phase 1 (Fog) to complete before walls start melting (matching your original sequence)
+        yield return new WaitForSeconds(fogDuration);
+
+        float elapsed = 0f;
+        while (elapsed < hutDuration)
         {
-            case TripState.FogRising:
-                UpdateFog();
-                break;
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / hutDuration);
 
-            case TripState.HutDistorting:
-                UpdateHut();
-                break;
-
-            case TripState.WeirdSequence:
-                UpdateHut(); 
-                UpdatePPSequence();
-                break;
-        }
-    }
-
-    private void UpdateFog()
-    {
-        timer += Time.deltaTime;
-        float t = Mathf.Clamp01(timer / fogDuration);
-        
-        SetFogDensity(t * targetFogDensity);
-
-        if (t >= 1f)
-        {
-            currentState = TripState.HutDistorting;
-            timer = 0;
-        }
-    }
-
-    private void UpdateHut()
-    {
-        timer += Time.deltaTime;
-        float hutT = Mathf.Clamp01(timer / hutDuration);
-
-        foreach (var matInfo in hutMaterials)
-        {
-            matInfo.mat.SetFloat(matInfo.shaderEffectParamName, hutT);
-        }
-
-        if (!ppStarted && hutT >= ppStartThreshold)
-        {
-            ppStarted = true;
-        }
-
-        if (ppStarted)
-        {
-            UpdatePPSequence();
-        }
-    }
-
-    private void UpdatePPSequence()
-    {
-        float ppTimer = timer - (hutDuration * ppStartThreshold);
-        float globalPPT = Mathf.Clamp01(ppTimer / ppSequenceDuration);
-
-        foreach (var step in ppSteps)
-        {
-            if (step.component == null) continue;
-
-            float localT = Mathf.InverseLerp(step.startAtNormalized, step.endAtNormalized, globalPPT);
-            float intensity = step.intensityCurve.Evaluate(localT);
-            
-            ApplyWeirdIntensity(step.component, intensity);
-        }
-
-        if (globalPPT >= 1f) currentState = TripState.Complete;
-    }
-
-    #region Component Logic
-
-    private void CacheComponents()
-    {
-        if (descentVolume == null || descentVolume.profile == null) return;
-
-        foreach (var step in ppSteps)
-        {
-            foreach (var comp in descentVolume.profile.components)
+            // Apply UV distortions to the Hogan interior materials
+            foreach (var matInfo in hutMaterials)
             {
-                if (comp.name.Contains(step.componentName)) step.component = comp;
+                if (matInfo.mat != null)
+                    matInfo.mat.SetFloat(matInfo.shaderEffectParamName, t);
             }
-        }
-    }
 
-    private void SetFogDensity(float value)
-    {
-        foreach (var comp in descentVolume.profile.components)
-        {
-            // Haze is likely a different custom component, so we still use reflection for its density field
-            if (comp.name.Contains("Haze"))
-            {
-                var field = comp.GetType().GetField("globalDensityMultiplier");
-                if (field != null)
-                {
-                    var param = field.GetValue(comp) as FloatParameter;
-                    if (param != null)
-                    {
-                        param.overrideState = true;
-                        param.value = value;
-                    }
-                }
-            }
-        }
-    }
-
-    private void ApplyWeirdIntensity(VolumeComponent comp, float value)
-    {
-        // Pattern-matching based on the docs for each specific Weird effect
-        if (comp is KaleidoscopeVolume k)
-        {
-            k.intensity.overrideState = true;
-            k.intensity.value = value;
-        }
-        else if (comp is ExtruderVolume e)
-        {
-            e.intensity.overrideState = true;
-            e.intensity.value = value;
-        }
-        else if (comp is CrystalVolume c)
-        {
-            c.intensity.overrideState = true;
-            c.intensity.value = value;
-        }
-        else if (comp is SpiralVolume s)
-        {
-            s.wrap.overrideState = true;
-            s.wrap.value = value;
+            yield return null;
         }
     }
 
     public void ResetEffects()
     {
-        currentState = TripState.Idle;
-        timer = 0;
-        ppStarted = false;
+        isTripActive = false;
+        StopAllCoroutines();
 
         if (descentVolume != null) descentVolume.weight = 0f;
 
-        SetFogDensity(0);
-        foreach (var matInfo in hutMaterials) matInfo.mat.SetFloat(matInfo.shaderEffectParamName, 0f);
-        
-        foreach (var step in ppSteps)
+        // Instantly reset all environmental materials to their base state
+        foreach (var matInfo in hutMaterials)
         {
-            if (step.component != null) ApplyWeirdIntensity(step.component, 0f);
+            if (matInfo.mat != null)
+                matInfo.mat.SetFloat(matInfo.shaderEffectParamName, 0f);
         }
     }
-    #endregion
+
+    private void OnApplicationQuit() => ResetEffects();
 }

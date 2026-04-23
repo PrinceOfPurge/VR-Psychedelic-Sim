@@ -1,7 +1,13 @@
-using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Rendering;
 using System.Collections;
+using System.Collections.Generic;
+using FronkonGames.Weird.Crystal;
+using FronkonGames.Weird.Kaleidoscope;
+using FronkonGames.Weird.Extruder;
+using FronkonGames.Weird.Spiral;
+using Haze.Runtime;
 
 public class SceneTransitionManager : MonoBehaviour
 {
@@ -12,8 +18,16 @@ public class SceneTransitionManager : MonoBehaviour
     public float fadeDuration = 2.0f;
     public string fadePropertyName = "_MasterFade";
     
+    [Header("Trippy Sequence Settings")]
+    public float fogDuration = 5f;
+    public float targetFogDensity = 30f;
+    public float ppSequenceDuration = 30f;
+    public List<PPSequenceStep> ppSteps;
+    
     private int fadePropID;
-
+    private Volume currentTripVolume;
+    private Coroutine activeTripRoutine;
+    
     
     void Awake()
     {
@@ -23,12 +37,17 @@ public class SceneTransitionManager : MonoBehaviour
             DontDestroyOnLoad(this);
         }
         else
+        {
             Destroy(this);
+            return;
+        }
 
         fadePropID = Shader.PropertyToID(fadePropertyName);
         ResetFadeEffect();
     }
 
+    #region Basic Fade (Locksmith/Hospital)
+    
     /// <param name="isInReverse">False = 0 to 1 (Blackout). True = 1 to 0 (Wake up).</param>
     /// <param name="nextScene">Leave empty if just fading in/out within the same scene.</param>
     /// <param name="useBlink">If true, adds the 'eyelid' snap math for waking up.</param>
@@ -85,12 +104,159 @@ public class SceneTransitionManager : MonoBehaviour
             SceneManager.LoadScene(nextScene);
         }
     }
+    
+    #endregion
 
-    private void OnApplicationQuit() => ResetFadeEffect();
-
-    private void ResetFadeEffect()
+    #region Trippy Transition (Hogan to Starweaver)
+    
+    public void StartTrippyEffects(Volume sceneVolume, string nextScene = "", float peakWaitTime = 0f)
     {
-        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0f);
-        Shader.SetGlobalFloat(fadePropID, 0f);
+        currentTripVolume = sceneVolume;
+        CacheComponents(currentTripVolume);
+        
+        UpdatePPStepIntensities(0f); 
+        SetFogDensity(currentTripVolume, 0f);
+        
+        if (activeTripRoutine != null) StopCoroutine(activeTripRoutine);
+        activeTripRoutine = StartCoroutine(TrippyAscentRoutine(nextScene, peakWaitTime));
     }
+
+    // Update EndTrippyEffects to accept the "Peak" volume from the current scene
+    public void EndTrippyEffects(Volume localPeakVolume, Volume starweaverVolume, float duration = 5f)
+    {
+        // RE-SYNC: Update the reference to the local duplicate in the new scene
+        currentTripVolume = localPeakVolume;
+        CacheComponents(currentTripVolume); // Re-link the Kaleidoscope/Fog components
+
+        if (activeTripRoutine != null) StopCoroutine(activeTripRoutine);
+        activeTripRoutine = StartCoroutine(TrippyDescentRoutine(starweaverVolume, duration));
+    }
+
+    private IEnumerator TrippyAscentRoutine(string nextScene, float peakWaitTime)
+    {
+        // Phase 1: Fog
+        float elapsed = 0f;
+        while (elapsed < fogDuration)
+        {
+            elapsed += Time.deltaTime;
+            SetFogDensity(currentTripVolume, (elapsed / fogDuration) * targetFogDensity);
+            yield return null;
+        }
+
+        // Phase 2: Weird PP Sequence
+        elapsed = 0f;
+        while (elapsed < ppSequenceDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / ppSequenceDuration;
+            UpdatePPStepIntensities(t);
+            yield return null;
+        }
+        
+        // Phase 3: Hold at Peak Intensity
+        // This allows the player to soak in the "peak" visuals before the load
+        yield return new WaitForSeconds(peakWaitTime);
+
+        // Phase 4: Trigger Scene Load
+        if (!string.IsNullOrEmpty(nextScene))
+        {
+            SceneManager.LoadScene(nextScene);
+        }
+    }
+
+    private IEnumerator TrippyDescentRoutine(Volume starweaverVolume, float duration)
+    {
+        float elapsed = 0f;
+    
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / duration; // t goes 0 to 1
+
+            // 1. SYNCED FOG: Ramp fog down from its target density to 0 
+            // using the same 't' as the post-processing sequence.
+            float currentFogT = 1f - t;
+            SetFogDensity(currentTripVolume, currentFogT * targetFogDensity);
+
+            // 2. PP SEQUENCE: Ramp intensities down (1 to 0)
+            UpdatePPStepIntensities(currentFogT);
+
+            // 3. CROSS-FADE VOLUMES:
+            if (currentTripVolume != null) currentTripVolume.weight = 1f - t;
+            //if (starweaverVolume != null) starweaverVolume.weight = t;
+            if (starweaverVolume != null) starweaverVolume.weight = 1f; // Snapping this to 1 should be okay
+
+            yield return null;
+        }
+    
+        // Final cleanup to ensure everything is absolute zero
+        if (currentTripVolume != null) 
+        {
+            currentTripVolume.weight = 0f;
+            SetFogDensity(currentTripVolume, 0f);
+        }
+    
+        starweaverVolume.weight = 1f;
+    }
+
+    private void UpdatePPStepIntensities(float globalT)
+    {
+        foreach (var step in ppSteps)
+        {
+            if (step.component == null) continue;
+            float localT = Mathf.InverseLerp(step.startAtNormalized, step.endAtNormalized, globalT);
+            ApplyWeirdIntensity(step.component, step.intensityCurve.Evaluate(localT));
+        }
+    }
+    
+    #endregion
+    
+    #region Helpers (Reflection/Cleanup)
+    
+    private void ApplyFadeValue(float t)
+    {
+        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
+        Shader.SetGlobalFloat(fadePropID, t);
+    }
+
+    private void CacheComponents(Volume vol)
+    {
+        if (vol == null || vol.profile == null) return;
+        foreach (var step in ppSteps)
+        {
+            foreach (var comp in vol.profile.components)
+            {
+                if (comp.name.Contains(step.componentName)) step.component = comp;
+            }
+        }
+    }
+
+    private void SetFogDensity(Volume vol, float value)
+    {
+        foreach (var comp in vol.profile.components)
+        {
+            if (comp.name.Contains("Haze"))
+            {
+                var field = comp.GetType().GetField("globalDensityMultiplier");
+                if (field != null)
+                {
+                    var param = field.GetValue(comp) as FloatParameter;
+                    if (param != null) { param.overrideState = true; param.value = value; }
+                }
+            }
+        }
+    }
+
+    private void ApplyWeirdIntensity(VolumeComponent comp, float value)
+    {
+        if (comp is KaleidoscopeVolume k) k.intensity.value = value;
+        else if (comp is ExtruderVolume e) e.intensity.value = value;
+        else if (comp is CrystalVolume c) c.intensity.value = value;
+        else if (comp is SpiralVolume s) s.wrap.value = value;
+    }
+
+    public void ResetFadeEffect() => ApplyFadeValue(0f);
+    private void OnApplicationQuit() => ResetFadeEffect();
+    
+    #endregion
 }

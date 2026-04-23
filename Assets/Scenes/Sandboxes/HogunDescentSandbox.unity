@@ -2530,6 +2530,13 @@ MonoBehaviour:
       Data3: 956021411
       Data4: -1842493544
     Path: event:/Music/MenuMusic
+  <Desert>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <music>k__BackingField:
     Guid:
       Data1: -1327819475
@@ -2559,6 +2566,48 @@ MonoBehaviour:
       Data4: 0
     Path: 
   <keyDrop>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <yell>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <kidLine>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Stab>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <Die>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <KidFootsteps>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <sadKid>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -2715,6 +2764,63 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: 41976d89-60de-4deb-bff9-16b4af96b290
+--- !u!1001 &1288363901
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.62928
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.015
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6.86997
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5856083029304592212, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7329168241939623821, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
+      propertyPath: m_Name
+      value: SceneTransitionManager
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5d8ea641550278d47a726f29c8225f54, type: 3}
 --- !u!1 &1291324006 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4451948355937213737, guid: faa59b459a0e6dc4ab91499f903d227c, type: 3}
@@ -4483,9 +4589,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StartMedicine
   fogDuration: 5
-  targetFogDensity: 30
   hutMaterials:
-  - mat: {fileID: 2100000, guid: 4efff96505406264e900ecac9e43617d, type: 2}
+  - mat: {fileID: 2100000, guid: 4dcfac3af33d4cb48b869e70edbc0693, type: 2}
     shaderEffectParamName: _VertexEffectStrength
   - mat: {fileID: 2100000, guid: 0d3bf9ac8e257494a87bea69f8296deb, type: 2}
     shaderEffectParamName: _FragmentStrength
@@ -4493,204 +4598,10 @@ MonoBehaviour:
     shaderEffectParamName: _FragmentStrength
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
-  hutDuration: 5
-  ppStartThreshold: 0.7
+  hutDuration: 15
   descentVolume: {fileID: 832575518}
-  ppSequenceDuration: 25
-  ppSteps:
-  - componentName: Extruder
-    startAtNormalized: 0
-    endAtNormalized: 0.3
-    intensityCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.2129289
-        value: 0.1388861
-        inSlope: 0.30819446
-        outSlope: 0.30819446
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.20386462
-      - serializedVersion: 3
-        time: 0.41073912
-        value: 0.56693137
-        inSlope: 0.18886705
-        outSlope: 0.18886705
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.62048936
-        outWeight: 0.25198212
-      - serializedVersion: 3
-        time: 0.6674001
-        value: 0.5435853
-        inSlope: 1.0165627
-        outSlope: 1.0165627
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    component: {fileID: 0}
-  - componentName: Crystal
-    startAtNormalized: 0.5
-    endAtNormalized: 0.9
-    intensityCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.21864897
-        value: 0.8358265
-        inSlope: -0.36687887
-        outSlope: -0.36687887
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.15696336
-      - serializedVersion: 3
-        time: 0.5060767
-        value: 0.34710813
-        inSlope: 0.81179416
-        outSlope: 0.81179416
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    component: {fileID: 0}
-  - componentName: Kaleidoscope
-    startAtNormalized: 0.3
-    endAtNormalized: 0.7
-    intensityCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.23425373
-        value: 0.8095467
-        inSlope: 0.021234114
-        outSlope: 0.021234114
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.1822609
-      - serializedVersion: 3
-        time: 0.40263608
-        value: 0.390471
-        inSlope: -0.017703135
-        outSlope: -0.017703135
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.546137
-        value: 0.9441696
-        inSlope: -0.18989256
-        outSlope: -0.18989256
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.72489697
-      - serializedVersion: 3
-        time: 0.7308019
-        value: 0.66881007
-        inSlope: 0.19504945
-        outSlope: 0.19504945
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.48456308
-      - serializedVersion: 3
-        time: 0.9946783
-        value: 1.0187492
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    component: {fileID: 0}
-  - componentName: Spiral
-    startAtNormalized: 0.7
-    endAtNormalized: 1
-    intensityCurve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 1
-        value: 1
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    component: {fileID: 0}
+  starweaverSceneName: Level6_Starweaver
+  peakWaitDuration: 5
 --- !u!1001 &1719516192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6568,3 +6479,4 @@ SceneRoots:
   - {fileID: 1654333690}
   - {fileID: 388643310}
   - {fileID: 1706742880}
+  - {fileID: 1288363901}
