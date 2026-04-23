@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{8c0cdf0d-d53f-4c16-8bdc-68263f8abf57}">
+		<property name="assetPath">
+			<value>11 - Doctor.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.7856462585034014</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{713e0e97-8f04-4faa-9b1e-a3089f365436}</destination>
+		</relationship>
+	</object>
+</objects>
