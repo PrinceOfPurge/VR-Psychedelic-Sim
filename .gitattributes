@@ -15,3 +15,9 @@ Assets/Plugins/FMOD/**/Info.plist text eol=lf
 *.tga filter=lfs diff=lfs merge=lfs -text
 *.jpg filter=lfs diff=lfs merge=lfs -text
 *.obj filter=lfs diff=lfs merge=lfs -text
+*.treeBarkTri filter=lfs diff=lfs merge=lfs -text
+*.treeFlowerVert filter=lfs diff=lfs merge=lfs -text
+*.treeFlowerTris filter=lfs diff=lfs merge=lfs -text
+*.treeBarkVert filter=lfs diff=lfs merge=lfs -text
+*.treeParams filter=lfs diff=lfs merge=lfs -text
+Assets/Plugins/FantasyTree/ExampleTrees.unity filter=lfs diff=lfs merge=lfs -text
