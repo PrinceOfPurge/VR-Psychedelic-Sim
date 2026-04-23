@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.AI;
+using FMOD.Studio;
 
 public class KidWalk : MonoBehaviour
 {
@@ -8,8 +9,8 @@ public class KidWalk : MonoBehaviour
     public GameObject painting; 
     
     [Header("Dialogue Timing")]
-    public float timeUntilFatherYells = 4.0f; // Length of kid's audio
-    public float timeBeforeRunning = 2.5f;   // Length of father's audio
+    public float timeUntilFatherYells = 4.0f; 
+    public float timeBeforeRunning = 2.5f;   
 
     private NavMeshAgent agent;
     private Animator anim;
@@ -17,19 +18,28 @@ public class KidWalk : MonoBehaviour
     private bool isShowing = false;
     private bool isEscaping = false;
 
+    private EventInstance footstepInstance;
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
         agent.stoppingDistance = 1.2f;
+
+        footstepInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.KidFootsteps);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(footstepInstance, transform);
+        footstepInstance.start();
     }
 
     void Update()
     {
-        // 1. ESCAPE PHASE
+        if (footstepInstance.isValid())
+        {
+            footstepInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        }
+
         if (hasBeenYelledAt) 
         {
-            // Only play run animation once Flee starts
             if (isEscaping) anim.SetFloat("Speed", 1.0f);
             
             if (isEscaping && !agent.pathPending && agent.remainingDistance <= 0.5f)
@@ -50,6 +60,7 @@ public class KidWalk : MonoBehaviour
             agent.isStopped = false;
             agent.SetDestination(father.position);
             anim.SetFloat("Speed", 0.5f);
+            CheckFootsteps(true);
         }
         else
         {
@@ -59,17 +70,16 @@ public class KidWalk : MonoBehaviour
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
                 anim.SetFloat("Speed", 0f); 
+                CheckFootsteps(false);
 
                 if (FMODEvents.instance != null)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(FMODEvents.instance.kidLine, transform.position);
                 }
 
-                // Schedule the father to yell
                 Invoke("ExecuteYell", timeUntilFatherYells); 
             }
 
-            // Look at father
             Vector3 lookPos = father.position - transform.position;
             lookPos.y = 0;
             if (lookPos != Vector3.zero)
@@ -77,26 +87,41 @@ public class KidWalk : MonoBehaviour
         }
     }
 
+    private void CheckFootsteps(bool shouldPlay)
+    {
+        PLAYBACK_STATE pbState;
+        footstepInstance.getPlaybackState(out pbState);
+
+        if (shouldPlay && pbState != PLAYBACK_STATE.PLAYING)
+            footstepInstance.start();
+        else if (!shouldPlay && pbState == PLAYBACK_STATE.PLAYING)
+            footstepInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+    }
+
     public void ExecuteYell()
     {
         if (hasBeenYelledAt) return;
-        hasBeenYelledAt = true; // Stop Update logic
+        hasBeenYelledAt = true; 
 
+        // 1. Father Yells
         if (FMODEvents.instance != null)
         {
             FMODUnity.RuntimeManager.PlayOneShot(FMODEvents.instance.yell, transform.position);
         }
 
         anim.SetTrigger("YelledAt");
+        
+        // We play this right after the yell to show the kid's reaction
+        if (FMODEvents.instance != null)
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.sadKid, transform.position); 
+        }
 
-        // Physics Fix for the Painting
         if(painting != null) {
             painting.transform.SetParent(null);
-            
             MeshCollider mc = painting.GetComponent<MeshCollider>();
             if (mc != null) mc.convex = true;
 
-            // Get or Add Rigidbody safely
             Rigidbody rb = painting.GetComponent<Rigidbody>();
             if (rb == null) rb = painting.AddComponent<Rigidbody>();
         
@@ -107,7 +132,6 @@ public class KidWalk : MonoBehaviour
             }
         }
 
-        // --- THE DELAY: Wait for dad to finish yelling, then run ---
         Invoke("Flee", timeBeforeRunning); 
     }
 
@@ -119,8 +143,8 @@ public class KidWalk : MonoBehaviour
         agent.isStopped = false;
         agent.ResetPath();
         agent.velocity = Vector3.zero;
+        CheckFootsteps(true);
 
-        // Turn away
         Vector3 fleeDir = (escapePoint.position - transform.position).normalized;
         fleeDir.y = 0; 
         transform.rotation = Quaternion.LookRotation(fleeDir);
@@ -130,5 +154,11 @@ public class KidWalk : MonoBehaviour
         agent.SetDestination(escapePoint.position);
     
         anim.SetFloat("Speed", 1.0f); 
+    }
+
+    private void OnDestroy()
+    {
+        footstepInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        footstepInstance.release();
     }
 }

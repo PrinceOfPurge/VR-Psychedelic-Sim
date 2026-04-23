@@ -25,6 +25,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference Stab { get; private set; }
     [field: SerializeField] public EventReference Die { get; private set; }
     [field: SerializeField] public EventReference KidFootsteps { get; private set; }
+    [field: SerializeField] public EventReference sadKid { get; private set; }
 
     public static FMODEvents instance { get; private set; }
 
