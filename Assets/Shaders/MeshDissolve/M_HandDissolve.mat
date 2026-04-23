@@ -67,9 +67,9 @@ Material:
     - _BlendModePreserveSpecular: 1
     - _CastShadows: 1
     - _Cull: 2
-    - _DissolveAmount: 0
-    - _DissolveEdgeWidth: 0.03
-    - _DissolveSscale: 100
+    - _DissolveAmount: 1
+    - _DissolveEdgeWidth: 0.083
+    - _DissolveSscale: 500
     - _DstBlend: 0
     - _DstBlendAlpha: 0
     - _Metallic: 0

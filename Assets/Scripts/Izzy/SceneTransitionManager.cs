@@ -8,6 +8,7 @@ using FronkonGames.Weird.Kaleidoscope;
 using FronkonGames.Weird.Extruder;
 using FronkonGames.Weird.Spiral;
 using Haze.Runtime;
+using UnityEngine.Rendering.Universal;
 
 public class SceneTransitionManager : MonoBehaviour
 {
@@ -210,6 +211,50 @@ public class SceneTransitionManager : MonoBehaviour
     }
     
     #endregion
+    
+    #region Exposure Transition (Starweaver to integration)
+    
+    /// <summary>
+    /// Transitions exposure to white, loads a scene, and resets exposure.
+    /// </summary>
+    public void PerformEgoDeathTransition(Volume targetVolume, float transitionDuration, float waitDuration, string nextSceneName)
+    {
+        StartCoroutine(EgoDeathRoutine(targetVolume, transitionDuration, waitDuration, nextSceneName));
+    }
+
+    private IEnumerator EgoDeathRoutine(Volume targetVolume, float duration, float waitDuration, string nextSceneName)
+    {
+        if (targetVolume.profile.TryGet(out ColorAdjustments colorAdjustments))
+        {
+            float startExposure = colorAdjustments.postExposure.value;
+            float targetExposure = 30f; // Blown out white
+            float elapsed = 0;
+
+            // 1. Ramp Up
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, targetExposure, elapsed / duration);
+                yield return null;
+            }
+            
+            colorAdjustments.postExposure.value = targetExposure;
+
+            // 2. The "Void" - wait in the white-out
+            yield return new WaitForSeconds(waitDuration);
+
+            // 3. Trigger Load (Simple Load)
+            SceneManager.LoadScene(nextSceneName);
+        }
+        else
+        {
+            Debug.LogError("No ColorAdjustments found on the passed Volume!");
+            SceneManager.LoadScene(nextSceneName); // Fallback load
+        }
+    }
+    
+    #endregion
+    
     
     #region Helpers (Reflection/Cleanup)
     

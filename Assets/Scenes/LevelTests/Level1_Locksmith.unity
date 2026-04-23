@@ -8478,7 +8478,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 10fc4df2da32a41aaa32d77bc913491c, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 79ba3add5b8979c47b69431971f5ad73, type: 2}
 --- !u!4 &832575519
 Transform:
   m_ObjectHideFlags: 0
@@ -21218,7 +21218,7 @@ Transform:
   m_GameObject: {fileID: 1941918437}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.19}
+  m_LocalPosition: {x: -2.676, y: -1.803, z: 7.464}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21239,8 +21239,8 @@ ReflectionProbe:
   m_TimeSlicingMode: 0
   m_Resolution: 2048
   m_UpdateFrequency: 0
-  m_BoxSize: {x: 13.01, y: 10, z: 23.97}
-  m_BoxOffset: {x: 0, y: 0, z: 0}
+  m_BoxSize: {x: 13.850662, y: 10, z: 21.520687}
+  m_BoxOffset: {x: -2.610737, y: 0, z: -1.2246552}
   m_NearClip: 0.3
   m_FarClip: 1000
   m_ShadowDistance: 100

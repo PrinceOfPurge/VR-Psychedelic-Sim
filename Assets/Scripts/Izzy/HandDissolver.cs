@@ -11,9 +11,9 @@ public class HandDissolver : MonoBehaviour
     [SerializeField] private Material handMaterial;
     [SerializeField] private VisualEffect vfxGraph;
     [SerializeField] private string dissolveAmountParam = "_DissolveAmount";
-    [SerializeField] private float dissolveRate = 0.0125f;
-    [SerializeField] private float refreshRate = 0.025f;
-
+    
+    // Updated these to follow duration-based logic
+    [SerializeField] private float dissolveDuration = 2.0f; // Total seconds for the dissolve
 
     private void Awake()
     {
@@ -42,23 +42,25 @@ public class HandDissolver : MonoBehaviour
     {
         if (handMaterial != null)
         {
-            float counter = 0;
+            float elapsedTime = 0f;
 
-            while (handMaterial.GetFloat(dissolveAmountParam) < 1)
+            // Using a while loop with a timer for a smooth transition
+            while (elapsedTime < dissolveDuration)
             {
-                counter += dissolveRate;
-                handMaterial.SetFloat(dissolveAmountParam, counter);
-                yield return new WaitForSeconds(refreshRate);
+                elapsedTime += Time.deltaTime;
+                
+                // Calculate progress (0 to 1) based on time
+                float lerpValue = Mathf.Clamp01(elapsedTime / dissolveDuration);
+                
+                handMaterial.SetFloat(dissolveAmountParam, lerpValue);
+                
+                // yield return null tells Unity to wait until the next frame
+                yield return null; 
             }
-        }
 
-        /*
-        // This graph doesn't really look that good
-        if (vfxGraph != null)
-        {
-            vfxGraph.Play();
+            // Ensure it's fully dissolved at the end
+            handMaterial.SetFloat(dissolveAmountParam, 1f);
         }
-        */
     }
 
     private void OnApplicationQuit()

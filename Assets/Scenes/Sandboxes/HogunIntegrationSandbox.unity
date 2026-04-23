@@ -687,8 +687,8 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0.9811321, g: 0.6653778, b: 0.1342115, a: 1}
-  m_Intensity: 7
+  m_Color: {r: 1, g: 0.92300487, b: 0.3820755, a: 1}
+  m_Intensity: 10
   m_Range: 20
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -1167,6 +1167,53 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: 39bbf1ac-21a3-413d-90f6-6dbf6efeaabe
+--- !u!1 &401673756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 401673758}
+  - component: {fileID: 401673757}
+  m_Layer: 0
+  m_Name: IntegrationSceneInitializer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &401673757
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401673756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584581cc74004084db9fb45bd32bc960, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::IntegrationSceneInitializer
+  startExposure: 15
+  targetExposure: 0
+  transitionDuration: 3
+--- !u!4 &401673758
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 401673756}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1195,7 +1242,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 1
-  m_Color: {r: 0.9834409, g: 1, b: 0.6556604, a: 1}
+  m_Color: {r: 0.977916, g: 1, b: 0.514151, a: 1}
   m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
@@ -1239,7 +1286,7 @@ Light:
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_ColorTemperature: 5197
+  m_ColorTemperature: 6625
   m_UseColorTemperature: 1
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
@@ -2248,77 +2295,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 0.21055314, z: 10}
   m_Center: {x: 0, y: -0.10527657, z: 0}
---- !u!1 &832575517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 832575519}
-  - component: {fileID: 832575518}
-  - component: {fileID: 832575520}
-  m_Layer: 0
-  m_Name: Descent Volume
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &832575518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832575517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 0
-  priority: 10
-  blendDistance: 0
-  weight: 0
-  sharedProfile: {fileID: 11400000, guid: 770a0b04cc8c92343a3e2bc43988e8de, type: 2}
---- !u!4 &832575519
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832575517}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &832575520
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 832575517}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 17.525843, y: 8.775146, z: 15.898797}
-  m_Center: {x: 7.3331842, y: 3.8875737, z: -1.2082343}
 --- !u!1 &900159857
 GameObject:
   m_ObjectHideFlags: 0
@@ -4444,7 +4420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolumePerSceneData
   serializedBakingSet: {fileID: 11400000, guid: 75d669e826373294fb4f8ad89b1ccc52, type: 2}
-  sceneGUID: 6232b1680b0beb14fb9729d937d0b49f
+  sceneGUID: d02d5d26cd470d54bb7f6c72f22103c6
   obsoleteAsset: {fileID: 0}
   obsoleteCellSharedDataAsset: {fileID: 0}
   obsoleteCellSupportDataAsset: {fileID: 0}
@@ -4501,7 +4477,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
@@ -4512,7 +4488,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706742876}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4593,13 +4569,13 @@ MonoBehaviour:
   - mat: {fileID: 2100000, guid: 4dcfac3af33d4cb48b869e70edbc0693, type: 2}
     shaderEffectParamName: _VertexEffectStrength
   - mat: {fileID: 2100000, guid: 0d3bf9ac8e257494a87bea69f8296deb, type: 2}
-    shaderEffectParamName: _VertexEffectStrength
+    shaderEffectParamName: _FragmentStrength
   - mat: {fileID: 2100000, guid: ab63c84c50ed5534b9e04e3b63e72891, type: 2}
-    shaderEffectParamName: _VertexEffectStrength
+    shaderEffectParamName: _FragmentStrength
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
-    shaderEffectParamName: _VertexEffectStrength
+    shaderEffectParamName: _FragmentStrength
   hutDuration: 15
-  descentVolume: {fileID: 832575518}
+  descentVolume: {fileID: 0}
   starweaverSceneName: Level6_Starweaver
   peakWaitDuration: 5
 --- !u!1001 &1719516192
@@ -5814,7 +5790,7 @@ GameObject:
   - component: {fileID: 2056338235}
   - component: {fileID: 2056338234}
   m_Layer: 0
-  m_Name: Pre-Descent Volume
+  m_Name: IntegrationVolume
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5836,7 +5812,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 1a118be7d515f664bae5cee2db93192d, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 97cf729e08ba8664dbc8dfdc8b7a1287, type: 2}
 --- !u!4 &2056338235
 Transform:
   m_ObjectHideFlags: 0
@@ -6469,7 +6445,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 2056338235}
-  - {fileID: 832575519}
   - {fileID: 3934902740179834011}
   - {fileID: 1227598947510299932}
   - {fileID: 1003271457}
@@ -6480,3 +6455,4 @@ SceneRoots:
   - {fileID: 388643310}
   - {fileID: 1706742880}
   - {fileID: 1288363901}
+  - {fileID: 401673758}

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneTransitionManager
   fadeMaterial: {fileID: 2100000, guid: d993acfc98b3bd445881330e8f2b9e0f, type: 2}
-  fadeDuration: 2
+  fadeDuration: 3
   fadePropertyName: _MasterFade
   fogDuration: 5
   targetFogDensity: 30

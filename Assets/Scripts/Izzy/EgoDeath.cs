@@ -50,6 +50,8 @@ public class EgoDeath : MonoBehaviour
     [SerializeField] private float shatterTurbulence = 60f;
     [SerializeField, GradientUsage(true)] private Gradient finalShatterGradient;
     [SerializeField] private AnimationCurve crystalCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    [SerializeField] private float finalTransitionDuration = 3f;
+    [SerializeField] private float finalTransitionWaitTime = 2f;
     
     [Header("Earth Overview Effect")]
     [SerializeField] private float earthTargetScale = 0.02f;
@@ -292,8 +294,8 @@ public class EgoDeath : MonoBehaviour
             yield return null;
         }
         
-        yield return new WaitForSeconds(3f);
-        SceneManager.LoadScene(nextSceneName);
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.PerformEgoDeathTransition(globalVolume, finalTransitionDuration, finalTransitionWaitTime, nextSceneName);
     }
 
     private void OnApplicationQuit()
