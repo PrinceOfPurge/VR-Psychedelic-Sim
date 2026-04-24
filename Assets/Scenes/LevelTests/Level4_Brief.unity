@@ -1671,6 +1671,13 @@ MonoBehaviour:
       Data3: -547339880
       Data4: 514683814
     Path: event:/Music/KaleidoscopeMusic
+  <NarrativeMusic>k__BackingField:
+    Guid:
+      Data1: 1989627829
+      Data2: 1193918410
+      Data3: 1660031669
+      Data4: 1084749733
+    Path: event:/Music/NarrativeMusic
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -1734,6 +1741,129 @@ MonoBehaviour:
       Data3: 1384328123
       Data4: 1171218610
     Path: event:/SFX/SadKid
+  <CloneHurt>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  hospitalLines: []
+  narrativeLines:
+  - Guid:
+      Data1: -463169926
+      Data2: 1207844023
+      Data3: -1705482320
+      Data4: 163230754
+    Path: event:/NarrativeScene/PlayerF
+  - Guid:
+      Data1: -1288917837
+      Data2: 1306925099
+      Data3: 1103710851
+      Data4: 904727910
+    Path: event:/NarrativeScene/PlayerF 2
+  - Guid:
+      Data1: -132635083
+      Data2: 1328027787
+      Data3: -109425745
+      Data4: -990227257
+    Path: event:/NarrativeScene/PlayerF 3
+  - Guid:
+      Data1: -1390157693
+      Data2: 1316863118
+      Data3: 1814964147
+      Data4: -846960241
+    Path: event:/NarrativeScene/PlayerF 4
+  - Guid:
+      Data1: -1217264241
+      Data2: 1249134127
+      Data3: 1173509548
+      Data4: -1885556304
+    Path: event:/NarrativeScene/PlayerF 5
+  - Guid:
+      Data1: 1834309909
+      Data2: 1330993238
+      Data3: 2053066881
+      Data4: -1469633221
+    Path: event:/NarrativeScene/PlayerF 6
+  - Guid:
+      Data1: 1241203028
+      Data2: 1280065764
+      Data3: 1892010113
+      Data4: -455349355
+    Path: event:/NarrativeScene/PlayerF 7
+  - Guid:
+      Data1: 635110840
+      Data2: 1340543786
+      Data3: -1115131252
+      Data4: -565273777
+    Path: event:/NarrativeScene/PlayerF 8
+  - Guid:
+      Data1: 438809025
+      Data2: 1263630085
+      Data3: -849036156
+      Data4: 931402775
+    Path: event:/NarrativeScene/PlayerF 9
+  - Guid:
+      Data1: 470511050
+      Data2: 1304594974
+      Data3: -776098683
+      Data4: 1793384530
+    Path: event:/NarrativeScene/PlayerF 10
+  - Guid:
+      Data1: -875563615
+      Data2: 1200677182
+      Data3: -700052849
+      Data4: 1296839709
+    Path: event:/NarrativeScene/PlayerF 11
+  - Guid:
+      Data1: -1946473130
+      Data2: 1218076849
+      Data3: 673734544
+      Data4: 89055657
+    Path: event:/NarrativeScene/PlayerF 12
+  - Guid:
+      Data1: -645573140
+      Data2: 1267718283
+      Data3: -987054195
+      Data4: -2092091383
+    Path: event:/NarrativeScene/PlayerF 13
+  - Guid:
+      Data1: 378725553
+      Data2: 1169661763
+      Data3: 757735302
+      Data4: -1194870477
+    Path: event:/NarrativeScene/PlayerF 14
+  - Guid:
+      Data1: 396953436
+      Data2: 1246872304
+      Data3: -358778240
+      Data4: 1763474064
+    Path: event:/NarrativeScene/PlayerF 15
+  - Guid:
+      Data1: -1553361225
+      Data2: 1129369860
+      Data3: 1364051108
+      Data4: -201292497
+    Path: event:/NarrativeScene/PlayerF 16
+  - Guid:
+      Data1: -840866021
+      Data2: 1093559299
+      Data3: -1788956028
+      Data4: 1411146062
+    Path: event:/NarrativeScene/PlayerF 17
+  - Guid:
+      Data1: -1676846933
+      Data2: 1183080918
+      Data3: -2007766129
+      Data4: -1167852152
+    Path: event:/NarrativeScene/PlayerF 18
+  - Guid:
+      Data1: -1354994548
+      Data2: 1179735039
+      Data3: 1665414576
+      Data4: 1649072529
+    Path: event:/NarrativeScene/PlayerF 19
 --- !u!1 &1041540833
 GameObject:
   m_ObjectHideFlags: 0
@@ -2698,7 +2828,7 @@ MonoBehaviour:
   canvasGroup: {fileID: 586334764}
   nextSceneName: HogunDescentSandbox
   fadeDuration: 2
-  displayDuration: 4
+  extraReadTime: 2
 --- !u!4 &1994446292
 Transform:
   m_ObjectHideFlags: 0
