@@ -53,7 +53,7 @@ public class SceneTransitionManager : MonoBehaviour
     /// <param name="nextScene">Leave empty if just fading in/out within the same scene.</param>
     /// <param name="useBlink">If true, adds the 'eyelid' snap math for waking up.</param>
     /// <param name="fadeDurationOverride">Overrides the transition duration</param>
-    public void PerformFade(bool isInReverse, string nextScene = "", bool useBlink = false, float fadeDurationOverride = 0f)
+    public void PerformFade(bool isInReverse = false, string nextScene = "", bool useBlink = false, float fadeDurationOverride = 0f)
     {
         if (fadeDurationOverride != 0) fadeDuration = fadeDurationOverride;
         StartCoroutine(FadeRoutine(isInReverse, nextScene, useBlink));
