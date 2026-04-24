@@ -10573,6 +10573,13 @@ MonoBehaviour:
       Data3: -547339880
       Data4: 514683814
     Path: event:/Music/KaleidoscopeMusic
+  <NarrativeMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -10636,6 +10643,15 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <CloneHurt>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  hospitalLines: []
+  narrativeLines: []
 --- !u!1 &1015001898
 GameObject:
   m_ObjectHideFlags: 0
@@ -11942,15 +11958,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1166559943}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.81, y: 0.12, z: -6.889}
+  m_LocalRotation: {x: -0, y: -0.99999994, z: 0, w: -0.00043630067}
+  m_LocalPosition: {x: 2.268, y: 0.12, z: -2.125}
   m_LocalScale: {x: 1.15, y: 1.15, z: 1.15}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1297294904}
   - {fileID: 441975614}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180.05, z: 0}
 --- !u!143 &1166559947
 CharacterController:
   m_ObjectHideFlags: 0
