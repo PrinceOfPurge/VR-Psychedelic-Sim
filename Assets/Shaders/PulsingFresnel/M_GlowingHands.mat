@@ -56,8 +56,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _FresnelPower: 5
-    - _FresnelPulseAmplitude: 0.5
-    - _FresnelPulseFrequency: 2.7
+    - _FresnelPulseAmplitude: 0.6
+    - _FresnelPulseFrequency: 3.7
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:

@@ -8,7 +8,8 @@ public class VoPKeyTrigger : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private VisualEffect[] vineGrowingGraphs;
-    [SerializeField] private VisualEffect fireVFX; 
+    [SerializeField] private VisualEffect fireVFX;
+    [SerializeField] private VisualEffect fireflyVFX; // New Firefly Reference
     [SerializeField] private BloodPoolGrow waterPool; 
     [SerializeField] private Volume postProcessVolume;
     [SerializeField] private GameObject kidCharacter;
@@ -24,10 +25,11 @@ public class VoPKeyTrigger : MonoBehaviour
     [SerializeField] private float fireRampUpDuration = 4.0f;
     [SerializeField] private float fireStayDuration = 2.0f;
     [SerializeField] private float fireChaosDuration = 2.0f;
-    [SerializeField] private float startTurbulence = 2.0f; // "Drastic" increase
-    [SerializeField] private float targetTurbulence = 50.0f; // "Drastic" increase
+    [SerializeField] private float startTurbulence = 2.0f; 
+    [SerializeField] private float targetTurbulence = 50.0f; 
 
     [Header("Transition Settings")]
+    [SerializeField] private float fireflyRampDuration = 4.0f; // Time for fireflies to fully spawn
     [SerializeField] private float beforeTransitionWaitTime = 12.0f;
     [SerializeField] private float transitionDuration = 3.0f;
     [SerializeField] private float sceneTransitionWaitTime = 2.0f;
@@ -48,10 +50,17 @@ public class VoPKeyTrigger : MonoBehaviour
     private void Start()
     {
         foreach (var vGraph in vineGrowingGraphs) vGraph.Stop();
+        
         if (fireVFX != null) {
             fireVFX.Stop();
             fireVFX.SetFloat("SpawnIntensity", 0);
             fireVFX.SetFloat("TurbulenceIntensity", startTurbulence);
+        }
+
+        // Initialize Fireflies to 0
+        if (fireflyVFX != null) {
+            fireflyVFX.Stop();
+            fireflyVFX.SetFloat("SpawnIntensity", 0);
         }
         
         if (kidCharacter != null)
@@ -86,10 +95,39 @@ public class VoPKeyTrigger : MonoBehaviour
     {
         isTransitioning = true;
         foreach (var vGraph in vineGrowingGraphs) vGraph.Play();
+        if (fireflyVFX != null) fireflyVFX.Play(); // Start Fireflies
         if (waterPool != null) waterPool.StartPool();
 
         StartCoroutine(TransitionPostProcessing());
         StartCoroutine(SpawnKidSequence());
+    }
+
+    private IEnumerator TransitionPostProcessing()
+    {
+        float elapsed = 0;
+        // We use the longer of the two durations to make sure everything finishes
+        float maxDuration = Mathf.Max(transitionDuration, fireflyRampDuration);
+
+        while (elapsed < maxDuration)
+        {
+            elapsed += Time.deltaTime;
+            
+            // Post Processing Lerp
+            float tPost = Mathf.Clamp01(elapsed / transitionDuration);
+            float curvedTPost = Mathf.SmoothStep(0, 1, tPost);
+            
+            whiteBalance.temperature.value = Mathf.Lerp(startTemp, targetTemperature, curvedTPost);
+            colorAdjustments.saturation.value = Mathf.Lerp(startSat, targetSaturation, curvedTPost);
+            bloom.intensity.value = Mathf.Lerp(startBloom, targetBloom, curvedTPost);
+
+            // Firefly Lerp
+            if (fireflyVFX != null) {
+                float tFirefly = Mathf.Clamp01(elapsed / fireflyRampDuration);
+                fireflyVFX.SetFloat("SpawnIntensity", Mathf.SmoothStep(0, 1, tFirefly));
+            }
+
+            yield return null;
+        }
     }
 
     private IEnumerator SpawnKidSequence()
@@ -115,21 +153,16 @@ public class VoPKeyTrigger : MonoBehaviour
             kidAnimator.CrossFade(danceAnim, 0.3f);
         }
         
-        // Wait for the player to soak in the "Happy Valley" before the peak hits
         yield return new WaitForSeconds(beforeTransitionWaitTime);
-        
-        // Start the fire peak intensity sequence
         StartCoroutine(FirePeakSequence());
     }
 
     private IEnumerator FirePeakSequence()
     {
         if (fireVFX == null) yield break;
-
         fireVFX.Play();
         float elapsed = 0;
 
-        // 1. Ramp SpawnIntensity 0 -> 1
         while (elapsed < fireRampUpDuration)
         {
             elapsed += Time.deltaTime;
@@ -137,45 +170,21 @@ public class VoPKeyTrigger : MonoBehaviour
             yield return null;
         }
 
-        // 2. Stay at 1
         yield return new WaitForSeconds(fireStayDuration);
 
-        // 3. Chaos Phase: Turbulence increases + Ramp Exposure to white
         elapsed = 0;
         float startExposure = colorAdjustments.postExposure.value;
-
         while (elapsed < fireChaosDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / fireChaosDuration;
-
             fireVFX.SetFloat("TurbulenceIntensity", Mathf.Lerp(startTurbulence, targetTurbulence, t));
-            
-            // Manual Exposure ramp before the manager takes over for total white-out
             colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, 10f, t);
-
             yield return null;
         }
 
-        // 4. Final Scene Transition (Ego Death)
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformEgoDeathTransition(postProcessVolume, transitionDuration, 
                 sceneTransitionWaitTime, nextSceneName);
-    }
-
-    private IEnumerator TransitionPostProcessing()
-    {
-        float elapsed = 0;
-        while (elapsed < transitionDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0, 1, elapsed / transitionDuration);
-
-            whiteBalance.temperature.value = Mathf.Lerp(startTemp, targetTemperature, t);
-            colorAdjustments.saturation.value = Mathf.Lerp(startSat, targetSaturation, t);
-            bloom.intensity.value = Mathf.Lerp(startBloom, targetBloom, t);
-
-            yield return null;
-        }
     }
 }
