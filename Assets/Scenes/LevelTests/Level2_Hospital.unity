@@ -1267,6 +1267,34 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <NarrativeMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <LocksmithMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <RadioMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HospitalMusic>k__BackingField:
+    Guid:
+      Data1: -1394209981
+      Data2: 1131768964
+      Data3: -809689673
+      Data4: -54427300
+    Path: event:/Music/HospitalMusic
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -1337,6 +1365,20 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <gasp>k__BackingField:
+    Guid:
+      Data1: 953445086
+      Data2: 1278835790
+      Data3: -408961384
+      Data4: -1583245438
+    Path: event:/SFX/gasp
+  <tinnitus>k__BackingField:
+    Guid:
+      Data1: -1713930234
+      Data2: 1119931966
+      Data3: -1440546677
+      Data4: 932409825
+    Path: event:/SFX/Tinnitus
   hospitalLines:
   - Guid:
       Data1: 1071616990
@@ -1452,6 +1494,7 @@ MonoBehaviour:
       Data3: 1262561930
       Data4: 677405713
     Path: event:/HospitalScene/Doctor 19
+  narrativeLines: []
 --- !u!4 &1061452981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2247618186249608152, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
@@ -1560,7 +1603,7 @@ MonoBehaviour:
   minToMaxIntensityDuration: 12
   waitAtMaxDuration: 2
   nextSceneName: Level3_ValleyOfDeath
-  linePadding: 1.5
+  linePadding: 1
   hospitalOrbController: {fileID: 1285650919}
 --- !u!4 &1145371564
 Transform:
@@ -1688,8 +1731,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.4562806, y: -0.7873453, z: -0.34752944, w: 0.22609459}
-  m_LocalPosition: {x: 0.029999971, y: -1.2138319, z: -0.5999999}
+  m_LocalRotation: {x: 0.44004565, y: 0.7782381, z: 0.33550268, w: -0.29688904}
+  m_LocalPosition: {x: 0.029999971, y: -0.8633128, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:
