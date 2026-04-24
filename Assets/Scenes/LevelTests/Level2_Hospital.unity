@@ -1330,6 +1330,128 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <CloneHurt>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  hospitalLines:
+  - Guid:
+      Data1: 1071616990
+      Data2: 1188886746
+      Data3: -466707555
+      Data4: 626390219
+    Path: event:/HospitalScene/Doctor
+  - Guid:
+      Data1: -833577186
+      Data2: 1198569397
+      Data3: -1025609025
+      Data4: -1426870527
+    Path: event:/HospitalScene/Doctor 2
+  - Guid:
+      Data1: -2133789582
+      Data2: 1189303154
+      Data3: -1194051935
+      Data4: 1424802744
+    Path: event:/HospitalScene/Doctor 3
+  - Guid:
+      Data1: 1042232321
+      Data2: 1322366890
+      Data3: 1844080550
+      Data4: -2020210444
+    Path: event:/HospitalScene/Doctor 4
+  - Guid:
+      Data1: -1251826265
+      Data2: 1211518706
+      Data3: -174964549
+      Data4: 960890844
+    Path: event:/HospitalScene/Doctor 5
+  - Guid:
+      Data1: -965934514
+      Data2: 1111613541
+      Data3: 141718685
+      Data4: -1238529326
+    Path: event:/HospitalScene/Doctor 6
+  - Guid:
+      Data1: 75720784
+      Data2: 1156381042
+      Data3: 345521051
+      Data4: 1260797180
+    Path: event:/HospitalScene/Doctor 7
+  - Guid:
+      Data1: 705826505
+      Data2: 1337484043
+      Data3: -1903938894
+      Data4: 1433530321
+    Path: event:/HospitalScene/Doctor 8
+  - Guid:
+      Data1: -992797046
+      Data2: 1229767750
+      Data3: -1471706694
+      Data4: 601703254
+    Path: event:/HospitalScene/Doctor 9
+  - Guid:
+      Data1: -1769915570
+      Data2: 1251812474
+      Data3: -1445337680
+      Data4: -689479241
+    Path: event:/HospitalScene/Doctor 10
+  - Guid:
+      Data1: 34092110
+      Data2: 1266199947
+      Data3: 409797799
+      Data4: -1743375338
+    Path: event:/HospitalScene/Doctor 11
+  - Guid:
+      Data1: 1241027681
+      Data2: 1247825783
+      Data3: -1440326483
+      Data4: 905796381
+    Path: event:/HospitalScene/Doctor 12
+  - Guid:
+      Data1: 1665708944
+      Data2: 1255451201
+      Data3: 1374996099
+      Data4: 1409346402
+    Path: event:/HospitalScene/Doctor 13
+  - Guid:
+      Data1: -1957761409
+      Data2: 1095210164
+      Data3: -1514210373
+      Data4: -286518856
+    Path: event:/HospitalScene/Doctor 14
+  - Guid:
+      Data1: -858254758
+      Data2: 1311064783
+      Data3: 1653444738
+      Data4: -377342153
+    Path: event:/HospitalScene/Doctor 15
+  - Guid:
+      Data1: 376676285
+      Data2: 1264128147
+      Data3: 871672235
+      Data4: 1728665629
+    Path: event:/HospitalScene/Doctor 16
+  - Guid:
+      Data1: -1116478963
+      Data2: 1198109434
+      Data3: -714915912
+      Data4: -251823556
+    Path: event:/HospitalScene/Doctor 17
+  - Guid:
+      Data1: 2123071967
+      Data2: 1181038130
+      Data3: 7594882
+      Data4: -1466847004
+    Path: event:/HospitalScene/Doctor 18
+  - Guid:
+      Data1: -9361441
+      Data2: 1333877081
+      Data3: 1262561930
+      Data4: 677405713
+    Path: event:/HospitalScene/Doctor 19
 --- !u!4 &1061452981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2247618186249608152, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
@@ -1438,6 +1560,7 @@ MonoBehaviour:
   minToMaxIntensityDuration: 12
   waitAtMaxDuration: 2
   nextSceneName: Level3_ValleyOfDeath
+  linePadding: 1.5
   hospitalOrbController: {fileID: 1285650919}
 --- !u!4 &1145371564
 Transform:
@@ -1565,8 +1688,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03607733, y: 0.29497367, z: 0.057522323, w: -0.95308983}
-  m_LocalPosition: {x: 0.029999971, y: -1.6959748, z: -0.5999999}
+  m_LocalRotation: {x: -0.4562806, y: -0.7873453, z: -0.34752944, w: 0.22609459}
+  m_LocalPosition: {x: 0.029999971, y: -1.2138319, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:

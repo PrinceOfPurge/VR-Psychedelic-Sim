@@ -14851,6 +14851,13 @@ MonoBehaviour:
       Data3: 1384328123
       Data4: 1171218610
     Path: event:/SFX/SadKid
+  <CloneHurt>k__BackingField:
+    Guid:
+      Data1: -159714564
+      Data2: 1170584619
+      Data3: -623797363
+      Data4: -948515707
+    Path: event:/SFX/CloneHurt
 --- !u!1001 &1021210483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -16326,7 +16333,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
   growSpeed: 0.08
-  maxSize: 1
+  maxSize: 0.5
 --- !u!64 &1153205829
 MeshCollider:
   m_ObjectHideFlags: 0

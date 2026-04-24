@@ -13,6 +13,7 @@ public class FMODEvents : MonoBehaviour
     [field: Header("Music")]
     [field: SerializeField] public EventReference music { get; private set; }
     [field: SerializeField] public EventReference KaleidoscopeMusic { get; private set; }
+    [field: SerializeField] public EventReference NarrativeMusic { get; private set; }
     
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference AfterImage { get; private set; }
@@ -26,6 +27,13 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference Die { get; private set; }
     [field: SerializeField] public EventReference KidFootsteps { get; private set; }
     [field: SerializeField] public EventReference sadKid { get; private set; }
+    [field: SerializeField] public EventReference CloneHurt { get; private set; }
+    
+    [Header("Hospital Dialogue")]
+    public FMODUnity.EventReference[] hospitalLines;
+    
+    [Header("Narrative Dialogue")]
+    public FMODUnity.EventReference[] narrativeLines;
 
     public static FMODEvents instance { get; private set; }
 
