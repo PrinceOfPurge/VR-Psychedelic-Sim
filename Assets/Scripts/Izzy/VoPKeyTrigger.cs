@@ -20,10 +20,13 @@ public class VoPKeyTrigger : MonoBehaviour
     [SerializeField] private float sinkDepth = 1.5f;       // How far underground they start
 
     [Header("Transition Settings")]
-    [SerializeField] private float transitionDuration = 5.0f;
+    [SerializeField] private float beforeTransitionWaitTime = 12.0f;
+    [SerializeField] private float transitionDuration = 3.0f;
+    [SerializeField] private float sceneTransitionWaitTime = 2.0f;
     [SerializeField] private float targetTemperature = 30f;
     [SerializeField] private float targetSaturation = 20f;
     [SerializeField] private float targetBloom = 5f;
+    [SerializeField] private string nextSceneName = "Scene8_Integration";
 
     private WhiteBalance whiteBalance;
     private ColorAdjustments colorAdjustments;
@@ -124,6 +127,12 @@ public class VoPKeyTrigger : MonoBehaviour
             kidCharacter.transform.position = targetPosition;
             kidAnimator.CrossFade(danceAnim, 0.3f);
         }
+        
+        yield return new WaitForSeconds(beforeTransitionWaitTime);
+        
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.PerformEgoDeathTransition(postProcessVolume, transitionDuration, 
+                sceneTransitionWaitTime, nextSceneName);
     }
 
     private IEnumerator TransitionPostProcessing()

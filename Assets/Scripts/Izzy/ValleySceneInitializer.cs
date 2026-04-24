@@ -1,15 +1,38 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class ValleySceneInitializer : MonoBehaviour
 {
-    [Header("Timings")]
-    [SerializeField] private float fadeInDuration = 3f;
-    
+    [Header("Settings")]
+    [SerializeField] private float startExposure = 15f; 
+    [SerializeField] private float targetExposure = 0f;
+    [SerializeField] private float transitionDuration = 3f;
+
     void Start()
     {
-        if (SceneTransitionManager.Instance != null)
+        Volume volume = FindFirstObjectByType<Volume>();
+        if (volume != null && volume.profile.TryGet(out ColorAdjustments colorAdjustments))
         {
-            SceneTransitionManager.Instance.PerformFade(true, fadeDurationOverride: fadeInDuration);
+            StartCoroutine(FadeInRoutine(colorAdjustments));
         }
+    }
+
+    private IEnumerator FadeInRoutine(ColorAdjustments colorAdjustments)
+    {
+        float elapsed = 0;
+        
+        // Ensure we start at the high exposure immediately
+        colorAdjustments.postExposure.value = startExposure;
+
+        while (elapsed < transitionDuration)
+        {
+            elapsed += Time.deltaTime;
+            colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, targetExposure, elapsed / transitionDuration);
+            yield return null;
+        }
+
+        colorAdjustments.postExposure.value = targetExposure;
     }
 }

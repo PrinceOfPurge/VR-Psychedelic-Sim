@@ -1233,6 +1233,13 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <NarrativeMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -1296,6 +1303,15 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <CloneHurt>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  hospitalLines: []
+  narrativeLines: []
 --- !u!1001 &1111078931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1522,7 +1538,7 @@ MonoBehaviour:
   vfxGraph: {fileID: 29415281}
   earthTransform: {fileID: 1459379558}
   globalVolume: {fileID: 2056338234}
-  nextSceneName: HogunIntegrationSandbox
+  nextSceneName: Level7_ValleyOfPeace
   warpVFX: {fileID: 405686028}
   warpShaderMat: {fileID: 2100000, guid: 8743900e1f653ae4b9014f2203080063, type: 2}
   warpLaunchDuration: 8
