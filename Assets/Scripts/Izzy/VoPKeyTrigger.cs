@@ -88,7 +88,11 @@ public class VoPKeyTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Key") && !isTransitioning) TriggerHealingSequence();
+        if (other.CompareTag("Key") && !isTransitioning)
+        {
+            Destroy(other.gameObject);
+            TriggerHealingSequence();
+        }
     }
 
     private void TriggerHealingSequence()

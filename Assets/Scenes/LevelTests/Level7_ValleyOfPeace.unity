@@ -1805,13 +1805,13 @@ MonoBehaviour:
   kidSpawnDelay: 1.5
   climbDuration: 3
   sinkDepth: 1
-  fireRampUpDuration: 6
+  fireRampUpDuration: 4
   fireStayDuration: 6
   fireChaosDuration: 3
   startTurbulence: 2
   targetTurbulence: 80
   fireflyRampDuration: 3
-  beforeTransitionWaitTime: 12
+  beforeTransitionWaitTime: 8
   transitionDuration: 2
   sceneTransitionWaitTime: 1
   targetTemperature: 15
