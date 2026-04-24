@@ -8,6 +8,7 @@ public class VoPKeyTrigger : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private VisualEffect[] vineGrowingGraphs;
+    [SerializeField] private VisualEffect fireVFX; 
     [SerializeField] private BloodPoolGrow waterPool; 
     [SerializeField] private Volume postProcessVolume;
     [SerializeField] private GameObject kidCharacter;
@@ -17,7 +18,14 @@ public class VoPKeyTrigger : MonoBehaviour
     [SerializeField] private string danceAnim = "Dancing1";
     [SerializeField] private float kidSpawnDelay = 1.5f;    
     [SerializeField] private float climbDuration = 3.0f;   
-    [SerializeField] private float sinkDepth = 1.5f;       // How far underground they start
+    [SerializeField] private float sinkDepth = 1.5f;
+
+    [Header("Fire VFX & Peak Intensity")]
+    [SerializeField] private float fireRampUpDuration = 4.0f;
+    [SerializeField] private float fireStayDuration = 2.0f;
+    [SerializeField] private float fireChaosDuration = 2.0f;
+    [SerializeField] private float startTurbulence = 2.0f; // "Drastic" increase
+    [SerializeField] private float targetTurbulence = 50.0f; // "Drastic" increase
 
     [Header("Transition Settings")]
     [SerializeField] private float beforeTransitionWaitTime = 12.0f;
@@ -34,26 +42,23 @@ public class VoPKeyTrigger : MonoBehaviour
     private bool isTransitioning = false;
     private Animator kidAnimator;
     
-    private Vector3 targetPosition;
-    private Vector3 startPosition;
+    private Vector3 targetPosition, startPosition;
     private float startTemp, startSat, startBloom;
 
     private void Start()
     {
-        foreach (var vGraph in vineGrowingGraphs)
-        {
-            vGraph.Stop();
+        foreach (var vGraph in vineGrowingGraphs) vGraph.Stop();
+        if (fireVFX != null) {
+            fireVFX.Stop();
+            fireVFX.SetFloat("SpawnIntensity", 0);
+            fireVFX.SetFloat("TurbulenceIntensity", startTurbulence);
         }
         
         if (kidCharacter != null)
         {
             kidAnimator = kidCharacter.GetComponent<Animator>();
-            
-            // Save where the kid is supposed to end up (the current Inspector position)
             targetPosition = kidCharacter.transform.position;
-            // Calculate where they start (down in the sand)
             startPosition = targetPosition - (Vector3.up * sinkDepth);
-            
             kidCharacter.SetActive(false); 
         }
 
@@ -69,27 +74,18 @@ public class VoPKeyTrigger : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F) && !isTransitioning)
-        {
-            TriggerHealingSequence();
-        }
+        if (Input.GetKeyDown(KeyCode.F) && !isTransitioning) TriggerHealingSequence();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Key") && !isTransitioning)
-        {
-            TriggerHealingSequence();
-        }
+        if (other.CompareTag("Key") && !isTransitioning) TriggerHealingSequence();
     }
 
     private void TriggerHealingSequence()
     {
         isTransitioning = true;
-        foreach (var vGraph in vineGrowingGraphs)
-        {
-            vGraph.Play();
-        }
+        foreach (var vGraph in vineGrowingGraphs) vGraph.Play();
         if (waterPool != null) waterPool.StartPool();
 
         StartCoroutine(TransitionPostProcessing());
@@ -102,34 +98,66 @@ public class VoPKeyTrigger : MonoBehaviour
 
         if (kidCharacter != null && kidAnimator != null)
         {
-            // 1. Set them to the underground start position and enable them
             kidCharacter.transform.position = startPosition;
             kidCharacter.SetActive(true);
-            
-            // 2. Start the climb animation
             kidAnimator.CrossFade(climbAnim, 0.2f);
 
-            // 3. Lerp the actual transform position upward
             float elapsed = 0;
             while (elapsed < climbDuration)
             {
                 elapsed += Time.deltaTime;
-                float t = elapsed / climbDuration;
-                
-                // Using SmoothStep here too makes the "rising" feel less robotic
-                float curvedT = Mathf.SmoothStep(0, 1, t);
-                kidCharacter.transform.position = Vector3.Lerp(startPosition, targetPosition, curvedT);
-                
+                float t = Mathf.SmoothStep(0, 1, elapsed / climbDuration);
+                kidCharacter.transform.position = Vector3.Lerp(startPosition, targetPosition, t);
                 yield return null;
             }
 
-            // 4. Ensure they are exactly at the target position and start dancing
             kidCharacter.transform.position = targetPosition;
             kidAnimator.CrossFade(danceAnim, 0.3f);
         }
         
+        // Wait for the player to soak in the "Happy Valley" before the peak hits
         yield return new WaitForSeconds(beforeTransitionWaitTime);
         
+        // Start the fire peak intensity sequence
+        StartCoroutine(FirePeakSequence());
+    }
+
+    private IEnumerator FirePeakSequence()
+    {
+        if (fireVFX == null) yield break;
+
+        fireVFX.Play();
+        float elapsed = 0;
+
+        // 1. Ramp SpawnIntensity 0 -> 1
+        while (elapsed < fireRampUpDuration)
+        {
+            elapsed += Time.deltaTime;
+            fireVFX.SetFloat("SpawnIntensity", Mathf.Lerp(0, 1, elapsed / fireRampUpDuration));
+            yield return null;
+        }
+
+        // 2. Stay at 1
+        yield return new WaitForSeconds(fireStayDuration);
+
+        // 3. Chaos Phase: Turbulence increases + Ramp Exposure to white
+        elapsed = 0;
+        float startExposure = colorAdjustments.postExposure.value;
+
+        while (elapsed < fireChaosDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / fireChaosDuration;
+
+            fireVFX.SetFloat("TurbulenceIntensity", Mathf.Lerp(startTurbulence, targetTurbulence, t));
+            
+            // Manual Exposure ramp before the manager takes over for total white-out
+            colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, 10f, t);
+
+            yield return null;
+        }
+
+        // 4. Final Scene Transition (Ego Death)
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformEgoDeathTransition(postProcessVolume, transitionDuration, 
                 sceneTransitionWaitTime, nextSceneName);
