@@ -14,6 +14,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference music { get; private set; }
     [field: SerializeField] public EventReference KaleidoscopeMusic { get; private set; }
     [field: SerializeField] public EventReference NarrativeMusic { get; private set; }
+    [field: SerializeField] public EventReference LocksmithMusic { get; private set; }
+    [field: SerializeField] public EventReference RadioMusic { get; private set; }
+    [field: SerializeField] public EventReference HospitalMusic { get; private set; }
     
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference AfterImage { get; private set; }
@@ -28,6 +31,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference KidFootsteps { get; private set; }
     [field: SerializeField] public EventReference sadKid { get; private set; }
     [field: SerializeField] public EventReference CloneHurt { get; private set; }
+    [field: SerializeField] public EventReference gasp { get; private set; }
+    [field: SerializeField] public EventReference tinnitus { get; private set; }
     
     [Header("Hospital Dialogue")]
     public FMODUnity.EventReference[] hospitalLines;

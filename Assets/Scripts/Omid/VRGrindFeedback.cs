@@ -16,9 +16,10 @@ public class VRGrindFeedback : MonoBehaviour
     private Collider grinderCollider;
 
     [Header("FMOD Audio")]
-    public FMODUnity.StudioEventEmitter radioEmitter;
     public string radioParameterName = "TimePassage";
     private EventInstance grinderInstance;
+    private EventInstance radioInstance;    // For RadioMusic (The one that speeds up)
+    private EventInstance locksmithInstance; // For LocksmithMusic (The background track)
 
     [Header("Progression System")]
     public List<GameObject> objectsToActivate;
@@ -28,7 +29,6 @@ public class VRGrindFeedback : MonoBehaviour
     private int lastActivatedIndex = -1;
 
     [Header("Scene Transition & Shader")]
-    [Tooltip("Drag the Material used in your FullScreen Pass Renderer Feature here.")]
     public Material fadeMaterial; 
     public string shaderReferenceName = "_MasterFade";
     public float transitionOffsetTime = 1.5f;
@@ -42,10 +42,8 @@ public class VRGrindFeedback : MonoBehaviour
         grinderCollider = GetComponent<Collider>();
         if (sparkVFX != null) sparkVFX.Stop();
 
-        // CACHE Property ID for performance and reliability
         fadePropID = Shader.PropertyToID(shaderReferenceName);
 
-        // Reset Shader and Audio
         if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0f);
         Shader.SetGlobalFloat(shaderReferenceName, 0f);
 
@@ -53,13 +51,29 @@ public class VRGrindFeedback : MonoBehaviour
         foreach (GameObject obj in objectsToActivate) if (obj != null) obj.SetActive(false);
         maxGrindTime = objectsToActivate.Count * secondsPerObject;
 
-        // FMOD Grinder Sound
+        // --- AUDIO INITIALIZATION ---
+        // 1. Grinder SFX
         grinderInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.grinding);
         FMODUnity.RuntimeManager.AttachInstanceToGameObject(grinderInstance, transform);
+
+        // 2. Radio Music (The one with the TimePassage parameter)
+        radioInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.RadioMusic);
+        radioInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(radioInstance, transform);
+        radioInstance.start();
+
+        // 3. Locksmith Music (The general scene music)
+        locksmithInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.LocksmithMusic);
+        FMODUnity.RuntimeManager.AttachInstanceToGameObject(locksmithInstance, transform);
+        locksmithInstance.start();
     }
 
     void Update()
     {
+        // Spatial update for music instances
+        if (radioInstance.isValid()) radioInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+        if (locksmithInstance.isValid()) locksmithInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(gameObject));
+
         if (grindPromptUI != null && playerTransform != null && !isTransitioning)
         {
             if (totalGrindTime > 0) { grindPromptUI.SetActive(false); return; }
@@ -84,20 +98,27 @@ public class VRGrindFeedback : MonoBehaviour
         var grabItem = other.GetComponentInParent<UnityEngine.XR.Interaction.Toolkit.Interactables.XRGrabInteractable>();
         if (grabItem != null && grabItem.gameObject.CompareTag("Key"))
         {
-            // Play VFX
             if (sparkVFX != null)
             {
                 sparkVFX.transform.position = grinderCollider.ClosestPoint(other.transform.position);
                 if (!sparkVFX.isPlaying) sparkVFX.Play();
             }
 
-            // Progression
             totalGrindTime += Time.deltaTime;
             CheckProgression();
 
-            // Radio FMOD Parameter
-            if (radioEmitter != null && maxGrindTime > 0)
-                radioEmitter.SetParameter(radioParameterName, totalGrindTime / maxGrindTime);
+            // --- UPDATE RADIO SPEED ---
+            if (maxGrindTime > 0)
+            {
+                float progress = Mathf.Clamp01(totalGrindTime / maxGrindTime);
+    
+                // Safety: Set the parameter
+                radioInstance.setParameterByName(radioParameterName, progress);
+
+                // DEBUG: Check your console! If this stays at 0, your 'totalGrindTime' isn't increasing.
+                // If it reaches 1.0, the code is fine and the issue is inside FMOD Studio.
+                //Debug.Log($"Radio Progress: {progress} | Parameter: {radioParameterName}");
+            }
 
             // Haptics
             if (grabItem.isSelected)
@@ -128,60 +149,32 @@ public class VRGrindFeedback : MonoBehaviour
         grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
-    /*
     private IEnumerator TransitionSequence()
     {
         isTransitioning = true;
         if (sparkVFX != null) sparkVFX.Stop();
-        grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
-        yield return new WaitForSeconds(transitionOffsetTime);
-
-        float elapsed = 0f;
-        float startAudioVol = AudioManager.instance.masterVolume;
-
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / fadeDuration;
-
-            // Visual Fade (Direct Material + Global fallback)
-            if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
-            Shader.SetGlobalFloat(shaderReferenceName, t);
-            
-            // Audio Fade (via your AudioManager instance)
-            if (AudioManager.instance != null)
-                AudioManager.instance.masterVolume = Mathf.Lerp(startAudioVol, 0f, t);
-
-            yield return null;
-        }
-
-        Shader.SetGlobalFloat(shaderReferenceName, 1f);
-        SceneManager.LoadScene(nextSceneName);
-    }
-    */
-    private IEnumerator TransitionSequence()
-    {
-        isTransitioning = true;
-        sparkVFX.Stop(); // Scene-specific cleanup
-        grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
         
-        // Using this line makes the shader glitch, not too sure why
+        // Stop all audio instances smoothly
+        grinderInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        radioInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        locksmithInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
         yield return new WaitForSeconds(transitionOffsetTime);
     
-        // Call the manager: 0 to 1, Load Hospital
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformFade(false, nextSceneName);
-        else
-            Debug.LogError("CANNOT FIND SceneTransitionManager INSTANCE!!!");
         
         yield return null;
     }
 
-    private void OnApplicationQuit()
+    private void OnDestroy()
     {
-        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0f);
-        Shader.SetGlobalFloat(shaderReferenceName, 0f);
-        if (AudioManager.instance != null) AudioManager.instance.masterVolume = 1f;
+        // Cleanup to prevent memory leaks
+        radioInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        radioInstance.release();
+        locksmithInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        locksmithInstance.release();
+        grinderInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+        grinderInstance.release();
     }
 }

@@ -3038,6 +3038,10 @@ PrefabInstance:
       value: Radio
       objectReference: {fileID: 0}
     - target: {fileID: 18027323457697046, guid: e743797b6479742458f28f17f0431760, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 18027323457697046, guid: e743797b6479742458f28f17f0431760, type: 3}
       propertyPath: m_StaticEditorFlags
       value: 71
       objectReference: {fileID: 0}
@@ -3105,7 +3109,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 294776859}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -10580,6 +10584,20 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <LocksmithMusic>k__BackingField:
+    Guid:
+      Data1: 675142061
+      Data2: 1238494963
+      Data3: 1048975022
+      Data4: -589065229
+    Path: event:/Music/LocksmithMusic
+  <RadioMusic>k__BackingField:
+    Guid:
+      Data1: 738646329
+      Data2: 1154583413
+      Data3: -1238672728
+      Data4: 992273544
+    Path: event:/Music/RadioMusic
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -21490,13 +21508,12 @@ MonoBehaviour:
   playerTransform: {fileID: 334032649}
   hideDistance: 1.5
   sparkVFX: {fileID: 1719516761}
-  radioEmitter: {fileID: 304667760}
   radioParameterName: TimePassage
   objectsToActivate:
   - {fileID: 266872107}
   - {fileID: 1017612888}
   - {fileID: 526962309}
-  secondsPerObject: 3
+  secondsPerObject: 2
   fadeMaterial: {fileID: 2100000, guid: d993acfc98b3bd445881330e8f2b9e0f, type: 2}
   shaderReferenceName: _MasterFade
   transitionOffsetTime: 1.5

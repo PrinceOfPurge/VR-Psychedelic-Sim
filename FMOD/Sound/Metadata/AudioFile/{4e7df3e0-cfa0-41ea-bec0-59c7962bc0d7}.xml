@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{4e7df3e0-cfa0-41ea-bec0-59c7962bc0d7}">
+		<property name="assetPath">
+			<value>Radioo.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>24</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>38.759999999999998</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{713e0e97-8f04-4faa-9b1e-a3089f365436}</destination>
+		</relationship>
+	</object>
+</objects>

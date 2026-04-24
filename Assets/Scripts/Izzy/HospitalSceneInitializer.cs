@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using FMOD.Studio;
 
 public class HospitalSceneInitializer : MonoBehaviour
 {
@@ -15,41 +16,58 @@ public class HospitalSceneInitializer : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private HospitalOrbController hospitalOrbController;
+
+    private EventInstance musicInstance;
+    private EventInstance tinnitusInstance; // To track the ringing
     
     void Start()
     {
-        // Start the sequence as soon as the level loads
+        // 1. Initialize and Start Music immediately
+        if (FMODEvents.instance != null && !FMODEvents.instance.HospitalMusic.IsNull)
+        {
+            musicInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.HospitalMusic);
+            musicInstance.start();
+        }
+
         StartCoroutine(HospitalSequenceRoutine());
     }
 
     private IEnumerator HospitalSequenceRoutine()
     {
-        // 1. TRIGGER REVERSE FADE (Waking up)
+        // --- THE WAKE UP MOMENT ---
+        
+        // 1. Play the Gasp (Sudden intake of breath)
+        AudioManager.instance.PlayOneShot(FMODEvents.instance.gasp, transform.position);
+
+        // 2. Start Tinnitus Ringing
+        tinnitusInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.tinnitus);
+        tinnitusInstance.start();
+
+        // 3. TRIGGER REVERSE FADE (Blink open)
         if (SceneTransitionManager.Instance != null)
         {
-            // true = reverse, "" = no scene load yet, true = use blink effect
             SceneTransitionManager.Instance.PerformFade(true, "", true, fadeInDuration);
         }
         
         yield return new WaitForSeconds(fadeInDuration);
 
-        // Get dialogue from our FMOD Library
+        // 4. Fade out Tinnitus over the first few lines of dialogue
+        // This makes the doctor's voice feel like it's "breaking through" the trauma
+        StartCoroutine(FadeOutTinnitus(5f));
+
         var lines = FMODEvents.instance.hospitalLines;
 
         // --- PHASE 1: Entry (Intensity is 0) ---
-        yield return PlayDialogue(lines[0]); // "Hey... can you hear me?"
-        yield return PlayDialogue(lines[1]); // "Do you know where you are?"
-        yield return PlayDialogue(lines[2]); // "You're in the hospital."
-        yield return PlayDialogue(lines[3]); // "You passed out earlier."
-        yield return PlayDialogue(lines[4]); // "We ran some tests..."
-        yield return PlayDialogue(lines[5]); // "I need to talk to you..."
+        yield return PlayDialogue(lines[0]);
+        yield return PlayDialogue(lines[1]);
+        yield return PlayDialogue(lines[2]);
+        yield return PlayDialogue(lines[3]);
+        yield return PlayDialogue(lines[4]);
+        yield return PlayDialogue(lines[5]);
 
         // --- PHASE 2: Diagnosis (Intensity Ramps UP) ---
-        // This is your EXACT original intensity logic, triggered alongside Line 7
         float elapsed = 0f;
-        
-        // Start playing the "Big Reveal" line
-        AudioManager.instance.PlayOneShot(lines[6], transform.position); // "We found a mass..."
+        AudioManager.instance.PlayOneShot(lines[6], transform.position); 
 
         while (elapsed < minToMaxIntensityDuration)
         {
@@ -62,13 +80,13 @@ public class HospitalSceneInitializer : MonoBehaviour
             yield return null; 
         }
         
-        // --- PHASE 3: Continue Dialogue while Intensity is MAX ---
-        yield return PlayDialogue(lines[7]);  // "It's in your frontal lobe."
-        yield return PlayDialogue(lines[8]);  // "Glioblastoma."
-        yield return PlayDialogue(lines[9]);  // "Aggressive..."
-        yield return new WaitForSeconds(2f);  // Impact pause
-        yield return PlayDialogue(lines[10]); // "At this stage..."
-        yield return PlayDialogue(lines[11]); // "Terminal."
+        // --- PHASE 3: Continue Dialogue ---
+        yield return PlayDialogue(lines[7]);
+        yield return PlayDialogue(lines[8]);
+        yield return PlayDialogue(lines[9]);
+        yield return new WaitForSeconds(2f);
+        yield return PlayDialogue(lines[10]);
+        yield return PlayDialogue(lines[11]);
 
         // --- PHASE 4: Dissociation ---
         yield return PlayDialogue(lines[12]); 
@@ -81,23 +99,45 @@ public class HospitalSceneInitializer : MonoBehaviour
         yield return PlayDialogue(lines[17]);
         yield return PlayDialogue(lines[18]);
 
-        Debug.Log("Dialogue and Max intensity reached!");
-
-        // 3. THE WAIT TIME
         yield return new WaitForSeconds(waitAtMaxDuration);
 
-        // 4. FADE OUT TO NEXT SCENE
+        // --- CLEANUP ---
+        musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        //musicInstance.release();
+        
         if (SceneTransitionManager.Instance != null)
         {
             SceneTransitionManager.Instance.PerformFade(false, nextSceneName);
         }
+        yield return new WaitForSeconds(1.0f);
     }
 
-    // Helper method to play a line and wait for it to finish
     private IEnumerator PlayDialogue(FMODUnity.EventReference line)
     {
         AudioManager.instance.PlayOneShot(line, transform.position);
-        // We wait for a base time (padding) so the doctor isn't rapid-firing lines
         yield return new WaitForSeconds(linePadding + 2.0f); 
+    }
+
+    // New helper to fade the ringing noise out smoothly
+    private IEnumerator FadeOutTinnitus(float duration)
+    {
+        float elapsed = 0;
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            tinnitusInstance.setVolume(Mathf.Lerp(1f, 0f, elapsed / duration));
+            yield return null;
+        }
+        tinnitusInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        tinnitusInstance.release();
+    }
+
+    private void OnDestroy()
+    {
+        musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); 
+        musicInstance.release();
+    
+        tinnitusInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        tinnitusInstance.release();
     }
 }
