@@ -27,7 +27,7 @@ Material:
     m_Floats:
     - _BlurOffsetAmount: 0.01
     - _BlurOffsetFrequency: 1.7
-    - _MasterFade: 0.99333334
+    - _MasterFade: 0
     - _NoiseIntensity: 0.02
     - _NoiseScale: 800
     - _StereoOffset: 0.13
