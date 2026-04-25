@@ -17,6 +17,8 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference LocksmithMusic { get; private set; }
     [field: SerializeField] public EventReference RadioMusic { get; private set; }
     [field: SerializeField] public EventReference HospitalMusic { get; private set; }
+    [field: SerializeField] public EventReference HoganDesMusic { get; private set; }
+    [field: SerializeField] public EventReference NavajoMusic { get; private set; }
     
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference AfterImage { get; private set; }
@@ -39,6 +41,15 @@ public class FMODEvents : MonoBehaviour
     
     [Header("Narrative Dialogue")]
     public FMODUnity.EventReference[] narrativeLines;
+    
+    [Header("Hogan Dialogue")]
+    public FMODUnity.EventReference[] hoganDialogue;
+    
+    public FMODUnity.EventReference[] healerDialogue; 
+    
+    [Header("Space Dialogue")]
+    public FMODUnity.EventReference[] dialogueLines; 
+    
 
     public static FMODEvents instance { get; private set; }
 

@@ -14,13 +14,13 @@ public struct SDFSequenceStep
 {
     public string label;            
     public Texture3D sdfTexture;    
-    public float duration;          // How long to stay in this form
+    public float duration;          
     [GradientUsage(true)]
-    public Gradient colorGradient;  // HDR Gradient for this phase
-    public float attractionSpeed;   // Snap speed to the shape
-    public float stickForce;        // "Glue" strength to the surface
-    public float turbulence;        // Vibration/Noise
-    public float vfxScale;          // Scale the VFX for "Envelopment"
+    public Gradient colorGradient;  
+    public float attractionSpeed;   
+    public float stickForce;        
+    public float turbulence;        
+    public float vfxScale;          
 }
 
 public class EgoDeath : MonoBehaviour
@@ -39,6 +39,7 @@ public class EgoDeath : MonoBehaviour
     [SerializeField] private float maxWarpSpeed = 1f;
     [SerializeField] private float minVignetteIntensity = 0.2f;
     [SerializeField] private float maxVignetteIntensity = 0.45f;
+    [SerializeField] private FMODUnity.EventReference warpZoomSFX; // <-- NEW SFX SLOT HERE
 
     [Header("Transition Settings")]
     [SerializeField] private List<SDFSequenceStep> sequence;
@@ -60,16 +61,16 @@ public class EgoDeath : MonoBehaviour
     
     [Header("Organic Zoom Settings")]
     [SerializeField] private AnimationCurve zoomCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    [SerializeField] private float floatFrequency = 0.15f; // Very slow "drift"
-    [SerializeField] private float floatAmplitude = 0.5f;   // Subtle "float" movement
+    [SerializeField] private float floatFrequency = 0.15f; 
+    [SerializeField] private float floatAmplitude = 0.5f;   
 
-    // VFX Graph Property Keys - Check your Graph to ensure these match exactly!
+    // Constants for VFX Graph Properties
     private const string KEY_SDF = "SDF";
     private const string KEY_COLOR = "GradientColor";
     private const string KEY_ATTR_SPEED = "AttractionSpeed";
     private const string KEY_STICK_FORCE = "StickForce";
     private const string KEY_TURBULENCE = "TurbulenceIntensity";
-    private const string KEY_SPAWN_INTENSITY = "SpawnIntensity"; // NEW: Control shape visibility
+    private const string KEY_SPAWN_INTENSITY = "SpawnIntensity"; 
     private const string KEY_WARP_SPEED = "WarpSpeed";
     
     private Gradient currentRuntimeGradient = new Gradient();
@@ -80,35 +81,236 @@ public class EgoDeath : MonoBehaviour
     private ChromaticAberration chromaticComp;
     private Vector3 earthAnchorPos;
 
+    private bool egoDeathActive = false;
+
     private void Start()
     {
         CacheVolumeComponents();
-        if (vignetteComp != null)
+
+        if (AudioManager.instance != null)
         {
-            vignetteComp.intensity.value = minVignetteIntensity;
+            AudioManager.instance.CreateInstance(FMODEvents.instance.KaleidoscopeMusic).start();
         }
-        
+
+        if (vignetteComp != null) vignetteComp.intensity.value = minVignetteIntensity;
         if (sequence.Count > 0) lastStepGradient = sequence[0].colorGradient;
-        if (vfxGraph != null) vfxGraph.SetFloat(KEY_SPAWN_INTENSITY, 0f);
+        
+        SafeSetFloat(KEY_SPAWN_INTENSITY, 0f);
         earthAnchorPos = earthTransform.position;
     }
     
     private void Update()
     {
-        // Debug call
-        if (Input.GetKeyDown(KeyCode.F)) StartCoroutine(WarpLaunchSequence());
+        if (Input.GetKeyDown(KeyCode.F) && !egoDeathActive) 
+        {
+            StartCoroutine(WarpLaunchSequence());
+        }
         
-        // 1. Calculate the drift offset
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StopAllCoroutines();
+            StartCoroutine(SkipToSkullSequence());
+        }
+
         Vector3 drift = new Vector3(
             Mathf.Sin(Time.time * floatFrequency) * floatAmplitude,
             Mathf.Cos(Time.time * floatFrequency * 0.8f) * floatAmplitude,
-            Mathf.Sin(Time.time * floatFrequency * 0.5f) * (floatAmplitude * 0.5f) // Added Z-drift for 3D depth
+            Mathf.Sin(Time.time * floatFrequency * 0.5f) * (floatAmplitude * 0.5f)
         );
 
-        // 2. Apply position: Anchor + Drift
         earthTransform.position = earthAnchorPos + drift;
     }
+
+    // ==========================================
+    // SAFE VFX GRAPH SETTERS (Prevents Errors)
+    // ==========================================
+    private float SafeGetFloat(string key, float fallback = 0f)
+    {
+        if (vfxGraph != null && vfxGraph.HasFloat(key)) return vfxGraph.GetFloat(key);
+        return fallback;
+    }
+
+    private void SafeSetFloat(string key, float value)
+    {
+        if (vfxGraph != null && vfxGraph.HasFloat(key)) vfxGraph.SetFloat(key, value);
+    }
+
+    private void SafeSetTexture(string key, Texture texture)
+    {
+        if (vfxGraph != null && vfxGraph.HasTexture(key) && texture != null) vfxGraph.SetTexture(key, texture);
+    }
+
+    private void SafeSetGradient(string key, Gradient gradient)
+    {
+        if (vfxGraph != null && vfxGraph.HasGradient(key) && gradient != null) vfxGraph.SetGradient(key, gradient);
+    }
+
+    // ==========================================
+    // SEQUENCES
+    // ==========================================
+    private IEnumerator SkipToSkullSequence()
+    {
+        egoDeathActive = true;
+        SafeSetFloat(KEY_SPAWN_INTENSITY, 1f);
+
+        if (sequence.Count > 2)
+        {
+            yield return StartCoroutine(MorphToSDF(sequence[2]));
+            yield return StartCoroutine(HandleDialogueSequence(2));
+        }
+        else
+        {
+            Debug.LogError("Sequence list needs at least 3 elements for the Skull phase to trigger!");
+        }
+
+        yield return StartCoroutine(ShatterEgo());
+    }
     
+    public IEnumerator WarpLaunchSequence()
+    {
+        egoDeathActive = true;
+
+        // <-- TRIGGER NEW SFX HERE EXACTLY WHEN PUSH STARTS -->
+        if (AudioManager.instance != null && !warpZoomSFX.IsNull)
+        {
+            AudioManager.instance.PlayOneShot(warpZoomSFX, transform.position);
+        }
+
+        float elapsed = 0;
+        Vector3 startAnchor = earthAnchorPos; 
+        Vector3 startScale = earthTransform.localScale;
+        Vector3 targetAnchor = startAnchor + (earthPushDirection * earthPushDistance);
+        
+        while (elapsed < warpLaunchDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / warpLaunchDuration;
+            float ease = zoomCurve.Evaluate(t);
+            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
+            
+            if (warpVFX != null && warpVFX.HasFloat(KEY_WARP_SPEED)) warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
+            if (warpShaderMat != null) warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
+            
+            if (vignetteComp != null)
+                vignetteComp.intensity.value = Mathf.Lerp(0f, maxVignetteIntensity, ease);
+                
+            earthAnchorPos = Vector3.Lerp(startAnchor, targetAnchor, ease);
+            earthTransform.localScale = Vector3.Lerp(startScale, Vector3.one * earthTargetScale, ease);
+            yield return null;
+        }
+
+        elapsed = 0;
+        while (elapsed < warpCoolDownDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / warpCoolDownDuration;
+            float ease = zoomCurve.Evaluate(1f - t);
+            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
+            
+            if (warpVFX != null && warpVFX.HasFloat(KEY_WARP_SPEED)) warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
+            if (warpShaderMat != null) warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
+            
+            if (vignetteComp != null)
+                vignetteComp.intensity.value = Mathf.Lerp(minVignetteIntensity, maxVignetteIntensity, ease);
+            yield return null;
+        }
+        
+        StartCoroutine(EgoDeathConductor());
+    }
+    
+    private IEnumerator EgoDeathConductor()
+    {
+        StartCoroutine(FadeInShapeParticles(2f));
+        for (int i = 0; i < sequence.Count; i++)
+        {
+            if (i == handDissolveInjectionPoint && HandDissolver.Instance != null) 
+                HandDissolver.Instance.StartHandDissolve();
+                
+            yield return StartCoroutine(MorphToSDF(sequence[i]));
+            yield return StartCoroutine(HandleDialogueSequence(i));
+            
+            // Wait for any remaining duration assigned in the inspector
+            yield return new WaitForSeconds(sequence[i].duration); 
+            lastStepGradient = sequence[i].colorGradient;
+        }
+        yield return StartCoroutine(ShatterEgo());
+    }
+
+    private IEnumerator HandleDialogueSequence(int stepIndex)
+    {
+        var lines = FMODEvents.instance.dialogueLines;
+
+        if (stepIndex == 0) // DNA
+        {
+            yield return PlayLineAndWait(lines[0], 5.0f); 
+            yield return PlayLineAndWait(lines[1], 5.0f); 
+        }
+        else if (stepIndex == 1) // Key
+        {
+            yield return PlayLineAndWait(lines[2], 5.0f); 
+            yield return PlayLineAndWait(lines[3], 5.0f); 
+            yield return PlayLineAndWait(lines[4], 5.0f); 
+        }
+        else if (stepIndex == 2) // Skull
+        {
+            yield return PlayLineAndWait(lines[5], 6.0f); // Fear of losing...
+            yield return PlayLineAndWait(lines[6], 6.0f); // But look closer...
+            yield return PlayLineAndWait(lines[7], 6.0f); // You're still here...
+            
+            // MASSIVE BUFFER to guarantee no overlap
+            yield return PlayLineAndWait(lines[8], 15.0f); 
+        }
+    }
+
+    private IEnumerator PlayLineAndWait(FMODUnity.EventReference line, float duration)
+    {
+        if (AudioManager.instance != null && !line.IsNull)
+        {
+            AudioManager.instance.PlayOneShot(line, transform.position);
+        }
+        yield return new WaitForSeconds(duration);
+    }
+
+    private IEnumerator ShatterEgo()
+    {
+        float elapsed = 0;
+        float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
+        float startStick = SafeGetFloat(KEY_STICK_FORCE);
+        float startTurb = SafeGetFloat(KEY_TURBULENCE);
+
+        // MUTED Therapist Line 9: "When you're ready..."
+        // if (AudioManager.instance != null && FMODEvents.instance.dialogueLines.Length > 9)
+        //    AudioManager.instance.PlayOneShot(FMODEvents.instance.dialogueLines[9], transform.position);
+
+        while (elapsed < shatterDuration)
+        {
+            elapsed += Time.deltaTime;
+            float t = elapsed / shatterDuration;
+            float ease = t * t; 
+
+            LerpGradients(lastStepGradient, finalShatterGradient, t);
+            SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
+            SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, 0f, ease));
+            SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, 0f, ease));
+            SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, shatterTurbulence, t));
+            
+            if (chromaticComp != null) chromaticComp.intensity.value = t;
+            if (crystalComp != null) crystalComp.intensity.value = crystalCurve.Evaluate(t);
+            if (kaleidoscopeComp != null) kaleidoscopeComp.intensity.value = crystalCurve.Evaluate(t);
+            yield return null;
+        }
+
+        // START Therapist Line 10: "Open your eyes"
+        if (AudioManager.instance != null && FMODEvents.instance.dialogueLines.Length > 10)
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.dialogueLines[10], transform.position);
+            
+        // DROPPED THIS PAUSE DOWN FROM 8.0f TO 2.0f
+        yield return new WaitForSeconds(2.0f);
+
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.PerformEgoDeathTransition(globalVolume, finalTransitionDuration, finalTransitionWaitTime, nextSceneName);
+    }
+
     private void CacheVolumeComponents()
     {
         if (globalVolume != null)
@@ -119,213 +321,66 @@ public class EgoDeath : MonoBehaviour
             globalVolume.profile.TryGet(out chromaticComp);
         }
     }
-    
-    public IEnumerator WarpLaunchSequence()
-    {
-        float elapsed = 0;
-        Vector3 startAnchor = earthAnchorPos; // Store where we started
-        Vector3 startScale = earthTransform.localScale;
-        Vector3 targetAnchor = startAnchor + (earthPushDirection * earthPushDistance);
-        
-        // TODO: Ask Omid how to add haptics with this version of VR
 
-        // --- PHASE 1: Launch (Ramp Up + Move Earth + Increase Vignette) ---
-        while (elapsed < warpLaunchDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / warpLaunchDuration;
-            float ease = zoomCurve.Evaluate(t);
-
-            // Speeding up
-            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
-            warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
-            warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
-            
-            // Increasing vignette
-            if (vignetteComp != null)
-            {
-                vignetteComp.intensity.overrideState = true;
-                vignetteComp.intensity.value = Mathf.Lerp(0f, maxVignetteIntensity, ease);
-            }
-
-            // Pushing Earth (anchor)
-            earthAnchorPos = Vector3.Lerp(startAnchor, targetAnchor, ease);
-            earthTransform.localScale = Vector3.Lerp(startScale, Vector3.one * earthTargetScale, ease);
-            
-            yield return null;
-        }
-
-        // --- PHASE 2: Cool Down (Ramp Down to Stillness) ---
-        elapsed = 0;
-        while (elapsed < warpCoolDownDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / warpCoolDownDuration;
-            float ease = zoomCurve.Evaluate(1f - t);
-
-            // Slowing down back to 0
-            float currentWarp = Mathf.Lerp(0, maxWarpSpeed, ease);
-            warpVFX.SetFloat(KEY_WARP_SPEED, currentWarp);
-            warpShaderMat.SetFloat($"_{KEY_WARP_SPEED}", currentWarp);
-            
-            // Default vignette
-            if (vignetteComp != null)
-            {
-                vignetteComp.intensity.value = Mathf.Lerp(minVignetteIntensity, maxVignetteIntensity, ease);
-            }
-
-            yield return null;
-        }
-
-        // --- PHASE 3: Ego Death Starts ---
-        StartEgoDeath();
-    }
-    
-    private void StartEgoDeath()
-    {
-        if (sequence.Count > 0)
-        {
-            // Initialize the "last" gradient so the first transition has a starting point
-            lastStepGradient = sequence[0].colorGradient;
-            StartCoroutine(EgoDeathConductor());
-        }
-    }
-
-    private IEnumerator EgoDeathConductor()
-    {
-        // Slowly fade in the shape particles (vfxGraph) now that Earth is gone
-        StartCoroutine(FadeInShapeParticles(2f));
-
-        for (int i = 0; i < sequence.Count; i++)
-        {
-            if (i == handDissolveInjectionPoint) HandDissolver.Instance.StartHandDissolve();
-            
-            yield return StartCoroutine(MorphToSDF(sequence[i]));
-            yield return new WaitForSeconds(sequence[i].duration);
-            lastStepGradient = sequence[i].colorGradient;
-        }
-
-        yield return StartCoroutine(ShatterEgo());
-    }
-    
     private IEnumerator FadeInShapeParticles(float duration)
     {
         float elapsed = 0;
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            vfxGraph.SetFloat(KEY_SPAWN_INTENSITY, elapsed / duration);
+            SafeSetFloat(KEY_SPAWN_INTENSITY, elapsed / duration);
             yield return null;
         }
     }
 
     private IEnumerator MorphToSDF(SDFSequenceStep step)
     {
-        // 1. Swap Texture and Gradient immediately
-        vfxGraph.SetTexture(KEY_SDF, step.sdfTexture);
-
+        SafeSetTexture(KEY_SDF, step.sdfTexture);
+        
         float elapsed = 0;
-        float startAttr = vfxGraph.GetFloat(KEY_ATTR_SPEED);
-        float startStick = vfxGraph.GetFloat(KEY_STICK_FORCE);
-        float startTurb = vfxGraph.GetFloat(KEY_TURBULENCE);
-        Vector3 startScale = vfxGraph.transform.localScale;
+        float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
+        float startStick = SafeGetFloat(KEY_STICK_FORCE);
+        float startTurb = SafeGetFloat(KEY_TURBULENCE);
+        Vector3 startScale = vfxGraph != null ? vfxGraph.transform.localScale : Vector3.one;
 
         while (elapsed < morphDuration)
         {
             elapsed += Time.deltaTime;
             float t = elapsed / morphDuration;
             float ease = Mathf.SmoothStep(0, 1, t);
-
-            // 1. Smoothly Lerp Gradients
+            
             LerpGradients(lastStepGradient, step.colorGradient, ease);
-            vfxGraph.SetGradient(KEY_COLOR, currentRuntimeGradient);
-
-            // 2. Lerp Other Params
-            vfxGraph.SetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
-            vfxGraph.SetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
-            vfxGraph.SetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
-            vfxGraph.transform.localScale = Vector3.Lerp(startScale, Vector3.one * step.vfxScale, ease);
-
+            SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
+            SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
+            SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
+            SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
+            
+            if (vfxGraph != null)
+                vfxGraph.transform.localScale = Vector3.Lerp(startScale, Vector3.one * step.vfxScale, ease);
+                
             yield return null;
         }
-    }
-
-    private IEnumerator ShatterEgo()
-    {
-        float elapsed = 0;
-        float startAttr = vfxGraph.GetFloat(KEY_ATTR_SPEED);
-        float startStick = vfxGraph.GetFloat(KEY_STICK_FORCE);
-        float startTurb = vfxGraph.GetFloat(KEY_TURBULENCE);
-
-        while (elapsed < shatterDuration)
-        {
-            elapsed += Time.deltaTime;
-            float t = elapsed / shatterDuration;
-            float ease = t * t; // Use exponential for a "snap" dissolve
-
-            // Lerp to the final "Ascension" color
-            LerpGradients(lastStepGradient, finalShatterGradient, t);
-            vfxGraph.SetGradient(KEY_COLOR, currentRuntimeGradient);
-            
-            // Zero out the ego (forces) and maximize the chaos (turbulence)
-            vfxGraph.SetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, 0f, ease));
-            vfxGraph.SetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, 0f, ease));
-            vfxGraph.SetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, shatterTurbulence, t));
-            
-            if (chromaticComp != null)
-            {
-                chromaticComp.intensity.overrideState = true;
-                chromaticComp.intensity.value = t * UnityEngine.Random.Range(0.8f, 1.0f);
-            }
-            
-            // Ramp Weird Post-Processing
-            if (crystalComp != null)
-            {
-                crystalComp.intensity.overrideState = true;
-                crystalComp.intensity.value = crystalCurve.Evaluate(t);
-            }
-            
-            if (kaleidoscopeComp != null)
-            {
-                kaleidoscopeComp.intensity.overrideState = true;
-                kaleidoscopeComp.intensity.value = crystalCurve.Evaluate(t);
-            }
-
-            yield return null;
-        }
-        
-        if (SceneTransitionManager.Instance != null)
-            SceneTransitionManager.Instance.PerformEgoDeathTransition(globalVolume, finalTransitionDuration, finalTransitionWaitTime, nextSceneName);
     }
 
     private void OnApplicationQuit()
     {
-        if (crystalComp != null)
-        {
-            crystalComp.intensity.overrideState = true;
-            crystalComp.intensity.value = 0f;
-        }
+        if (crystalComp != null) { crystalComp.intensity.overrideState = true; crystalComp.intensity.value = 0f; }
     }
 
-
-    /// <summary>
-    /// Manually blends two gradients by sampling 5 keys.
-    /// </summary>
     private void LerpGradients(Gradient a, Gradient b, float t)
     {
+        if (a == null || b == null) return;
+        
         GradientColorKey[] colorKeys = new GradientColorKey[5];
         GradientAlphaKey[] alphaKeys = new GradientAlphaKey[5];
-
         for (int i = 0; i < 5; i++)
         {
-            float sampleTime = i * 0.25f; // Samples at 0, 0.25, 0.5, 0.75, 1
+            float sampleTime = i * 0.25f; 
             colorKeys[i].color = Color.Lerp(a.Evaluate(sampleTime), b.Evaluate(sampleTime), t);
             colorKeys[i].time = sampleTime;
-
             alphaKeys[i].alpha = Mathf.Lerp(a.Evaluate(sampleTime).a, b.Evaluate(sampleTime).a, t);
             alphaKeys[i].time = sampleTime;
         }
-
         currentRuntimeGradient.SetKeys(colorKeys, alphaKeys);
     }
 }
