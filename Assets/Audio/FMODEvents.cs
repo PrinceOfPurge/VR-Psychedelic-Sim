@@ -47,6 +47,9 @@ public class FMODEvents : MonoBehaviour
     
     public FMODUnity.EventReference[] healerDialogue; 
     
+    [Header("Space Dialogue")]
+    public FMODUnity.EventReference[] dialogueLines; 
+    
 
     public static FMODEvents instance { get; private set; }
 

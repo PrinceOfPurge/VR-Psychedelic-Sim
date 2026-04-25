@@ -1228,12 +1228,47 @@ MonoBehaviour:
     Path: event:/Music/MenuMusic
   <KaleidoscopeMusic>k__BackingField:
     Guid:
+      Data1: 1094362483
+      Data2: 1125968979
+      Data3: -547339880
+      Data4: 514683814
+    Path: event:/Music/KaleidoscopeMusic
+  <NarrativeMusic>k__BackingField:
+    Guid:
       Data1: 0
       Data2: 0
       Data3: 0
       Data4: 0
     Path: 
-  <NarrativeMusic>k__BackingField:
+  <LocksmithMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <RadioMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HospitalMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HoganDesMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <NavajoMusic>k__BackingField:
     Guid:
       Data1: 0
       Data2: 0
@@ -1310,8 +1345,97 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <gasp>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <tinnitus>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   hospitalLines: []
   narrativeLines: []
+  hoganDialogue: []
+  healerDialogue: []
+  dialogueLines:
+  - Guid:
+      Data1: 547148688
+      Data2: 1147293602
+      Data3: 299017904
+      Data4: -1737193039
+    Path: event:/SpaceScene/Space
+  - Guid:
+      Data1: 2126388054
+      Data2: 1167609234
+      Data3: 1222402194
+      Data4: -1744138444
+    Path: event:/SpaceScene/Space 2
+  - Guid:
+      Data1: -354839129
+      Data2: 1148249364
+      Data3: -1470124129
+      Data4: 921017677
+    Path: event:/SpaceScene/Space 3
+  - Guid:
+      Data1: -819813759
+      Data2: 1100014783
+      Data3: 833114024
+      Data4: -1805359806
+    Path: event:/SpaceScene/Space 4
+  - Guid:
+      Data1: -994546764
+      Data2: 1247715977
+      Data3: 61294989
+      Data4: 1818887711
+    Path: event:/SpaceScene/Space 5
+  - Guid:
+      Data1: 2105214818
+      Data2: 1196417932
+      Data3: -1978811263
+      Data4: -1693863893
+    Path: event:/SpaceScene/Space 6
+  - Guid:
+      Data1: 1620128985
+      Data2: 1092734066
+      Data3: -440329311
+      Data4: -1756478006
+    Path: event:/SpaceScene/Space 7
+  - Guid:
+      Data1: 1956612160
+      Data2: 1153813569
+      Data3: 1828640429
+      Data4: 1721274309
+    Path: event:/SpaceScene/Space 8
+  - Guid:
+      Data1: 1668814189
+      Data2: 1200249458
+      Data3: 1617450165
+      Data4: 1626223563
+    Path: event:/SpaceScene/Space 9
+  - Guid:
+      Data1: 2029602737
+      Data2: 1209157511
+      Data3: 939639694
+      Data4: 1317399177
+    Path: event:/SpaceScene/Space 11
+  - Guid:
+      Data1: 1215985065
+      Data2: 1280369646
+      Data3: -823897724
+      Data4: -167668140
+    Path: event:/SpaceScene/Space 12
+  - Guid:
+      Data1: -853055193
+      Data2: 1303424797
+      Data3: -1482731842
+      Data4: 96177511
+    Path: event:/SpaceScene/Space 13
 --- !u!1001 &1111078931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1541,11 +1665,18 @@ MonoBehaviour:
   nextSceneName: Level7_ValleyOfPeace
   warpVFX: {fileID: 405686028}
   warpShaderMat: {fileID: 2100000, guid: 8743900e1f653ae4b9014f2203080063, type: 2}
-  warpLaunchDuration: 8
+  warpLaunchDuration: 6
   warpCoolDownDuration: 2.5
   maxWarpSpeed: 1
   minVignetteIntensity: 0.2
   maxVignetteIntensity: 0.55
+  warpZoomSFX:
+    Guid:
+      Data1: -291571509
+      Data2: 1155463192
+      Data3: -978824293
+      Data4: 525431554
+    Path: event:/SFX/Warp
   sequence:
   - label: DNA
     sdfTexture: {fileID: 11700000, guid: 8cc97d919a2b7bb4bb4f41420369c9c6, type: 2}
