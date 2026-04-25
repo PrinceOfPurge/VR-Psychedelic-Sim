@@ -13067,6 +13067,10 @@ MonoBehaviour:
   npcLight: {fileID: 340055030}
   lightMinIntensity: 1
   lightMaxIntensity: 3
+  hutLight: {fileID: 0}
+  hutLightMin: 0.5
+  hutLightMax: 1.5
+  invertHutSync: 0
 --- !u!114 &777583515
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13545,20 +13549,20 @@ MonoBehaviour:
     e00: 1
     e01: 0
     e02: 0
-    e03: -5.5
+    e03: -0
     e10: 0
     e11: 1
     e12: 0
-    e13: -3.5898936
+    e13: -3.3488567
     e20: 0
     e21: 0
     e22: 1
-    e23: -0
+    e23: -11.400078
     e30: 0
     e31: 0
     e32: 0
     e33: 1
-  cachedHashCode: 1644866142
+  cachedHashCode: 56813860
   fillEmptySpaces: 0
   version: 2
   globalVolume: 0
@@ -25641,6 +25645,10 @@ MonoBehaviour:
   npcLight: {fileID: 1260632902}
   lightMinIntensity: 1
   lightMaxIntensity: 3
+  hutLight: {fileID: 295450835}
+  hutLightMin: 7
+  hutLightMax: 15
+  invertHutSync: 1
 --- !u!1001 &1603627858
 PrefabInstance:
   m_ObjectHideFlags: 0

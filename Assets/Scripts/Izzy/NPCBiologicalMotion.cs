@@ -17,10 +17,17 @@ public class NPCBiologicalMotion : MonoBehaviour
     [SerializeField] private float bobFrequency = 0.5f;
     [SerializeField] private float bobAmount = 0.05f;       // 5cm bobbing
 
-    [Header("Light Pulsing")]
+    [Header("Light Pulsing (Self)")]
     [SerializeField] private Light npcLight;
     [SerializeField] private float lightMinIntensity = 1.0f;
     [SerializeField] private float lightMaxIntensity = 3.0f;
+    
+    [Header("Environmental Sync")]
+    [Tooltip("Reference to the main hut/environmental light. IMPORTANT: Only one NPC in the scene should have this assigned to prevent conflicting intensity updates.")]
+    [SerializeField] private Light hutLight;
+    [SerializeField] private float hutLightMin = 0.5f;
+    [SerializeField] private float hutLightMax = 1.5f;
+    [SerializeField] bool invertHutSync = false; // Optional: Makes room dim when NPC glows
 
     private Vector3 initialScale;
     private Vector3 initialPosition;
@@ -68,12 +75,20 @@ public class NPCBiologicalMotion : MonoBehaviour
             }
         }
         
-        // 4. Light Pulse (Sync with Breath)
+        // 4. Light Syncing
+        float normalizedSin = (breatheSin + 1f) / 2f; 
+
+        // Pulse Self
         if (npcLight != null)
         {
-            // Map the -1 to 1 sine wave to a 0 to 1 range
-            float normalizedSin = (breatheSin + 1f) / 2f; 
             npcLight.intensity = Mathf.Lerp(lightMinIntensity, lightMaxIntensity, normalizedSin);
+        }
+
+        // Pulse Hut Light
+        if (hutLight != null)
+        {
+            float hutT = invertHutSync ? (1f - normalizedSin) : normalizedSin;
+            hutLight.intensity = Mathf.Lerp(hutLightMin, hutLightMax, hutT);
         }
     }
     
