@@ -14788,6 +14788,48 @@ MonoBehaviour:
       Data3: -547339880
       Data4: 514683814
     Path: event:/Music/KaleidoscopeMusic
+  <NarrativeMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <LocksmithMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <RadioMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HospitalMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HoganDesMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <NavajoMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -14858,6 +14900,25 @@ MonoBehaviour:
       Data3: -623797363
       Data4: -948515707
     Path: event:/SFX/CloneHurt
+  <gasp>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <tinnitus>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  hospitalLines: []
+  narrativeLines: []
+  hoganDialogue: []
+  healerDialogue: []
+  dialogueLines: []
 --- !u!1001 &1021210483
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19632,7 +19693,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f642288bb2b2a054496b7a8321e081ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValleySceneInitializer
-  fadeInDuration: 3
+  useExposureFade: 0
+  startExposure: 15
+  targetExposure: 0
+  transitionDuration: 3
 --- !u!4 &1380075625
 Transform:
   m_ObjectHideFlags: 0
@@ -26996,7 +27060,6 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   hideDistance: 1.5
   sparkVFX: {fileID: 1719516761}
-  radioEmitter: {fileID: 304667760}
   radioParameterName: TimePassage
   objectsToActivate:
   - {fileID: 0}

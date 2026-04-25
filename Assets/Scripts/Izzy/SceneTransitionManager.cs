@@ -105,6 +105,13 @@ public class SceneTransitionManager : MonoBehaviour
             SceneManager.LoadScene(nextScene);
         }
     }
+
+    public void ResetBasicFade()
+    {
+        // Apply to Material (Primary) and Global (Fallback)
+        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0);
+        Shader.SetGlobalFloat(fadePropID, 0);
+    }
     
     #endregion
 

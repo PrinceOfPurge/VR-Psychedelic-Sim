@@ -15281,6 +15281,41 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <LocksmithMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <RadioMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HospitalMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <HoganDesMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <NavajoMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -15351,8 +15386,25 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <gasp>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <tinnitus>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   hospitalLines: []
   narrativeLines: []
+  hoganDialogue: []
+  healerDialogue: []
+  dialogueLines: []
 --- !u!1 &1014612070
 GameObject:
   m_ObjectHideFlags: 0
@@ -20133,6 +20185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f642288bb2b2a054496b7a8321e081ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ValleySceneInitializer
+  useExposureFade: 1
   startExposure: 15
   targetExposure: -0.5
   transitionDuration: 2
@@ -27724,7 +27777,6 @@ MonoBehaviour:
   playerTransform: {fileID: 0}
   hideDistance: 1.5
   sparkVFX: {fileID: 1719516761}
-  radioEmitter: {fileID: 304667760}
   radioParameterName: TimePassage
   objectsToActivate:
   - {fileID: 0}
