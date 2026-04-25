@@ -30,6 +30,7 @@
 		</relationship>
 		<relationship name="banks">
 			<destination>{dfd459b8-4405-403a-a41a-47b9c56f6cb5}</destination>
+			<destination>{12b0248f-1c2a-4408-a0dc-af46b2cd0e13}</destination>
 		</relationship>
 	</object>
 	<object class="EventMixer" id="{228c3020-256b-41e6-92d7-89350f8f2ec2}">
@@ -114,7 +115,7 @@
 			<value>0</value>
 		</property>
 		<property name="length">
-			<value>210</value>
+			<value>60</value>
 		</property>
 		<relationship name="timeline">
 			<destination>{385d45d7-480d-4e91-8562-0bc1730ead62}</destination>
