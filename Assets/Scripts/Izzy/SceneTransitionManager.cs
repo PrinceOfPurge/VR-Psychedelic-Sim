@@ -17,6 +17,7 @@ public class SceneTransitionManager : MonoBehaviour
     [Header("Transition Settings")]
     public Material fadeMaterial;
     public float fadeDuration = 2.0f;
+    public float newSceneFadeInDuration = 2.0f; // Speed of fading in after load
     public string fadePropertyName = "_MasterFade";
     
     [Header("Trippy Sequence Settings")]
@@ -29,7 +30,6 @@ public class SceneTransitionManager : MonoBehaviour
     private Volume currentTripVolume;
     private Coroutine activeTripRoutine;
     
-    
     void Awake()
     {
         if (Instance == null)
@@ -39,12 +39,32 @@ public class SceneTransitionManager : MonoBehaviour
         }
         else
         {
-            Destroy(this);
+            Destroy(gameObject); // Standard DDOL pattern: destroy the object, not just script
             return;
         }
 
         fadePropID = Shader.PropertyToID(fadePropertyName);
         ResetFadeEffect();
+    }
+
+    private void OnEnable()
+    {
+        // Subscribe to scene loading events
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        // Unsubscribe to prevent memory leaks
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // Automatically called by Unity when a new scene is ready
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Every time we enter a new scene, start a fade-in (1 to 0)
+        // Set useBlink to true if you want the "eye opening" effect on every load
+        PerformFade(true, "", false, newSceneFadeInDuration);
     }
 
     #region Basic Fade (Locksmith/Hospital)
@@ -55,19 +75,19 @@ public class SceneTransitionManager : MonoBehaviour
     /// <param name="fadeDurationOverride">Overrides the transition duration</param>
     public void PerformFade(bool isInReverse = false, string nextScene = "", bool useBlink = false, float fadeDurationOverride = 0f)
     {
-        if (fadeDurationOverride != 0) fadeDuration = fadeDurationOverride;
-        StartCoroutine(FadeRoutine(isInReverse, nextScene, useBlink));
+        float duration = (fadeDurationOverride != 0) ? fadeDurationOverride : fadeDuration;
+        StartCoroutine(FadeRoutine(isInReverse, nextScene, useBlink, duration));
     }
 
-    private IEnumerator FadeRoutine(bool isInReverse, string nextScene, bool useBlink)
+    private IEnumerator FadeRoutine(bool isInReverse, string nextScene, bool useBlink, float duration)
     {
         float elapsed = 0f;
         float startVol = AudioManager.instance != null ? AudioManager.instance.masterVolume : 1f;
         
-        while (elapsed < fadeDuration)
+        while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float normalizedTime = elapsed / fadeDuration;
+            float normalizedTime = elapsed / duration;
             
             // MATH: Determine base T (0->1 or 1->0)
             float t = isInReverse ? 1f - normalizedTime : normalizedTime;
@@ -75,15 +95,11 @@ public class SceneTransitionManager : MonoBehaviour
             // BLINK LOGIC: Only applies if waking up (isInReverse)
             if (isInReverse && useBlink)
             {
-                // Simple Blink Math: Oscillates quickly at start, slows down
-                // If sin is negative, we force T to 1 (Black)
                 float blink = Mathf.Sin(elapsed * 12f); 
                 if (blink < 0 && normalizedTime < 0.6f) t = 1f; 
             }
 
-            // Apply to Material (Primary) and Global (Fallback)
-            if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, t);
-            Shader.SetGlobalFloat(fadePropID, t);
+            ApplyFadeValue(t);
 
             // Audio Ducking
             if (AudioManager.instance != null)
@@ -97,8 +113,7 @@ public class SceneTransitionManager : MonoBehaviour
 
         // Finalize state
         float finalT = isInReverse ? 0f : 1f;
-        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, finalT);
-        Shader.SetGlobalFloat(fadePropID, finalT);
+        ApplyFadeValue(finalT);
 
         if (!string.IsNullOrEmpty(nextScene))
         {
@@ -106,12 +121,7 @@ public class SceneTransitionManager : MonoBehaviour
         }
     }
 
-    public void ResetBasicFade()
-    {
-        // Apply to Material (Primary) and Global (Fallback)
-        if (fadeMaterial != null) fadeMaterial.SetFloat(fadePropID, 0);
-        Shader.SetGlobalFloat(fadePropID, 0);
-    }
+    public void ResetBasicFade() => ApplyFadeValue(0f);
     
     #endregion
 
@@ -121,20 +131,16 @@ public class SceneTransitionManager : MonoBehaviour
     {
         currentTripVolume = sceneVolume;
         CacheComponents(currentTripVolume);
-        
         UpdatePPStepIntensities(0f); 
-        //SetFogDensity(currentTripVolume, 0f);
         
         if (activeTripRoutine != null) StopCoroutine(activeTripRoutine);
         activeTripRoutine = StartCoroutine(TrippyAscentRoutine(nextScene, peakWaitTime));
     }
 
-    // Update EndTrippyEffects to accept the "Peak" volume from the current scene
     public void EndTrippyEffects(Volume localPeakVolume, Volume starweaverVolume, float duration = 5f)
     {
-        // RE-SYNC: Update the reference to the local duplicate in the new scene
         currentTripVolume = localPeakVolume;
-        CacheComponents(currentTripVolume); // Re-link the Kaleidoscope/Fog components
+        CacheComponents(currentTripVolume);
 
         if (activeTripRoutine != null) StopCoroutine(activeTripRoutine);
         activeTripRoutine = StartCoroutine(TrippyDescentRoutine(starweaverVolume, duration));
@@ -142,7 +148,6 @@ public class SceneTransitionManager : MonoBehaviour
 
     private IEnumerator TrippyAscentRoutine(string nextScene, float peakWaitTime)
     {
-        // Phase 1: Fog
         float elapsed = 0f;
         while (elapsed < fogDuration)
         {
@@ -151,7 +156,6 @@ public class SceneTransitionManager : MonoBehaviour
             yield return null;
         }
 
-        // Phase 2: Weird PP Sequence
         elapsed = 0f;
         while (elapsed < ppSequenceDuration)
         {
@@ -161,11 +165,8 @@ public class SceneTransitionManager : MonoBehaviour
             yield return null;
         }
         
-        // Phase 3: Hold at Peak Intensity
-        // This allows the player to soak in the "peak" visuals before the load
         yield return new WaitForSeconds(peakWaitTime);
 
-        // Phase 4: Trigger Scene Load
         if (!string.IsNullOrEmpty(nextScene))
         {
             SceneManager.LoadScene(nextScene);
@@ -175,35 +176,25 @@ public class SceneTransitionManager : MonoBehaviour
     private IEnumerator TrippyDescentRoutine(Volume starweaverVolume, float duration)
     {
         float elapsed = 0f;
-    
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float t = elapsed / duration; // t goes 0 to 1
-
-            // 1. SYNCED FOG: Ramp fog down from its target density to 0 
-            // using the same 't' as the post-processing sequence.
+            float t = elapsed / duration;
             float currentFogT = 1f - t;
             SetFogDensity(currentTripVolume, currentFogT * targetFogDensity);
-
-            // 2. PP SEQUENCE: Ramp intensities down (1 to 0)
             UpdatePPStepIntensities(currentFogT);
 
-            // 3. CROSS-FADE VOLUMES:
             if (currentTripVolume != null) currentTripVolume.weight = 1f - t;
-            //if (starweaverVolume != null) starweaverVolume.weight = t;
-            if (starweaverVolume != null) starweaverVolume.weight = 1f; // Snapping this to 1 should be okay
+            if (starweaverVolume != null) starweaverVolume.weight = 1f; 
 
             yield return null;
         }
     
-        // Final cleanup to ensure everything is absolute zero
         if (currentTripVolume != null) 
         {
             currentTripVolume.weight = 0f;
             SetFogDensity(currentTripVolume, 0f);
         }
-    
         starweaverVolume.weight = 1f;
     }
 
@@ -219,11 +210,8 @@ public class SceneTransitionManager : MonoBehaviour
     
     #endregion
     
-    #region Exposure Transition (Starweaver to integration)
+    #region Exposure Transition
     
-    /// <summary>
-    /// Transitions exposure to white, loads a scene, and resets exposure.
-    /// </summary>
     public void PerformEgoDeathTransition(Volume targetVolume, float transitionDuration, float waitDuration, string nextSceneName)
     {
         StartCoroutine(EgoDeathRoutine(targetVolume, transitionDuration, waitDuration, nextSceneName));
@@ -234,10 +222,9 @@ public class SceneTransitionManager : MonoBehaviour
         if (targetVolume.profile.TryGet(out ColorAdjustments colorAdjustments))
         {
             float startExposure = colorAdjustments.postExposure.value;
-            float targetExposure = 30f; // Blown out white
+            float targetExposure = 30f;
             float elapsed = 0;
 
-            // 1. Ramp Up
             while (elapsed < duration)
             {
                 elapsed += Time.deltaTime;
@@ -246,24 +233,18 @@ public class SceneTransitionManager : MonoBehaviour
             }
             
             colorAdjustments.postExposure.value = targetExposure;
-
-            // 2. The "Void" - wait in the white-out
             yield return new WaitForSeconds(waitDuration);
-
-            // 3. Trigger Load (Simple Load)
             SceneManager.LoadScene(nextSceneName);
         }
         else
         {
-            Debug.LogError("No ColorAdjustments found on the passed Volume!");
-            SceneManager.LoadScene(nextSceneName); // Fallback load
+            SceneManager.LoadScene(nextSceneName);
         }
     }
     
     #endregion
     
-    
-    #region Helpers (Reflection/Cleanup)
+    #region Helpers
     
     private void ApplyFadeValue(float t)
     {

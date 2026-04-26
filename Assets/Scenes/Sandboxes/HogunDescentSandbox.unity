@@ -19901,6 +19901,13 @@ MonoBehaviour:
       Data3: 2074292884
       Data4: 975966890
     Path: event:/Music/NavajoMusic
+  <VOPMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -20248,6 +20255,7 @@ MonoBehaviour:
       Data4: -1239006334
     Path: event:/HealerHogan1/Heala 15
   dialogueLines: []
+  integrationLines: []
 --- !u!1001 &1025428770
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26316,7 +26324,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1706742877
 BoxCollider:
   m_ObjectHideFlags: 0

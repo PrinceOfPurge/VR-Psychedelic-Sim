@@ -9,17 +9,15 @@ public class VoPKeyTrigger : MonoBehaviour
     [Header("References")]
     [SerializeField] private VisualEffect[] vineGrowingGraphs;
     [SerializeField] private VisualEffect fireVFX;
-    [SerializeField] private VisualEffect fireflyVFX; // New Firefly Reference
+    [SerializeField] private VisualEffect fireflyVFX; 
     [SerializeField] private BloodPoolGrow waterPool; 
     [SerializeField] private Volume postProcessVolume;
-    [SerializeField] private GameObject kidCharacter;
 
-    [Header("Kid Animation & Movement")]
-    [SerializeField] private string climbAnim = "Climbing";
-    [SerializeField] private string danceAnim = "Dancing1";
-    [SerializeField] private float kidSpawnDelay = 1.5f;    
-    [SerializeField] private float climbDuration = 3.0f;   
-    [SerializeField] private float sinkDepth = 1.5f;
+    [Header("Animator Settings")]
+    [SerializeField] private string speedParameterName = "Speed"; // The parameter in your Blend Tree
+    [SerializeField] private float runSpeed = 5.0f;
+    [SerializeField] private float runDuration = 3.0f;
+    [SerializeField] private Vector3 escapeDirection = new Vector3(0, 0, 1);
 
     [Header("Fire VFX & Peak Intensity")]
     [SerializeField] private float fireRampUpDuration = 4.0f;
@@ -29,8 +27,8 @@ public class VoPKeyTrigger : MonoBehaviour
     [SerializeField] private float targetTurbulence = 50.0f; 
 
     [Header("Transition Settings")]
-    [SerializeField] private float fireflyRampDuration = 4.0f; // Time for fireflies to fully spawn
-    [SerializeField] private float beforeTransitionWaitTime = 12.0f;
+    [SerializeField] private float fireflyRampDuration = 4.0f; 
+    [SerializeField] private float beforeTransitionWaitTime = 8.0f;
     [SerializeField] private float transitionDuration = 3.0f;
     [SerializeField] private float sceneTransitionWaitTime = 2.0f;
     [SerializeField] private float targetTemperature = 30f;
@@ -42,13 +40,17 @@ public class VoPKeyTrigger : MonoBehaviour
     private ColorAdjustments colorAdjustments;
     private Bloom bloom;
     private bool isTransitioning = false;
-    private Animator kidAnimator;
-    
-    private Vector3 targetPosition, startPosition;
+    private Animator myAnimator;
+
     private float startTemp, startSat, startBloom;
 
     private void Start()
     {
+        myAnimator = GetComponent<Animator>();
+        
+        // Ensure the Blend Tree starts at 0 (Show Animation)
+        if (myAnimator != null) myAnimator.SetFloat(speedParameterName, 0f);
+
         foreach (var vGraph in vineGrowingGraphs) vGraph.Stop();
         
         if (fireVFX != null) {
@@ -57,18 +59,9 @@ public class VoPKeyTrigger : MonoBehaviour
             fireVFX.SetFloat("TurbulenceIntensity", startTurbulence);
         }
 
-        // Initialize Fireflies to 0
         if (fireflyVFX != null) {
             fireflyVFX.Stop();
             fireflyVFX.SetFloat("SpawnIntensity", 0);
-        }
-        
-        if (kidCharacter != null)
-        {
-            kidAnimator = kidCharacter.GetComponent<Animator>();
-            targetPosition = kidCharacter.transform.position;
-            startPosition = targetPosition - (Vector3.up * sinkDepth);
-            kidCharacter.SetActive(false); 
         }
 
         if (postProcessVolume.profile.TryGet(out whiteBalance) &&
@@ -99,24 +92,21 @@ public class VoPKeyTrigger : MonoBehaviour
     {
         isTransitioning = true;
         foreach (var vGraph in vineGrowingGraphs) vGraph.Play();
-        if (fireflyVFX != null) fireflyVFX.Play(); // Start Fireflies
+        if (fireflyVFX != null) fireflyVFX.Play(); 
         if (waterPool != null) waterPool.StartPool();
 
         StartCoroutine(TransitionPostProcessing());
-        StartCoroutine(SpawnKidSequence());
+        StartCoroutine(CharacterEscapeSequence());
     }
 
     private IEnumerator TransitionPostProcessing()
     {
         float elapsed = 0;
-        // We use the longer of the two durations to make sure everything finishes
         float maxDuration = Mathf.Max(transitionDuration, fireflyRampDuration);
 
         while (elapsed < maxDuration)
         {
             elapsed += Time.deltaTime;
-            
-            // Post Processing Lerp
             float tPost = Mathf.Clamp01(elapsed / transitionDuration);
             float curvedTPost = Mathf.SmoothStep(0, 1, tPost);
             
@@ -124,37 +114,39 @@ public class VoPKeyTrigger : MonoBehaviour
             colorAdjustments.saturation.value = Mathf.Lerp(startSat, targetSaturation, curvedTPost);
             bloom.intensity.value = Mathf.Lerp(startBloom, targetBloom, curvedTPost);
 
-            // Firefly Lerp
             if (fireflyVFX != null) {
                 float tFirefly = Mathf.Clamp01(elapsed / fireflyRampDuration);
                 fireflyVFX.SetFloat("SpawnIntensity", Mathf.SmoothStep(0, 1, tFirefly));
             }
-
             yield return null;
         }
     }
 
-    private IEnumerator SpawnKidSequence()
+    private IEnumerator CharacterEscapeSequence()
     {
-        yield return new WaitForSeconds(kidSpawnDelay);
+        yield return new WaitForSeconds(1.0f);
 
-        if (kidCharacter != null && kidAnimator != null)
+        if (myAnimator != null)
         {
-            kidCharacter.transform.position = startPosition;
-            kidCharacter.SetActive(true);
-            kidAnimator.CrossFade(climbAnim, 0.2f);
+            // Face away
+            transform.rotation = Quaternion.LookRotation(escapeDirection);
 
             float elapsed = 0;
-            while (elapsed < climbDuration)
+            while (elapsed < runDuration)
             {
                 elapsed += Time.deltaTime;
-                float t = Mathf.SmoothStep(0, 1, elapsed / climbDuration);
-                kidCharacter.transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+                float t = elapsed / runDuration;
+
+                // Lerp the Blend Tree parameter from 0 to 1
+                // This will blend from 'Show' to 'Normal Walk' to 'Sad Run'
+                myAnimator.SetFloat(speedParameterName, Mathf.Lerp(0f, 1f, t * 2f)); // Multiply by 2 to reach Sad Run faster
+
+                // Move forward
+                transform.Translate(Vector3.forward * runSpeed * Time.deltaTime);
                 yield return null;
             }
 
-            kidCharacter.transform.position = targetPosition;
-            kidAnimator.CrossFade(danceAnim, 0.3f);
+            gameObject.SetActive(false); 
         }
         
         yield return new WaitForSeconds(beforeTransitionWaitTime);
@@ -164,6 +156,7 @@ public class VoPKeyTrigger : MonoBehaviour
     private IEnumerator FirePeakSequence()
     {
         if (fireVFX == null) yield break;
+
         fireVFX.Play();
         float elapsed = 0;
 
@@ -175,7 +168,7 @@ public class VoPKeyTrigger : MonoBehaviour
         }
 
         yield return new WaitForSeconds(fireStayDuration);
-
+        
         elapsed = 0;
         float startExposure = colorAdjustments.postExposure.value;
         while (elapsed < fireChaosDuration)
@@ -186,6 +179,8 @@ public class VoPKeyTrigger : MonoBehaviour
             colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, 10f, t);
             yield return null;
         }
+
+        if (AudioManager.instance != null) AudioManager.instance.StopValleyMusic();
 
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformEgoDeathTransition(postProcessVolume, transitionDuration, 

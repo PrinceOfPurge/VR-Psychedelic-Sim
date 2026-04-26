@@ -19,6 +19,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference HospitalMusic { get; private set; }
     [field: SerializeField] public EventReference HoganDesMusic { get; private set; }
     [field: SerializeField] public EventReference NavajoMusic { get; private set; }
+    [field: SerializeField] public EventReference VOPMusic { get; private set; }
     
     [field: Header("Player SFX")]
     [field: SerializeField] public EventReference AfterImage { get; private set; }
@@ -49,6 +50,9 @@ public class FMODEvents : MonoBehaviour
     
     [Header("Space Dialogue")]
     public FMODUnity.EventReference[] dialogueLines; 
+    
+    [Header("Integration Dialogue")]
+    public FMODUnity.EventReference[] integrationLines; 
     
 
     public static FMODEvents instance { get; private set; }

@@ -1295,6 +1295,27 @@ MonoBehaviour:
       Data3: -809689673
       Data4: -54427300
     Path: event:/Music/HospitalMusic
+  <HoganDesMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <NavajoMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  <VOPMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -1495,6 +1516,10 @@ MonoBehaviour:
       Data4: 677405713
     Path: event:/HospitalScene/Doctor 19
   narrativeLines: []
+  hoganDialogue: []
+  healerDialogue: []
+  dialogueLines: []
+  integrationLines: []
 --- !u!4 &1061452981 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2247618186249608152, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
@@ -1603,7 +1628,7 @@ MonoBehaviour:
   minToMaxIntensityDuration: 12
   waitAtMaxDuration: 2
   nextSceneName: Level3_ValleyOfDeath
-  linePadding: 1
+  linePadding: 0.5
   hospitalOrbController: {fileID: 1285650919}
 --- !u!4 &1145371564
 Transform:
@@ -1731,8 +1756,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.44004565, y: 0.7782381, z: 0.33550268, w: -0.29688904}
-  m_LocalPosition: {x: 0.029999971, y: -0.8633128, z: -0.5999999}
+  m_LocalRotation: {x: -0.0015355365, y: 0.21743612, z: 0.027171342, w: -0.9756951}
+  m_LocalPosition: {x: 0.029999971, y: -0.87829864, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:
