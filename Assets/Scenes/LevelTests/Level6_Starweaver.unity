@@ -251,16 +251,16 @@ VisualEffect:
   m_PropertySheet:
     m_Float:
       m_Array:
-      - m_Value: 0.5
+      - m_Value: 1
         m_Name: StickDistance
         m_Overridden: 1
-      - m_Value: 3
+      - m_Value: 2
         m_Name: TurbulenceIntensity
         m_Overridden: 1
       - m_Value: 50
         m_Name: AttractionSpeed
         m_Overridden: 1
-      - m_Value: 5
+      - m_Value: 20
         m_Name: StickForce
         m_Overridden: 1
       - m_Value: 1
@@ -269,7 +269,13 @@ VisualEffect:
     m_Vector2f:
       m_Array: []
     m_Vector3f:
-      m_Array: []
+      m_Array:
+      - m_Value: {x: 0, y: 0, z: 0}
+        m_Name: SDFCenter
+        m_Overridden: 1
+      - m_Value: {x: 5, y: 5, z: 5}
+        m_Name: SDFSize
+        m_Overridden: 1
     m_Vector4f:
       m_Array: []
     m_Uint:
@@ -316,7 +322,7 @@ VisualEffect:
         m_Overridden: 1
     m_NamedObject:
       m_Array:
-      - m_Value: {fileID: 11700000, guid: 5a55f443fb9473248819255947365942, type: 2}
+      - m_Value: {fileID: 0}
         m_Name: SDF
         m_Overridden: 1
     m_Bool:
@@ -1174,63 +1180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.InputActionReference
   m_Asset: {fileID: -944628639613478452, guid: c348712bda248c246b8c49b3db54643f, type: 3}
   m_ActionId: c3ca6ed7-3d25-44a2-b1d8-5be4eb699370
---- !u!1001 &816143540
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: af055f7c95109924dacefd1dfd508726, type: 3}
-      propertyPath: m_Name
-      value: SimpleKey
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: af055f7c95109924dacefd1dfd508726, type: 3}
 --- !u!114 &947766131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1736,7 +1685,9 @@ MonoBehaviour:
     Path: event:/SFX/Warp
   sequence:
   - label: DNA
-    sdfTexture: {fileID: 11700000, guid: 8cc97d919a2b7bb4bb4f41420369c9c6, type: 2}
+    sdfTexture: {fileID: 11700000, guid: 8af01838307fac84daadb801faa60621, type: 2}
+    sdfSize: {x: 8.504865, y: 35.49857, z: 8.135088}
+    sdfCenter: {x: 0.002207935, y: 5.795684, z: 0.002262414}
     duration: 6
     colorGradient:
       serializedVersion: 2
@@ -1771,9 +1722,11 @@ MonoBehaviour:
     attractionSpeed: 1
     stickForce: 10
     turbulence: 1
-    vfxScale: 3.2
+    vfxScale: 2
   - label: Key
-    sdfTexture: {fileID: 11700000, guid: 86ba0abcda3d5d54f8ba16845807f66f, type: 2}
+    sdfTexture: {fileID: 11700000, guid: 5a55f443fb9473248819255947365942, type: 2}
+    sdfSize: {x: 3.982663, y: 2.11579, z: 0.8089784}
+    sdfCenter: {x: 0.9507798, y: -0.001660854, z: 0}
     duration: 8
     colorGradient:
       serializedVersion: 2
@@ -1805,12 +1758,14 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 4
-    attractionSpeed: 13
-    stickForce: 20
+    attractionSpeed: 10
+    stickForce: 50
     turbulence: 3
     vfxScale: 3.6
   - label: Skull
     sdfTexture: {fileID: 11700000, guid: e184e0fbd0bd0b04aa200fadbe51ff16, type: 2}
+    sdfSize: {x: 5, y: 5, z: 5}
+    sdfCenter: {x: -0.5629245, y: 1.274638, z: -1.966477}
     duration: 10
     colorGradient:
       serializedVersion: 2
@@ -1842,9 +1797,48 @@ MonoBehaviour:
       m_ColorSpace: -1
       m_NumColorKeys: 3
       m_NumAlphaKeys: 4
-    attractionSpeed: 13
+    attractionSpeed: 50
     stickForce: 20
-    turbulence: 3
+    turbulence: 2
+    vfxScale: 4
+  - label: Padlock
+    sdfTexture: {fileID: 11700000, guid: 3769ea7c18a08d9429e18d7ac64c3af7, type: 2}
+    sdfSize: {x: 3.277443, y: 4.994199, z: 1.716756}
+    sdfCenter: {x: 0, y: 0.1759442, z: 0.001114979}
+    duration: 10
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 11.984313, g: 1.7505177, b: 0, a: 0}
+      key1: {r: 3.6226413, g: 0.5121011, b: 0, a: 1}
+      key2: {r: 0.755, g: 0.062916666, b: 0, a: 0.8}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 13685
+      ctime2: 38743
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 6554
+      atime2: 52428
+      atime3: 65535
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_ColorSpace: -1
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 4
+    attractionSpeed: 50
+    stickForce: 20
+    turbulence: 2
     vfxScale: 4
   morphDuration: 3.5
   handDissolveInjectionPoint: 1
@@ -2394,7 +2388,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: a9bb985255fa5f9439eeb0eb676d10ea, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 8743900e1f653ae4b9014f2203080063, type: 2}
+      objectReference: {fileID: -5243988174349660497, guid: 0a0d00d235140fa4fbe065632563b402, type: 3}
     - target: {fileID: 919132149155446097, guid: a9bb985255fa5f9439eeb0eb676d10ea, type: 3}
       propertyPath: m_Name
       value: WarpdriveCone
@@ -2746,4 +2740,3 @@ SceneRoots:
   - {fileID: 1459379558}
   - {fileID: 29415282}
   - {fileID: 450842682}
-  - {fileID: 816143540}
