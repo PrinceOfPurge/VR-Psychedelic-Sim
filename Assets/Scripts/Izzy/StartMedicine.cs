@@ -32,8 +32,13 @@ public class StartMedicine : MonoBehaviour
     [SerializeField] private DistortedUVsInfoContainer[] hutMaterials;
     [SerializeField] private float hutDuration = 15f;
 
-    [Header("Phase 3: Weird Post-Processing")]
+    [Header("Phase 3: Weird Post-Processing")] 
+    [SerializeField] private float trippyEffectsDelay = 10f;
     [SerializeField] private Volume descentVolume;
+    
+    [Header("Ethereal Lighting")]
+    [SerializeField] private Light fireLight;
+    [SerializeField] private Gradient tripColorGradient; // Set this in Inspector (Orange -> Teal/Purple)
     
     [Header("Transition Settings")]
     [SerializeField] private string starweaverSceneName = "Level5_Starweaver";
@@ -65,23 +70,28 @@ public class StartMedicine : MonoBehaviour
     {
         if (isTripActive) return;
         isTripActive = true;
-
-        // 1. Tell the Manager to ZERO OUT the effects first
-        if (SceneTransitionManager.Instance != null)
-            SceneTransitionManager.Instance.StartTrippyEffects(descentVolume, starweaverSceneName, peakWaitDuration);
-
-        // 2. NOW it is safe to turn the Volume weight up
-        if (descentVolume != null) descentVolume.weight = 1f;
-
-        // 3. Start the local wall-melting distortions
+        
+        // Start the local wall-melting distortions, and call the trippy effects from SceneTransitionManager
         StartCoroutine(HutMaterialDistortionRoutine());
+        StartCoroutine(TrippyEffects());
     }
 
     private IEnumerator HutMaterialDistortionRoutine()
     {
         // Wait for Phase 1 (Fog) to complete before walls start melting (matching your original sequence)
-        yield return new WaitForSeconds(fogDuration);
+        float fogElapsed = 0f;
 
+        while (fogElapsed < fogDuration)
+        {
+            fogElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(fogElapsed / fogDuration);
+            
+            // Change to the new volume
+            descentVolume.weight = t;
+        }
+        
+        yield return new WaitForSeconds(fogDuration);
+        
         float elapsed = 0f;
         while (elapsed < hutDuration)
         {
@@ -94,9 +104,23 @@ public class StartMedicine : MonoBehaviour
                 if (matInfo.mat != null)
                     matInfo.mat.SetFloat(matInfo.shaderEffectParamName, t);
             }
+            
+            // Hue Shift
+            if (fireLight != null)
+            {
+                fireLight.color = tripColorGradient.Evaluate(t);
+            }
 
             yield return null;
         }
+    }
+
+    private IEnumerator TrippyEffects()
+    {
+        yield return new WaitForSeconds(trippyEffectsDelay);
+        
+        if (SceneTransitionManager.Instance != null)
+            SceneTransitionManager.Instance.StartTrippyEffects(descentVolume, starweaverSceneName, peakWaitDuration);
     }
 
     public void ResetEffects()

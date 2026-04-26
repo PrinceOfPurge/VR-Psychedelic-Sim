@@ -123,7 +123,7 @@ public class SceneTransitionManager : MonoBehaviour
         CacheComponents(currentTripVolume);
         
         UpdatePPStepIntensities(0f); 
-        SetFogDensity(currentTripVolume, 0f);
+        //SetFogDensity(currentTripVolume, 0f);
         
         if (activeTripRoutine != null) StopCoroutine(activeTripRoutine);
         activeTripRoutine = StartCoroutine(TrippyAscentRoutine(nextScene, peakWaitTime));

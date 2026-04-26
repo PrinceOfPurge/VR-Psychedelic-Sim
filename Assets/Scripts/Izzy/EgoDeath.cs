@@ -91,16 +91,17 @@ public class EgoDeath : MonoBehaviour
     {
         CacheVolumeComponents();
 
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.CreateInstance(FMODEvents.instance.KaleidoscopeMusic).start();
-        }
-
         if (vignetteComp != null) vignetteComp.intensity.value = minVignetteIntensity;
         if (sequence.Count > 0) lastStepGradient = sequence[0].colorGradient;
         
         SafeSetFloat(KEY_SPAWN_INTENSITY, 0f);
-        earthAnchorPos = earthTransform.position;
+        earthAnchorPos = earthTransform.localPosition;
+        
+        // Moved this to the bottom because I don't have FMOD installed and it was stopping the rest of the code from running
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.CreateInstance(FMODEvents.instance.KaleidoscopeMusic).start();
+        }
     }
     
     private void Update()
