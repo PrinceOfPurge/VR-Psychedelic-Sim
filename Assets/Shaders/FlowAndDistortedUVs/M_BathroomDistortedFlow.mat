@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8688975681742564285
+--- !u!114 &-1763498036124682770
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
@@ -20,9 +20,9 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: table
-  m_Shader: {fileID: 104, guid: 0000000000000000f000000000000000, type: 0}
-  m_Parent: {fileID: 2100000, guid: f4f08f2c4fe94914792e73be3aea76ee, type: 2}
+  m_Name: M_BathroomDistortedFlow
+  m_Shader: {fileID: -6465566751694194690, guid: b3152a33d5966dd49b7055b07bce06cd, type: 3}
+  m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -36,12 +36,35 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _Amplitude: 0.1
+    - _DistortionNoiseScale: 50
+    - _Frequency: 0.6
+    - _FresnelPower: 0.3
+    - _NoiseLerp: 0.5
+    - _NoiseScale: 50
+    - _NoiseScale2: 75
+    - _QueueControl: 0
+    - _QueueOffset: 0
+    - _VertexEffectStrength: 1
     m_Colors:
-    - _BaseColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 1}
-    - _Color: {r: 0.39622638, g: 0.39622638, b: 0.39622638, a: 1}
-    - _Tint: {r: 0.5, g: 0.5, b: 0.5, a: 0.5}
+    - _Color: {r: 0.9655892, g: 0, b: 0.2123286, a: 1}
+    - _TimeMultiplier: {r: 0, g: -0.03, b: 0, a: 0}
+    - _TimeMultiplier2: {r: 0, g: 0.01, b: 0, a: 0}
+    - _WarpIntensity: {r: -0.02, g: 0.03, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
