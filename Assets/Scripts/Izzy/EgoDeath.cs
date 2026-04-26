@@ -13,7 +13,9 @@ using UnityEngine.SceneManagement;
 public struct SDFSequenceStep
 {
     public string label;            
-    public Texture3D sdfTexture;    
+    public Texture3D sdfTexture;
+    public Vector3 sdfSize;         // <-- ADD THIS: Match the 'Size' from the Bake Tool
+    public Vector3 sdfCenter;       // <-- ADD THIS: Match the 'Center' from the Bake Tool
     public float duration;          
     [GradientUsage(true)]
     public Gradient colorGradient;  
@@ -72,6 +74,8 @@ public class EgoDeath : MonoBehaviour
     private const string KEY_TURBULENCE = "TurbulenceIntensity";
     private const string KEY_SPAWN_INTENSITY = "SpawnIntensity"; 
     private const string KEY_WARP_SPEED = "WarpSpeed";
+    private const string KEY_SDF_SIZE = "SDFSize";
+    private const string KEY_SDF_CENTER = "SDFCenter";
     
     private Gradient currentRuntimeGradient = new Gradient();
     private Gradient lastStepGradient;
@@ -143,6 +147,17 @@ public class EgoDeath : MonoBehaviour
     private void SafeSetGradient(string key, Gradient gradient)
     {
         if (vfxGraph != null && vfxGraph.HasGradient(key) && gradient != null) vfxGraph.SetGradient(key, gradient);
+    }
+    
+    private void SafeSetVector3(string key, Vector3 value)
+    {
+        if (vfxGraph != null && vfxGraph.HasVector3(key)) vfxGraph.SetVector3(key, value);
+    }
+
+    private Vector3 SafeGetVector3(string key, Vector3 fallback = default)
+    {
+        if (vfxGraph != null && vfxGraph.HasVector3(key)) return vfxGraph.GetVector3(key);
+        return fallback;
     }
 
     // ==========================================
@@ -341,6 +356,10 @@ public class EgoDeath : MonoBehaviour
         float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
         float startStick = SafeGetFloat(KEY_STICK_FORCE);
         float startTurb = SafeGetFloat(KEY_TURBULENCE);
+        
+        // Capture starting bounds for the lerp
+        Vector3 startSdfSize = SafeGetVector3(KEY_SDF_SIZE, Vector3.one * 3f);
+        Vector3 startSdfCenter = SafeGetVector3(KEY_SDF_CENTER, Vector3.zero);
         Vector3 startScale = vfxGraph != null ? vfxGraph.transform.localScale : Vector3.one;
 
         while (elapsed < morphDuration)
@@ -354,6 +373,10 @@ public class EgoDeath : MonoBehaviour
             SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
             SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
             SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
+            
+            // Dynamic Bounding Box Update
+            SafeSetVector3(KEY_SDF_SIZE, Vector3.Lerp(startSdfSize, step.sdfSize, ease));
+            SafeSetVector3(KEY_SDF_CENTER, Vector3.Lerp(startSdfCenter, step.sdfCenter, ease));
             
             if (vfxGraph != null)
                 vfxGraph.transform.localScale = Vector3.Lerp(startScale, Vector3.one * step.vfxScale, ease);
