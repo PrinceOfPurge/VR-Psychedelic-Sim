@@ -2,16 +2,24 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using System.Collections;
+using System.Collections.Generic;
 using FMOD.Studio;
 using FMODUnity;
+using UnityEngine.Serialization;
 
 public class IntegrationSceneInitializer : MonoBehaviour
 {
     [Header("Settings")]
     [SerializeField] private float startExposure = 15f; 
     [SerializeField] private float targetExposure = 0f;
-    [SerializeField] private float transitionDuration = 5f; 
+    [SerializeField] private float trippyTransitionDuration = 12f;
+    [SerializeField] private float fadeTransitionDuration = 5f; 
     [SerializeField] private float pauseDuration = 1.5f; 
+    [SerializeField] private DistortedUVsInfoContainer[] activeHutMaterials;
+    
+    [Header("Ethereal Lighting")]
+    [SerializeField] private Light fireLight;
+    [SerializeField] private Gradient tripColorGradient; // Set this in Inspector (Orange -> Teal/Purple)
 
     [Header("Transition Out")]
     [SerializeField] private string nextSceneName = "Scene9_Credits";
@@ -30,6 +38,7 @@ public class IntegrationSceneInitializer : MonoBehaviour
     private IEnumerator MainSequence()
     {
         // 1. Initial Fade In
+        StartCoroutine(ClearHutDistortions(trippyTransitionDuration));
         yield return StartCoroutine(FadeInRoutine());
 
         // 2. Start Dialogue Sequence
@@ -41,6 +50,42 @@ public class IntegrationSceneInitializer : MonoBehaviour
             SceneTransitionManager.Instance.PerformFade(isInReverse: false, fadeDurationOverride: 4f);
             yield return new WaitForSeconds(4.5f);
             UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneName);
+        }
+    }
+    
+    public IEnumerator ClearHutDistortions(float duration)
+    {
+        if (activeHutMaterials == null) yield break;
+
+        float elapsed = 0f;
+        // Store starting values to lerp correctly
+        Dictionary<Material, float> startValues = new Dictionary<Material, float>();
+        foreach (var info in activeHutMaterials)
+        {
+            if (info.mat != null)
+                startValues[info.mat] = info.mat.GetFloat(info.shaderEffectParamName);
+        }
+
+        while (elapsed < duration)
+        {
+            elapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(elapsed / duration);
+
+            foreach (var info in activeHutMaterials)
+            {
+                if (info.mat != null && startValues.ContainsKey(info.mat))
+                {
+                    float currentVal = Mathf.Lerp(startValues[info.mat], 0f, t);
+                    info.mat.SetFloat(info.shaderEffectParamName, currentVal);
+                }
+            }
+            
+            if (fireLight != null)
+            {
+                fireLight.color = tripColorGradient.Evaluate(t);
+            }
+            
+            yield return null;
         }
     }
 
@@ -124,10 +169,10 @@ public class IntegrationSceneInitializer : MonoBehaviour
         float elapsed = 0;
         colorAdjustments.postExposure.value = startExposure;
 
-        while (elapsed < transitionDuration)
+        while (elapsed < fadeTransitionDuration)
         {
             elapsed += Time.deltaTime;
-            colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, targetExposure, elapsed / transitionDuration);
+            colorAdjustments.postExposure.value = Mathf.Lerp(startExposure, targetExposure, elapsed / fadeTransitionDuration);
             yield return null;
         }
         colorAdjustments.postExposure.value = targetExposure;

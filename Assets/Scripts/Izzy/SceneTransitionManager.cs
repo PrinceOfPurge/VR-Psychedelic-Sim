@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Rendering;
@@ -7,8 +8,15 @@ using FronkonGames.Weird.Crystal;
 using FronkonGames.Weird.Kaleidoscope;
 using FronkonGames.Weird.Extruder;
 using FronkonGames.Weird.Spiral;
-using Haze.Runtime;
 using UnityEngine.Rendering.Universal;
+
+
+[Serializable]
+public struct DistortedUVsInfoContainer
+{
+    public Material mat;
+    public string shaderEffectParamName;
+}
 
 public class SceneTransitionManager : MonoBehaviour
 {
@@ -26,6 +34,7 @@ public class SceneTransitionManager : MonoBehaviour
     public float ppSequenceDuration = 30f;
     public List<PPSequenceStep> ppSteps;
     
+    private DistortedUVsInfoContainer[] activeHutMaterials;
     private int fadePropID;
     private Volume currentTripVolume;
     private Coroutine activeTripRoutine;
