@@ -699,23 +699,25 @@ MonoBehaviour:
   fireflyVFX: {fileID: 1563426947}
   waterPool: {fileID: 1152730248}
   postProcessVolume: {fileID: 1048907567}
+  nextSceneName: Level8_Integration
   speedParameterName: Speed
   runSpeed: 5
   runDuration: 3
   escapeDirection: {x: 0, y: 0, z: 1}
-  fireRampUpDuration: 6
-  fireStayDuration: 6
-  fireChaosDuration: 3
-  startTurbulence: 2
-  targetTurbulence: 80
   fireflyRampDuration: 3
-  beforeTransitionWaitTime: 12
-  transitionDuration: 2
-  sceneTransitionWaitTime: 1
+  delayBeforeFireStarts: 2
+  fireRampUpDuration: 6
+  delayAfterFireBeforeVines: 2
+  delayAfterVinesBeforeChaos: 5
+  fireChaosRampDuration: 2
+  targetTurbulence: 80
+  finalExposurePeak: 10
+  finalSceneFadeDuration: 3
+  sceneLoadWaitTime: 2
+  moodTransitionDuration: 5
   targetTemperature: 15
   targetSaturation: 25
   targetBloom: 6
-  nextSceneName: Level8_Integration
 --- !u!65 &54566929
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1797,23 +1799,25 @@ MonoBehaviour:
   fireflyVFX: {fileID: 1563426947}
   waterPool: {fileID: 1152730248}
   postProcessVolume: {fileID: 1048907567}
+  nextSceneName: Level8_Integration
   speedParameterName: Speed
   runSpeed: 5
   runDuration: 3
   escapeDirection: {x: 0, y: 0, z: 1}
+  fireflyRampDuration: 4
+  delayBeforeFireStarts: 8
   fireRampUpDuration: 4
-  fireStayDuration: 6
-  fireChaosDuration: 3
-  startTurbulence: 2
+  delayAfterFireBeforeVines: 8
+  delayAfterVinesBeforeChaos: 6
+  fireChaosRampDuration: 2
   targetTurbulence: 80
-  fireflyRampDuration: 3
-  beforeTransitionWaitTime: 8
-  transitionDuration: 2
-  sceneTransitionWaitTime: 1
-  targetTemperature: 15
-  targetSaturation: 25
-  targetBloom: 6
-  nextSceneName: Level8_Integration
+  finalExposurePeak: 10
+  finalSceneFadeDuration: 3
+  sceneLoadWaitTime: 2
+  moodTransitionDuration: 15
+  targetTemperature: 17
+  targetSaturation: 28
+  targetBloom: 5
 --- !u!65 &111273374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2383,13 +2387,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157373539}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.4081083, z: -0, w: 0.9129335}
-  m_LocalPosition: {x: 0.885, y: 0.049999952, z: 0.336}
+  m_LocalRotation: {x: -0, y: -0.288903, z: -0, w: 0.9573584}
+  m_LocalPosition: {x: -1.42, y: 0.049999952, z: 2.37}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2064246433}
-  m_LocalEulerAnglesHint: {x: 0, y: 48.172, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -33.585, z: 0}
 --- !u!1001 &159974299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7005,13 +7009,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378940019}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.9106687, z: -0, w: -0.41313744}
-  m_LocalPosition: {x: -2.08, y: 0.049999952, z: -1.57}
+  m_LocalRotation: {x: -0, y: 0.9968071, z: -0, w: 0.07984748}
+  m_LocalPosition: {x: -0.97, y: 0.049999952, z: -2.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2064246433}
-  m_LocalEulerAnglesHint: {x: 0, y: 228.804, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 170.84, z: 0}
 --- !u!73398921 &378940021
 VFXRenderer:
   serializedVersion: 1
@@ -23328,7 +23332,7 @@ VisualEffect:
       - m_Value: 4
         m_Name: Height
         m_Overridden: 1
-      - m_Value: 0
+      - m_Value: 1
         m_Name: SpawnIntensity
         m_Overridden: 1
     m_Vector2f:
