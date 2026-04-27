@@ -146,7 +146,11 @@ public class VoPKeyTrigger : MonoBehaviour
                 yield return null;
             }
 
-            gameObject.SetActive(false); 
+            Renderer[] allRenderers = GetComponentsInChildren<Renderer>();
+            foreach (Renderer r in allRenderers) r.enabled = false;
+        
+            // Optionally disable the animator so it stops processing
+            myAnimator.enabled = false;
         }
         
         yield return new WaitForSeconds(beforeTransitionWaitTime);
@@ -155,7 +159,9 @@ public class VoPKeyTrigger : MonoBehaviour
 
     private IEnumerator FirePeakSequence()
     {
+        print("Fire peak seq start!");
         if (fireVFX == null) yield break;
+        print("Fire peak seq not broken!");
 
         fireVFX.Play();
         float elapsed = 0;
