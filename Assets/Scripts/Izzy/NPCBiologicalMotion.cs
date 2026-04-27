@@ -26,13 +26,19 @@ public class NPCBiologicalMotion : MonoBehaviour
 
     [Header("Head Light Audio Sync")]
     [SerializeField] private Light npcHeadLight;
-    [Range(0f, 1f)] public float headLightIntensity = 0f; // Driven by FMOD Amplitude (Teammate's Slider)
+    [Range(0f, 1f)] public float headLightIntensity = 0f; 
     [SerializeField] private float headLightMin = 0.5f;
-    [SerializeField] private float headLightMax = 5.0f;
+    [SerializeField] private float headLightMax = 4.0f; // Slightly lowered for safety
     
+    [Header("Audio Remapping Settings")]
+    [Tooltip("The range coming from FMOD/Audio input")]
+    [SerializeField] private Vector2 audioInputRange = new Vector2(0.8f, 1.0f);
+    [Tooltip("The range we map it to for the light intensity")]
+    [SerializeField] private Vector2 lightOutputRange = new Vector2(0.0f, 1.0f);
+
     [Header("Talking Effect (Scene Sequence Sync)")]
-    [Range(0f, 1f)] public float talkingWeight = 0f; // Driven by HoganSceneInitializer
-    [SerializeField] private float talkingLightBoost = 2.0f; // Static glow added when it's their turn to talk
+    [Range(0f, 1f)] public float talkingWeight = 0f; 
+    [SerializeField] private float talkingLightBoost = 1.5f; 
 
     [Header("Environmental Sync")]
     [SerializeField] private Light hutLight;
@@ -84,7 +90,7 @@ public class NPCBiologicalMotion : MonoBehaviour
             }
         }
         
-        // 4. Light Syncing
+        // 4. Body Light Pulse
         float bodySin = Mathf.Sin(time * bodyLightFrequency * (2 * Mathf.PI));
         float bodyNormalized = (bodySin + 1f) / 2f; 
         if (npcBodyLight != null)
@@ -92,17 +98,21 @@ public class NPCBiologicalMotion : MonoBehaviour
             npcBodyLight.intensity = Mathf.Lerp(bodyLightMinIntensity, bodyLightMaxIntensity, bodyNormalized);
         }
 
-        // --- COMBINED HEAD LIGHT LOGIC ---
+        // --- IMPROVED HEAD LIGHT LOGIC ---
         if (npcHeadLight != null)
         {
-            // Calculate the jittery audio pulse from your teammate's slider
-            float audioPulse = Mathf.Lerp(headLightMin, headLightMax, headLightIntensity);
+            // 1. Remap the audio input (0.8 - 1.0) to a clean (0.0 - 1.0)
+            float remappedAudio = Map(headLightIntensity, audioInputRange.x, audioInputRange.y, lightOutputRange.x, lightOutputRange.y);
             
-            // Calculate a steady "glow" based on who the dialogue script says is talking
+            // 2. Apply that remapped value to our intensity range
+            float audioPulse = Mathf.Lerp(headLightMin, headLightMax, remappedAudio);
+            
+            // 3. Calculate constant glow
             float constantGlow = talkingWeight * talkingLightBoost;
 
-            // Apply both: It pulses with audio, but stays bright while they are the active speaker
-            npcHeadLight.intensity = audioPulse + constantGlow;
+            // 4. Combine and CLAMP to prevent "Black Box" bloom artifacts
+            // This ensures the light never hits a value that breaks the post-processing
+            npcHeadLight.intensity = Mathf.Clamp(audioPulse + constantGlow, 0f, 8f);
         }
 
         // 5. Hut Light
@@ -111,6 +121,12 @@ public class NPCBiologicalMotion : MonoBehaviour
             float hutT = invertHutSync ? (1f - bodyNormalized) : bodyNormalized;
             hutLight.intensity = Mathf.Lerp(hutLightMin, hutLightMax, hutT);
         }
+    }
+
+    // Helper function to remap ranges (like the Map function in processing/arduino)
+    private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
+    {
+        return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
     }
     
     public void ResetBasePosition() => initialPosition = transform.localPosition;

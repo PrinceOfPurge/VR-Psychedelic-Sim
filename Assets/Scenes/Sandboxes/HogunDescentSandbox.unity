@@ -13072,9 +13072,11 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.5
+  audioInputRange: {x: 0.8, y: 1}
+  lightOutputRange: {x: 0, y: 1}
   talkingWeight: 0
   talkingLightBoost: 2
-  hutLight: {fileID: 0}
+  hutLight: {fileID: 295450835}
   hutLightMin: 0.5
   hutLightMax: 1.5
   invertHutSync: 0
@@ -25226,7 +25228,6 @@ MonoBehaviour:
   talkingFadeDuration: 0.4
   medicineScript: {fileID: 1706742881}
   linePadding: 1.5
-  minWaitBetweenLines: 3.5
   keyPreview: {fileID: 151505773}
   tableSocket: {fileID: 931958951}
   pillObject: {fileID: 15985810}
@@ -25725,6 +25726,8 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.3
+  audioInputRange: {x: 0.8, y: 1}
+  lightOutputRange: {x: 0, y: 1}
   talkingWeight: 0
   talkingLightBoost: 2
   hutLight: {fileID: 295450835}
