@@ -4,12 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[Serializable]
-public struct DistortedUVsInfoContainer
-{
-    public Material mat;
-    public string shaderEffectParamName;
-}
 
 [Serializable]
 public class PPSequenceStep
@@ -49,7 +43,7 @@ public class StartMedicine : MonoBehaviour
     private void Start()
     {
         // Ensure the scene starts without any lingering fade effects
-        if (SceneTransitionManager.Instance != null) 
+        if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.ResetFadeEffect();
         
         ResetEffects();
