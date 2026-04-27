@@ -3801,6 +3801,8 @@ MonoBehaviour:
   startExposure: 15
   targetExposure: 0
   transitionDuration: 3
+  pauseDuration: 2
+  nextSceneName: Credits
 --- !u!4 &401673758
 Transform:
   m_ObjectHideFlags: 0
@@ -13706,6 +13708,13 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <VOPMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -13795,6 +13804,151 @@ MonoBehaviour:
   hoganDialogue: []
   healerDialogue: []
   dialogueLines: []
+  integrationLines:
+  - Guid:
+      Data1: -1837948847
+      Data2: 1335667072
+      Data3: -277116754
+      Data4: 487250413
+    Path: event:/IntegrationScene/di
+  - Guid:
+      Data1: 828646139
+      Data2: 1307423115
+      Data3: -1305042264
+      Data4: 1599423199
+    Path: event:/IntegrationScene/di 2
+  - Guid:
+      Data1: -127308567
+      Data2: 1212319863
+      Data3: 1241025968
+      Data4: 1924753262
+    Path: event:/IntegrationScene/di 3
+  - Guid:
+      Data1: 1594230343
+      Data2: 1185211299
+      Data3: 585056928
+      Data4: 716515843
+    Path: event:/IntegrationScene/di 4
+  - Guid:
+      Data1: -370886146
+      Data2: 1298404906
+      Data3: -1716828009
+      Data4: 1766477901
+    Path: event:/IntegrationScene/di 5
+  - Guid:
+      Data1: -901575628
+      Data2: 1154401766
+      Data3: 684141704
+      Data4: -516069242
+    Path: event:/IntegrationScene/di 6
+  - Guid:
+      Data1: 335465878
+      Data2: 1119407106
+      Data3: 651500474
+      Data4: 711729512
+    Path: event:/IntegrationScene/di 7
+  - Guid:
+      Data1: 1783392866
+      Data2: 1092522690
+      Data3: -1481240386
+      Data4: 1281035690
+    Path: event:/IntegrationScene/di 8
+  - Guid:
+      Data1: -1453710678
+      Data2: 1155239881
+      Data3: -1785627207
+      Data4: -1297723101
+    Path: event:/IntegrationScene/di 9
+  - Guid:
+      Data1: 1966036145
+      Data2: 1101033123
+      Data3: -1214541921
+      Data4: -1718459827
+    Path: event:/IntegrationScene/di 10
+  - Guid:
+      Data1: 905906589
+      Data2: 1309702457
+      Data3: -284190535
+      Data4: 1061575988
+    Path: event:/IntegrationScene/di 11
+  - Guid:
+      Data1: -322808266
+      Data2: 1289131154
+      Data3: -752118142
+      Data4: -1817175938
+    Path: event:/IntegrationScene/di 12
+  - Guid:
+      Data1: 273024050
+      Data2: 1087223855
+      Data3: 2050797230
+      Data4: 34558095
+    Path: event:/IntegrationScene/di 13
+  - Guid:
+      Data1: 1501307027
+      Data2: 1118523653
+      Data3: -2111312762
+      Data4: -973846567
+    Path: event:/IntegrationScene/di 14
+  - Guid:
+      Data1: 2034991970
+      Data2: 1168897106
+      Data3: 995478432
+      Data4: 555524234
+    Path: event:/IntegrationScene/di 15
+  - Guid:
+      Data1: 1120479625
+      Data2: 1308361410
+      Data3: 388354966
+      Data4: -1715961253
+    Path: event:/IntegrationScene/di 16
+  - Guid:
+      Data1: -1126274309
+      Data2: 1135535100
+      Data3: 1748736399
+      Data4: 628787425
+    Path: event:/IntegrationScene/di 17
+  - Guid:
+      Data1: 1668152720
+      Data2: 1260039858
+      Data3: 1513297572
+      Data4: 1544728065
+    Path: event:/IntegrationScene/di 18
+  - Guid:
+      Data1: -1215741237
+      Data2: 1174381562
+      Data3: 867077780
+      Data4: 1093092693
+    Path: event:/IntegrationScene/di 19
+  - Guid:
+      Data1: 1957640964
+      Data2: 1137535215
+      Data3: -1319710538
+      Data4: 405738296
+    Path: event:/IntegrationScene/di 20
+  - Guid:
+      Data1: -177166447
+      Data2: 1103402505
+      Data3: 706075307
+      Data4: 919344123
+    Path: event:/IntegrationScene/di 21
+  - Guid:
+      Data1: 689301946
+      Data2: 1161165402
+      Data3: -354438231
+      Data4: -1312285826
+    Path: event:/IntegrationScene/di 22
+  - Guid:
+      Data1: 480305660
+      Data2: 1245780111
+      Data3: 910109578
+      Data4: 295389214
+    Path: event:/IntegrationScene/di 23
+  - Guid:
+      Data1: -1503908883
+      Data2: 1156236025
+      Data3: 397991851
+      Data4: -835887503
+    Path: event:/IntegrationScene/di 24
 --- !u!1001 &1018753236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21356,6 +21510,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4451948355937213737, guid: faa59b459a0e6dc4ab91499f903d227c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1335667652}
+    - targetCorrespondingSourceObject: {fileID: 4451948355937213737, guid: faa59b459a0e6dc4ab91499f903d227c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1335667653}
   m_SourcePrefab: {fileID: 100100000, guid: faa59b459a0e6dc4ab91499f903d227c, type: 3}
 --- !u!4 &1335667649 stripped
 Transform:
@@ -21383,6 +21540,37 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.012255743, y: 0.0137588065, z: 0.06709946}
   m_Center: {x: -0.001321505, y: -0.002158202, z: 0.025070468}
+--- !u!114 &1335667653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1291324006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: FMODUnity::FMODUnity.StudioEventEmitter
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1109254472
+      Data2: 1223009314
+      Data3: -67141470
+      Data4: 1891304014
+    Path: event:/SFX/FireCracklin
+  Event: 
+  EventPlayTrigger: 1
+  EventStopTrigger: 2
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1001 &1341781238
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29147,7 +29335,39 @@ MonoBehaviour:
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _FragmentStrength
   hutDuration: 15
+  trippyEffectsDelay: 10
   descentVolume: {fileID: 0}
+  fireLight: {fileID: 0}
+  tripColorGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
   starweaverSceneName: Level6_Starweaver
   peakWaitDuration: 5
 --- !u!1001 &1716150089

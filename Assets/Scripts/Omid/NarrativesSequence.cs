@@ -8,12 +8,13 @@ public class NarrativeSequence : MonoBehaviour
     public TextMeshProUGUI narrativeText;
     public CanvasGroup canvasGroup;
 
-    [Header("Settings")]
+    [Header("Settings - Pacing")]
     public string nextSceneName = "HoganHut";
-    public float fadeDuration = 1.5f;
-    public float extraReadTime = 2.0f; // Extra time after audio finishes
+    public float fadeDuration = 0.5f;       // Reduced from 1.5s for snappiness
+    public float baseReadTime = 1.0f;       // Minimum time text stays on screen
+    public float charReadModifier = 0.04f;  // Extra time per character (keeps it dynamic)
+    public float lineGap = 0.3f;            // Reduced from 1.0s to keep momentum
 
-    // Updated story beats to match your 19 dialogue lines
     private string[] storyBeats = {
         "Ever since the hospital… nothing’s felt real.",
         "One minute I was at work… then I woke up with a doctor telling me I was dying.",
@@ -44,14 +45,14 @@ public class NarrativeSequence : MonoBehaviour
         
         if (FMODEvents.instance != null && AudioManager.instance != null)
         {
-            // Start the background music
             AudioManager.instance.CreateInstance(FMODEvents.instance.NarrativeMusic).start();
         }
     }
 
     IEnumerator PlayNarrative()
     {
-        yield return new WaitForSeconds(2.0f); // Initial silence for atmosphere
+        // Initial atmosphere (shortened)
+        yield return new WaitForSeconds(1.0f); 
 
         for (int i = 0; i < storyBeats.Length; i++)
         {
@@ -63,25 +64,39 @@ public class NarrativeSequence : MonoBehaviour
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.narrativeLines[i], transform.position);
             }
 
-            // 2. Fade In Text
+            // 2. Fade In Text (Faster)
             yield return StartCoroutine(FadeCanvas(0, 1, fadeDuration));
 
-            // 3. Wait (Wait for the audio to mostly finish + extra reading time)
-            // If line 5 or 11, add a slightly longer pause for emotional weight
-            float pause = (i == 4 || i == 10) ? extraReadTime + 2.0f : extraReadTime;
-            yield return new WaitForSeconds(pause);
+            // 3. Dynamic Wait 
+            // Calculates time based on sentence length, clamped between 1.5s and 4s
+            float dynamicPause = baseReadTime + (storyBeats[i].Length * charReadModifier);
+            float finalPause = Mathf.Clamp(dynamicPause, 1.5f, 4.0f);
+            
+            // Add extra weight to the emotional beats
+            if (i == 4 || i == 10) finalPause += 1.5f;
 
-            // 4. Fade Out Text
+            // NEW: Wait for time OR user click to skip ahead
+            float timer = 0;
+            while (timer < finalPause)
+            {
+                timer += Time.deltaTime;
+                // Allow player to click/tap to advance immediately
+                if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) 
+                    break; 
+                yield return null;
+            }
+
+            // 4. Fade Out Text (Faster)
             yield return StartCoroutine(FadeCanvas(1, 0, fadeDuration));
 
-            yield return new WaitForSeconds(1.0f); // Gap between lines
+            // 5. Gap between lines (Snappier)
+            yield return new WaitForSeconds(lineGap);
         }
 
-        // 5. Transition to Hogan Hut
+        // Transition to Hogan Hut
         if (SceneTransitionManager.Instance != null)
         {
-            // Use your manager to fade the master volume and screen to black
-            SceneTransitionManager.Instance.PerformFade(false, nextSceneName, false, 3.0f);
+            SceneTransitionManager.Instance.PerformFade(false, nextSceneName, false, 2.0f);
         }
         else
         {

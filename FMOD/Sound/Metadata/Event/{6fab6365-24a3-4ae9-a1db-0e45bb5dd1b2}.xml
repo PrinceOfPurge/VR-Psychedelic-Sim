@@ -114,11 +114,17 @@
 	<object class="MixerBusFader" id="{efd4b065-cdd3-4668-87d5-c79d551c0b76}" />
 	<object class="MixerBusFader" id="{8dd44c63-0b2c-4666-8ee2-b5a2b226a2a5}" />
 	<object class="SingleSound" id="{1c9bcc37-53e8-43f4-aa9e-fcc0b7be3b02}">
+		<property name="volume">
+			<value>10</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{6722e14d-cefe-4254-878f-ef822a73cd2d}</destination>
 		</relationship>
 	</object>
 	<object class="SingleSound" id="{779dc673-427e-45ce-ba15-e6d0990c3384}">
+		<property name="volume">
+			<value>10</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{3b21b1ec-a5fc-413c-8677-a6ffa9b9e31b}</destination>
 		</relationship>

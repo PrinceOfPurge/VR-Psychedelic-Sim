@@ -2,9 +2,12 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using FMOD.Studio;
 
 public class ValleySceneInitializer : MonoBehaviour
 {
+    private EventInstance musicInstance;
+
     [Header("Settings")] 
     [SerializeField] private bool useExposureFade = false;
     [SerializeField] private float startExposure = 15f; 
@@ -13,7 +16,13 @@ public class ValleySceneInitializer : MonoBehaviour
 
     void Start()
     {
-        // Reset fade value from previous scene
+        // 1. Initialize and Start Music from your central FMODEvents script
+        if (FMODEvents.instance != null)
+        {
+            AudioManager.instance.PlayValleyMusic(FMODEvents.instance.VOPMusic);
+        }
+
+        // 2. Reset fade value from previous scene
         if (SceneTransitionManager.Instance != null)
         {
             SceneTransitionManager.Instance.ResetBasicFade();
@@ -46,4 +55,6 @@ public class ValleySceneInitializer : MonoBehaviour
 
         colorAdjustments.postExposure.value = targetExposure;
     }
+    
+    
 }

@@ -30,6 +30,7 @@ public class AudioManager : MonoBehaviour
     private EventInstance ambienceEventInstance;
     private EventInstance musicEventInstance;
     public static AudioManager instance { get; private set; }
+    public EventInstance valleyMusicInstance;
 
     private void Awake()
     {
@@ -104,6 +105,21 @@ public class AudioManager : MonoBehaviour
         emitter.EventReference = eventReference;
         eventEmitters.Add(emitter);
         return emitter;
+    }
+    
+    public void PlayValleyMusic(EventReference reference)
+    {
+        valleyMusicInstance = CreateInstance(reference);
+        valleyMusicInstance.start();
+    }
+    
+    public void StopValleyMusic()
+    {
+        if (valleyMusicInstance.isValid())
+        {
+            valleyMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            valleyMusicInstance.release();
+        }
     }
     
     private void CleanUp()
