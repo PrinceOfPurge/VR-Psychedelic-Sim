@@ -3812,6 +3812,9 @@ MonoBehaviour:
     shaderEffectParamName: _VertexEffectStrength
   - mat: {fileID: 2100000, guid: 6aa81521560009e45aed4592a9b38881, type: 2}
     shaderEffectParamName: _VertexEffectStrength
+  therapistCloud: {fileID: 612003232}
+  healerCloud: {fileID: 606037515}
+  talkingFadeDuration: 0.4
   fireLight: {fileID: 295450835}
   tripColorGradient:
     serializedVersion: 2
@@ -5721,6 +5724,8 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.5
+  talkingWeight: 0
+  talkingLightBoost: 2
   hutLight: {fileID: 295450835}
   hutLightMin: 7
   hutLightMax: 15
@@ -5851,6 +5856,8 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.5
+  talkingWeight: 0
+  talkingLightBoost: 2
   hutLight: {fileID: 0}
   hutLightMin: 0.5
   hutLightMax: 1.5

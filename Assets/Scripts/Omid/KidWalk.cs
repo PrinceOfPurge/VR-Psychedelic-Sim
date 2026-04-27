@@ -17,6 +17,7 @@ public class KidWalk : MonoBehaviour
     private bool hasBeenYelledAt = false;
     private bool isShowing = false;
     private bool isEscaping = false;
+    private bool hasPlayedKidLine = false; // NEW FLAG
 
     private EventInstance footstepInstance;
 
@@ -72,12 +73,13 @@ public class KidWalk : MonoBehaviour
                 anim.SetFloat("Speed", 0f); 
                 CheckFootsteps(false);
 
-                if (FMODEvents.instance != null)
+                // FIXED LOGIC: Added hasPlayedKidLine check
+                if (FMODEvents.instance != null && !hasPlayedKidLine)
                 {
                     FMODUnity.RuntimeManager.PlayOneShot(FMODEvents.instance.kidLine, transform.position);
+                    hasPlayedKidLine = true; // Prevents it from firing again
+                    Invoke("ExecuteYell", timeUntilFatherYells); 
                 }
-
-                Invoke("ExecuteYell", timeUntilFatherYells); 
             }
 
             Vector3 lookPos = father.position - transform.position;
@@ -103,7 +105,6 @@ public class KidWalk : MonoBehaviour
         if (hasBeenYelledAt) return;
         hasBeenYelledAt = true; 
 
-        // 1. Father Yells
         if (FMODEvents.instance != null)
         {
             FMODUnity.RuntimeManager.PlayOneShot(FMODEvents.instance.yell, transform.position);
@@ -111,7 +112,6 @@ public class KidWalk : MonoBehaviour
 
         anim.SetTrigger("YelledAt");
         
-        // We play this right after the yell to show the kid's reaction
         if (FMODEvents.instance != null)
         {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.sadKid, transform.position); 

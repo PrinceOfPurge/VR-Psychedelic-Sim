@@ -11,12 +11,12 @@ public class NPCBiologicalMotion : MonoBehaviour
     [SerializeField] private float initialPlayerLookDelay = 0f;
     
     [Header("Breathing (Scaling)")]
-    [SerializeField] private float breatheFrequency = 0.15f; // 1 breath every ~6.5s
-    [SerializeField] private float breatheAmount = 0.1f;    // 10% scale change
+    [SerializeField] private float breatheFrequency = 0.15f; 
+    [SerializeField] private float breatheAmount = 0.1f;    
     
     [Header("Idle Bobbing (Floating)")]
     [SerializeField] private float bobFrequency = 0.5f;
-    [SerializeField] private float bobAmount = 0.05f;       // 5cm bobbing
+    [SerializeField] private float bobAmount = 0.05f;       
 
     [Header("Light Pulsing (Body)")]
     [SerializeField] private Light npcBodyLight;
@@ -26,16 +26,19 @@ public class NPCBiologicalMotion : MonoBehaviour
 
     [Header("Head Light Audio Sync")]
     [SerializeField] private Light npcHeadLight;
-    [Range(0f, 1f)] public float headLightIntensity = 0f; // Driven by FMOD Amplitude
+    [Range(0f, 1f)] public float headLightIntensity = 0f; // Driven by FMOD Amplitude (Teammate's Slider)
     [SerializeField] private float headLightMin = 0.5f;
     [SerializeField] private float headLightMax = 5.0f;
     
+    [Header("Talking Effect (Scene Sequence Sync)")]
+    [Range(0f, 1f)] public float talkingWeight = 0f; // Driven by HoganSceneInitializer
+    [SerializeField] private float talkingLightBoost = 2.0f; // Static glow added when it's their turn to talk
+
     [Header("Environmental Sync")]
-    [Tooltip("Reference to the main hut/environmental light. IMPORTANT: Only one NPC in the scene should have this assigned to prevent conflicting intensity updates.")]
     [SerializeField] private Light hutLight;
     [SerializeField] private float hutLightMin = 0.5f;
     [SerializeField] private float hutLightMax = 1.5f;
-    [SerializeField] bool invertHutSync = false; // Optional: Makes room dim when NPC glows
+    [SerializeField] bool invertHutSync = false; 
 
     private Vector3 initialScale;
     private Vector3 initialPosition;
@@ -70,12 +73,11 @@ public class NPCBiologicalMotion : MonoBehaviour
         transform.localPosition = initialPosition + (Vector3.up * (bobSin * bobAmount));
 
         // 3. Smooth Gaze
-        if (playerTransform != null)
+        if (playerTransform != null && shouldLookAtPlayer)
         {
             Vector3 direction = playerTransform.position - transform.position;
-            direction.y = 0; // Keep the cloud level
-            
-            if (direction != Vector3.zero && shouldLookAtPlayer)
+            direction.y = 0; 
+            if (direction != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(direction);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * rotationSpeed);
@@ -83,7 +85,6 @@ public class NPCBiologicalMotion : MonoBehaviour
         }
         
         // 4. Light Syncing
-        // Independent Body Pulse
         float bodySin = Mathf.Sin(time * bodyLightFrequency * (2 * Mathf.PI));
         float bodyNormalized = (bodySin + 1f) / 2f; 
         if (npcBodyLight != null)
@@ -91,18 +92,23 @@ public class NPCBiologicalMotion : MonoBehaviour
             npcBodyLight.intensity = Mathf.Lerp(bodyLightMinIntensity, bodyLightMaxIntensity, bodyNormalized);
         }
 
-        // Head Light (Audio Sync)
+        // --- COMBINED HEAD LIGHT LOGIC ---
         if (npcHeadLight != null)
         {
-            npcHeadLight.intensity = Mathf.Lerp(headLightMin, headLightMax, headLightIntensity);
+            // Calculate the jittery audio pulse from your teammate's slider
+            float audioPulse = Mathf.Lerp(headLightMin, headLightMax, headLightIntensity);
+            
+            // Calculate a steady "glow" based on who the dialogue script says is talking
+            float constantGlow = talkingWeight * talkingLightBoost;
+
+            // Apply both: It pulses with audio, but stays bright while they are the active speaker
+            npcHeadLight.intensity = audioPulse + constantGlow;
         }
 
-        // Hut Light (Still synced to Breathing)
+        // 5. Hut Light
         if (hutLight != null)
         {
-            //float normalizedBreathe = (breatheSin + 1f) / 2f;
-            float normalizedBreathe = bodyNormalized;
-            float hutT = invertHutSync ? (1f - normalizedBreathe) : normalizedBreathe;
+            float hutT = invertHutSync ? (1f - bodyNormalized) : bodyNormalized;
             hutLight.intensity = Mathf.Lerp(hutLightMin, hutLightMax, hutT);
         }
     }

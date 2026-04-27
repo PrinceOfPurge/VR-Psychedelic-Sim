@@ -17,6 +17,11 @@ public class HoganSceneInitializer : MonoBehaviour
     [SerializeField] private float entryDelay = 3.0f; 
     [SerializeField] private float walkDuration = 5.0f;
 
+    [Header("Cloud NPCs (Talking Sync)")]
+    [SerializeField] private NPCBiologicalMotion therapistCloud;
+    [SerializeField] private NPCBiologicalMotion healerCloud;
+    [SerializeField] private float talkingFadeDuration = 0.4f;
+
     [Header("Sequence References")]
     [SerializeField] private StartMedicine medicineScript;
     [SerializeField] private float linePadding = 1.0f;
@@ -28,10 +33,11 @@ public class HoganSceneInitializer : MonoBehaviour
     [SerializeField] private bool enablePulseEffect = true;
 
     [Header("After Effects (Hands/Camera)")]
-    [SerializeField] private MonoBehaviour[] visualEffects; // Drag both hand shader scripts here
+    [SerializeField] private MonoBehaviour[] visualEffects; 
 
     private EventInstance drumInstance;
     private EventInstance navajoInstance;
+    private EventInstance currentDialogueInstance; // Track dialogue for fading
     public bool keyPlaced = false;
     public bool pillTaken = false;
 
@@ -54,7 +60,6 @@ public class HoganSceneInitializer : MonoBehaviour
         if (keyPreview != null) { originalPreviewScale = keyPreview.transform.localScale; keyPreview.SetActive(false); }
         if (pillObject != null) { pillObject.SetActive(false); }
 
-        // Ensure all hand/camera effects are disabled at the start
         if (visualEffects != null)
         {
             foreach (var effect in visualEffects)
@@ -155,10 +160,8 @@ public class HoganSceneInitializer : MonoBehaviour
 
         if (pillObject != null) pillObject.SetActive(true);
 
-        // --- WAITING FOR PILL ---
         while (!pillTaken) yield return null;
 
-        // ACTIVATE ALL SHADERS (Left Hand, Right Hand, etc.)
         if (visualEffects != null)
         {
             foreach (var effect in visualEffects)
@@ -192,6 +195,8 @@ public class HoganSceneInitializer : MonoBehaviour
         yield return PlayLine(h[26], therapistNPC); 
         yield return PlayLine(h[27], therapistNPC); 
 
+        // --- FADE OUT START ---
+        // We fade everything together over 5 seconds
         yield return StartCoroutine(FadeOutAllMusic(5.0f));
 
         if (SceneTransitionManager.Instance != null)
@@ -200,24 +205,71 @@ public class HoganSceneInitializer : MonoBehaviour
     
     private IEnumerator PlayLine(FMODUnity.EventReference line, GameObject source)
     {
+        if (line.IsNull) yield break;
+
+        NPCBiologicalMotion currentSpeaker = null;
+        if (source == therapistNPC) currentSpeaker = therapistCloud;
+        else if (source == null) currentSpeaker = healerCloud;
+
+        if (currentSpeaker != null) StartCoroutine(FadeTalkingWeight(currentSpeaker, 1f));
+
         Vector3 pos = (source != null) ? source.transform.position : Camera.main.transform.position;
-        AudioManager.instance.PlayOneShot(line, pos);
-        yield return new WaitForSeconds(linePadding + 2.5f); 
+        currentDialogueInstance = AudioManager.instance.CreateInstance(line);
+        currentDialogueInstance.set3DAttributes(FMODUnity.RuntimeUtils.To3DAttributes(pos));
+        currentDialogueInstance.start();
+
+        PLAYBACK_STATE state;
+        currentDialogueInstance.getPlaybackState(out state);
+        while (state != PLAYBACK_STATE.STOPPED)
+        {
+            currentDialogueInstance.getPlaybackState(out state);
+            yield return null; 
+        }
+
+        yield return new WaitForSeconds(linePadding);
+
+        if (currentSpeaker != null) StartCoroutine(FadeTalkingWeight(currentSpeaker, 0f));
+        currentDialogueInstance.release();
+    }
+
+    private IEnumerator FadeTalkingWeight(NPCBiologicalMotion npc, float target)
+    {
+        float start = npc.talkingWeight;
+        float elapsed = 0;
+        while (elapsed < talkingFadeDuration)
+        {
+            elapsed += Time.deltaTime;
+            npc.talkingWeight = Mathf.Lerp(start, target, elapsed / talkingFadeDuration);
+            yield return null;
+        }
+        npc.talkingWeight = target;
     }
 
     private IEnumerator FadeOutAllMusic(float duration)
     {
         float elapsed = 0;
+        // Also capture the volume of current dialogue if it's still playing
+        float dialogueVol = 1f;
+
         while (elapsed < duration)
         {
             elapsed += Time.deltaTime;
-            float vol = Mathf.Lerp(1f, 0f, elapsed / duration);
+            float t = elapsed / duration;
+            float vol = Mathf.Lerp(1f, 0f, t);
+            
             if (drumInstance.isValid()) drumInstance.setVolume(vol);
             if (navajoInstance.isValid()) navajoInstance.setVolume(vol);
+            
+            // Fade the dialogue too just in case one is active
+            if (currentDialogueInstance.isValid()) currentDialogueInstance.setVolume(vol);
+
             yield return null;
         }
+
+        // Clean stop all
         if (drumInstance.isValid()) { drumInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); drumInstance.release(); }
         if (navajoInstance.isValid()) { navajoInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); navajoInstance.release(); }
+        if (currentDialogueInstance.isValid()) { currentDialogueInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); currentDialogueInstance.release(); }
     }
 
     private IEnumerator MoveTherapistRoutine()
@@ -235,8 +287,9 @@ public class HoganSceneInitializer : MonoBehaviour
 
     private void OnDestroy()
     {
-        if (drumInstance.isValid()) { drumInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); drumInstance.release(); }
-        if (navajoInstance.isValid()) { navajoInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT); navajoInstance.release(); }
+        if (drumInstance.isValid()) { drumInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); drumInstance.release(); }
+        if (navajoInstance.isValid()) { navajoInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); navajoInstance.release(); }
+        if (currentDialogueInstance.isValid()) { currentDialogueInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); currentDialogueInstance.release(); }
     }
 
     public void SetKeyPlaced(bool v) => keyPlaced = v;

@@ -86,7 +86,7 @@ Material:
     - _QueueOffset: 0
     - _Smoothness: 0.28
     - _UseCustomGlow_NotAura: 0
-    - _VertexEffectStrength: 0
+    - _VertexEffectStrength: 1
     - _XRMotionVectorsPass: 1
     - _hue: 0
     m_Colors:
