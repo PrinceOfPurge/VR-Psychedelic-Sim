@@ -9,13 +9,23 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
+
+[Serializable]
+public struct VFXTransform
+{
+    public Vector3 vfxPosition;
+    public Vector3 vfxRotation;
+    public Vector3 vfxScale;
+}
+
 [Serializable]
 public struct SDFSequenceStep
 {
     public string label;            
     public Texture3D sdfTexture;
-    public Vector3 sdfSize;         // <-- ADD THIS: Match the 'Size' from the Bake Tool
-    public Vector3 sdfCenter;       // <-- ADD THIS: Match the 'Center' from the Bake Tool
+    public Vector3 sdfSize;
+    public Vector3 sdfCenter;
+    public VFXTransform VFXTransform;
     public float duration;          
     [GradientUsage(true)]
     public Gradient colorGradient;  
@@ -350,41 +360,54 @@ public class EgoDeath : MonoBehaviour
     }
 
     private IEnumerator MorphToSDF(SDFSequenceStep step)
-    {
-        SafeSetTexture(KEY_SDF, step.sdfTexture);
-        
-        float elapsed = 0;
-        float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
-        float startStick = SafeGetFloat(KEY_STICK_FORCE);
-        float startTurb = SafeGetFloat(KEY_TURBULENCE);
-        
-        // Capture starting bounds for the lerp
-        Vector3 startSdfSize = SafeGetVector3(KEY_SDF_SIZE, Vector3.one * 3f);
-        Vector3 startSdfCenter = SafeGetVector3(KEY_SDF_CENTER, Vector3.zero);
-        Vector3 startScale = vfxGraph != null ? vfxGraph.transform.localScale : Vector3.one;
+{
+    SafeSetTexture(KEY_SDF, step.sdfTexture);
+    
+    float elapsed = 0;
+    
+    // Capture starting VFX Graph properties
+    float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
+    float startStick = SafeGetFloat(KEY_STICK_FORCE);
+    float startTurb = SafeGetFloat(KEY_TURBULENCE);
+    Vector3 startSdfSize = SafeGetVector3(KEY_SDF_SIZE, Vector3.one * 3f);
+    Vector3 startSdfCenter = SafeGetVector3(KEY_SDF_CENTER, Vector3.zero);
 
-        while (elapsed < morphDuration)
+    // Capture starting Transform state
+    Vector3 startPos = vfxGraph.transform.localPosition;
+    Quaternion startRot = vfxGraph.transform.localRotation;
+    Vector3 startScale = vfxGraph.transform.localScale;
+
+    // Target Rotation from Euler
+    Quaternion targetRot = Quaternion.Euler(step.VFXTransform.vfxRotation);
+
+    while (elapsed < morphDuration)
+    {
+        elapsed += Time.deltaTime;
+        float t = elapsed / morphDuration;
+        float ease = Mathf.SmoothStep(0, 1, t);
+        
+        // 1. Particle Logic Lerps
+        LerpGradients(lastStepGradient, step.colorGradient, ease);
+        SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
+        SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
+        SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
+        SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
+        
+        // 2. SDF Bounding Box Lerps
+        SafeSetVector3(KEY_SDF_SIZE, Vector3.Lerp(startSdfSize, step.sdfSize, ease));
+        SafeSetVector3(KEY_SDF_CENTER, Vector3.Lerp(startSdfCenter, step.sdfCenter, ease));
+        
+        // 3. Entire VFX Object Transform Lerps
+        if (vfxGraph != null)
         {
-            elapsed += Time.deltaTime;
-            float t = elapsed / morphDuration;
-            float ease = Mathf.SmoothStep(0, 1, t);
-            
-            LerpGradients(lastStepGradient, step.colorGradient, ease);
-            SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
-            SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
-            SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
-            SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
-            
-            // Dynamic Bounding Box Update
-            SafeSetVector3(KEY_SDF_SIZE, Vector3.Lerp(startSdfSize, step.sdfSize, ease));
-            SafeSetVector3(KEY_SDF_CENTER, Vector3.Lerp(startSdfCenter, step.sdfCenter, ease));
-            
-            if (vfxGraph != null)
-                vfxGraph.transform.localScale = Vector3.Lerp(startScale, Vector3.one * step.vfxScale, ease);
-                
-            yield return null;
+            vfxGraph.transform.position = Vector3.Lerp(startPos, step.VFXTransform.vfxPosition, ease);
+            vfxGraph.transform.rotation = Quaternion.Slerp(startRot, targetRot, ease);
+            vfxGraph.transform.localScale = Vector3.Lerp(startScale, step.VFXTransform.vfxScale, ease);
         }
+            
+        yield return null;
     }
+}
 
     private void OnApplicationQuit()
     {
