@@ -5713,9 +5713,14 @@ MonoBehaviour:
   breatheAmount: 0.01
   bobFrequency: 0.3
   bobAmount: 0.06
-  npcLight: {fileID: 1244033610}
-  lightMinIntensity: 1
-  lightMaxIntensity: 3
+  npcBodyLight: {fileID: 1244033610}
+  bodyLightFrequency: 0.17
+  bodyLightMinIntensity: 0.8
+  bodyLightMaxIntensity: 4
+  npcHeadLight: {fileID: 592392132}
+  headLightIntensity: 0
+  headLightMin: 0.5
+  headLightMax: 3.5
   hutLight: {fileID: 295450835}
   hutLightMin: 7
   hutLightMax: 15
@@ -5838,9 +5843,14 @@ MonoBehaviour:
   breatheAmount: 0.02
   bobFrequency: 0.5
   bobAmount: 0.05
-  npcLight: {fileID: 2129949807}
-  lightMinIntensity: 1
-  lightMaxIntensity: 3
+  npcBodyLight: {fileID: 2129949807}
+  bodyLightFrequency: 0.3
+  bodyLightMinIntensity: 0.6
+  bodyLightMaxIntensity: 3.3
+  npcHeadLight: {fileID: 1862665477}
+  headLightIntensity: 0
+  headLightMin: 0.5
+  headLightMax: 3.5
   hutLight: {fileID: 0}
   hutLightMin: 0.5
   hutLightMax: 1.5

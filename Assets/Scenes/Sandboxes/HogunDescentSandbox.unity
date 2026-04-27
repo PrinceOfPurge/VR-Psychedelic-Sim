@@ -13064,9 +13064,14 @@ MonoBehaviour:
   breatheAmount: 0.02
   bobFrequency: 0.5
   bobAmount: 0.05
-  npcLight: {fileID: 340055030}
-  lightMinIntensity: 1
-  lightMaxIntensity: 3
+  npcBodyLight: {fileID: 340055030}
+  bodyLightFrequency: 0.3
+  bodyLightMinIntensity: 0.6
+  bodyLightMaxIntensity: 3.3
+  npcHeadLight: {fileID: 955933428}
+  headLightIntensity: 0
+  headLightMin: 0.5
+  headLightMax: 3.5
   hutLight: {fileID: 0}
   hutLightMin: 0.5
   hutLightMax: 1.5
@@ -13544,7 +13549,7 @@ MonoBehaviour:
   lowestSubdivLevelOverride: 0
   highestSubdivLevelOverride: 7
   overridesSubdivLevels: 0
-  mightNeedRebaking: 1
+  mightNeedRebaking: 0
   cachedTransform:
     e00: 1
     e01: 0
@@ -24332,7 +24337,7 @@ Light:
   serializedVersion: 11
   m_Type: 2
   m_Color: {r: 0.862817, g: 0.26900145, b: 0.8773585, a: 1}
-  m_Intensity: 0.6
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -25706,9 +25711,14 @@ MonoBehaviour:
   breatheAmount: 0.01
   bobFrequency: 0.3
   bobAmount: 0.06
-  npcLight: {fileID: 1260632902}
-  lightMinIntensity: 1
-  lightMaxIntensity: 3
+  npcBodyLight: {fileID: 1260632902}
+  bodyLightFrequency: 0.17
+  bodyLightMinIntensity: 0.8
+  bodyLightMaxIntensity: 4
+  npcHeadLight: {fileID: 1472801712}
+  headLightIntensity: 0
+  headLightMin: 0.5
+  headLightMax: 3.3
   hutLight: {fileID: 295450835}
   hutLightMin: 7
   hutLightMax: 15

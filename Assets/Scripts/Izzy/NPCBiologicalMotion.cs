@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class NPCBiologicalMotion : MonoBehaviour
 {
@@ -17,10 +18,17 @@ public class NPCBiologicalMotion : MonoBehaviour
     [SerializeField] private float bobFrequency = 0.5f;
     [SerializeField] private float bobAmount = 0.05f;       // 5cm bobbing
 
-    [Header("Light Pulsing (Self)")]
-    [SerializeField] private Light npcLight;
-    [SerializeField] private float lightMinIntensity = 1.0f;
-    [SerializeField] private float lightMaxIntensity = 3.0f;
+    [Header("Light Pulsing (Body)")]
+    [SerializeField] private Light npcBodyLight;
+    [SerializeField] private float bodyLightFrequency = 0.5f;
+    [FormerlySerializedAs("lightMinIntensity"),SerializeField] private float bodyLightMinIntensity = 1.0f;
+    [FormerlySerializedAs("lightMaxIntensity"),SerializeField] private float bodyLightMaxIntensity = 3.0f;
+
+    [Header("Head Light Audio Sync")]
+    [SerializeField] private Light npcHeadLight;
+    [Range(0f, 1f)] public float headLightIntensity = 0f; // Driven by FMOD Amplitude
+    [SerializeField] private float headLightMin = 0.5f;
+    [SerializeField] private float headLightMax = 5.0f;
     
     [Header("Environmental Sync")]
     [Tooltip("Reference to the main hut/environmental light. IMPORTANT: Only one NPC in the scene should have this assigned to prevent conflicting intensity updates.")]
@@ -37,7 +45,7 @@ public class NPCBiologicalMotion : MonoBehaviour
         initialScale = transform.localScale;
         initialPosition = transform.localPosition;
         
-        if (npcLight == null) npcLight = GetComponentInChildren<Light>();
+        if (npcBodyLight == null) npcBodyLight = GetComponentInChildren<Light>();
         if (playerTransform == null && Camera.main != null) playerTransform = Camera.main.transform;
 
         StartCoroutine(BeginLookingAtPlayer());
@@ -54,7 +62,6 @@ public class NPCBiologicalMotion : MonoBehaviour
         float time = Time.time;
 
         // 1. Breathing (Scale)
-        // Formula: Scale = Base + sin(Time * Freq) * Amount
         float breatheSin = Mathf.Sin(time * breatheFrequency * (2 * Mathf.PI));
         transform.localScale = initialScale + (Vector3.one * (breatheSin * breatheAmount));
 
@@ -76,22 +83,29 @@ public class NPCBiologicalMotion : MonoBehaviour
         }
         
         // 4. Light Syncing
-        float normalizedSin = (breatheSin + 1f) / 2f; 
-
-        // Pulse Self
-        if (npcLight != null)
+        // Independent Body Pulse
+        float bodySin = Mathf.Sin(time * bodyLightFrequency * (2 * Mathf.PI));
+        float bodyNormalized = (bodySin + 1f) / 2f; 
+        if (npcBodyLight != null)
         {
-            npcLight.intensity = Mathf.Lerp(lightMinIntensity, lightMaxIntensity, normalizedSin);
+            npcBodyLight.intensity = Mathf.Lerp(bodyLightMinIntensity, bodyLightMaxIntensity, bodyNormalized);
         }
 
-        // Pulse Hut Light
+        // Head Light (Audio Sync)
+        if (npcHeadLight != null)
+        {
+            npcHeadLight.intensity = Mathf.Lerp(headLightMin, headLightMax, headLightIntensity);
+        }
+
+        // Hut Light (Still synced to Breathing)
         if (hutLight != null)
         {
-            float hutT = invertHutSync ? (1f - normalizedSin) : normalizedSin;
+            //float normalizedBreathe = (breatheSin + 1f) / 2f;
+            float normalizedBreathe = bodyNormalized;
+            float hutT = invertHutSync ? (1f - normalizedBreathe) : normalizedBreathe;
             hutLight.intensity = Mathf.Lerp(hutLightMin, hutLightMax, hutT);
         }
     }
     
-    // Call this if the Initializer moves the object to reset its "base" position
     public void ResetBasePosition() => initialPosition = transform.localPosition;
 }
