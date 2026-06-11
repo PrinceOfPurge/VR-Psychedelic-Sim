@@ -7,16 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_InfiniteVoid
-  m_Shader: {fileID: -6465566751694194690, guid: 606b20bc3b7252a4e9917fcf412cb93f, type: 3}
+  m_Name: M_SpiritualKey
+  m_Shader: {fileID: -6465566751694194690, guid: ad790ee15d7ef6f40a07cfdcd496086d, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 2000
   stringTagMap: {}
   disabledShaderPasses:
   - MOTIONVECTORS
@@ -38,16 +38,15 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _DitherValue: 0.5
     - _QueueControl: 0
     - _QueueOffset: 0
     - _XRMotionVectorsPass: 1
     m_Colors:
-    - _Color: {r: 1, g: 0.90199333, b: 0.1745283, a: 1}
-    - _YMultiplierRange: {r: -1, g: 1, b: 0, a: 0}
+    - _Base_Color: {r: 0.507576, g: 0, b: 1, a: 1}
+    - _Glow_Color: {r: 0, g: 1.9197779, b: 1.9766744, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &2180922812221024144
+--- !u!114 &7056736574241904545
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
