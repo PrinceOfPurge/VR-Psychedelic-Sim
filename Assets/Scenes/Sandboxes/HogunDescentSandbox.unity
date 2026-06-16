@@ -13072,7 +13072,11 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.5
-  hutLight: {fileID: 0}
+  audioInputRange: {x: 0.8, y: 1}
+  lightOutputRange: {x: 0, y: 1}
+  talkingWeight: 0
+  talkingLightBoost: 2
+  hutLight: {fileID: 295450835}
   hutLightMin: 0.5
   hutLightMax: 1.5
   invertHutSync: 0
@@ -13540,7 +13544,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.ProbeVolume
   mode: 1
-  size: {x: 63.60032, y: 10.697714, z: 50.80016}
+  size: {x: 63.60032, y: 10.697713, z: 50.80016}
   overrideRendererFilters: 0
   minRendererVolumeSize: 0.1
   objectLayerMask:
@@ -13580,7 +13584,7 @@ Transform:
   m_GameObject: {fileID: 852156063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3.3488567, z: 11.40008}
+  m_LocalPosition: {x: 0, y: 3.3488564, z: 11.40008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -25219,8 +25223,11 @@ MonoBehaviour:
   endPoint: {fileID: 2032924615}
   entryDelay: 3
   walkDuration: 5
+  therapistCloud: {fileID: 772423091}
+  healerCloud: {fileID: 1601552732}
+  talkingFadeDuration: 0.4
   medicineScript: {fileID: 1706742881}
-  linePadding: 1
+  linePadding: 1.5
   keyPreview: {fileID: 151505773}
   tableSocket: {fileID: 931958951}
   pillObject: {fileID: 15985810}
@@ -25719,6 +25726,10 @@ MonoBehaviour:
   headLightIntensity: 0
   headLightMin: 0.5
   headLightMax: 3.3
+  audioInputRange: {x: 0.8, y: 1}
+  lightOutputRange: {x: 0, y: 1}
+  talkingWeight: 0
+  talkingLightBoost: 2
   hutLight: {fileID: 295450835}
   hutLightMin: 7
   hutLightMax: 15

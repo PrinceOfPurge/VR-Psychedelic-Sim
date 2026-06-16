@@ -51,7 +51,7 @@ public class EgoDeath : MonoBehaviour
     [SerializeField] private float maxWarpSpeed = 1f;
     [SerializeField] private float minVignetteIntensity = 0.2f;
     [SerializeField] private float maxVignetteIntensity = 0.45f;
-    [SerializeField] private FMODUnity.EventReference warpZoomSFX; // <-- NEW SFX SLOT HERE
+    [SerializeField] private FMODUnity.EventReference warpZoomSFX; 
 
     [Header("Transition Settings")]
     [SerializeField] private List<SDFSequenceStep> sequence;
@@ -96,6 +96,7 @@ public class EgoDeath : MonoBehaviour
     private Vector3 earthAnchorPos;
 
     private bool egoDeathActive = false;
+    private FMOD.Studio.EventInstance kaleidoscopeMusicInstance; // NEW: Logic for music fade
 
     private void Start()
     {
@@ -107,10 +108,11 @@ public class EgoDeath : MonoBehaviour
         SafeSetFloat(KEY_SPAWN_INTENSITY, 0f);
         earthAnchorPos = earthTransform.localPosition;
         
-        // Moved this to the bottom because I don't have FMOD installed and it was stopping the rest of the code from running
         if (AudioManager.instance != null)
         {
-            AudioManager.instance.CreateInstance(FMODEvents.instance.KaleidoscopeMusic).start();
+            // NEW: Capture instance to allow fading
+            kaleidoscopeMusicInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.KaleidoscopeMusic);
+            kaleidoscopeMusicInstance.start();
         }
     }
     
@@ -127,6 +129,13 @@ public class EgoDeath : MonoBehaviour
             StartCoroutine(SkipToSkullSequence());
         }
 
+        // NEW: SKIP BUTTON FOR TESTING FADE
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            StopAllCoroutines();
+            StartCoroutine(SkipToFinalFade());
+        }
+
         Vector3 drift = new Vector3(
             Mathf.Sin(Time.time * floatFrequency) * floatAmplitude,
             Mathf.Cos(Time.time * floatFrequency * 0.8f) * floatAmplitude,
@@ -136,9 +145,6 @@ public class EgoDeath : MonoBehaviour
         earthTransform.position = earthAnchorPos + drift;
     }
 
-    // ==========================================
-    // SAFE VFX GRAPH SETTERS (Prevents Errors)
-    // ==========================================
     private float SafeGetFloat(string key, float fallback = 0f)
     {
         if (vfxGraph != null && vfxGraph.HasFloat(key)) return vfxGraph.GetFloat(key);
@@ -171,9 +177,6 @@ public class EgoDeath : MonoBehaviour
         return fallback;
     }
 
-    // ==========================================
-    // SEQUENCES
-    // ==========================================
     private IEnumerator SkipToSkullSequence()
     {
         egoDeathActive = true;
@@ -184,11 +187,13 @@ public class EgoDeath : MonoBehaviour
             yield return StartCoroutine(MorphToSDF(sequence[2]));
             yield return StartCoroutine(HandleDialogueSequence(2));
         }
-        else
-        {
-            Debug.LogError("Sequence list needs at least 3 elements for the Skull phase to trigger!");
-        }
+        yield return StartCoroutine(ShatterEgo());
+    }
 
+    private IEnumerator SkipToFinalFade()
+    {
+        egoDeathActive = true;
+        SafeSetFloat(KEY_SPAWN_INTENSITY, 1f);
         yield return StartCoroutine(ShatterEgo());
     }
     
@@ -196,7 +201,6 @@ public class EgoDeath : MonoBehaviour
     {
         egoDeathActive = true;
 
-        // <-- TRIGGER NEW SFX HERE EXACTLY WHEN PUSH STARTS -->
         if (AudioManager.instance != null && !warpZoomSFX.IsNull)
         {
             AudioManager.instance.PlayOneShot(warpZoomSFX, transform.position);
@@ -255,7 +259,6 @@ public class EgoDeath : MonoBehaviour
             yield return StartCoroutine(MorphToSDF(sequence[i]));
             yield return StartCoroutine(HandleDialogueSequence(i));
             
-            // Wait for any remaining duration assigned in the inspector
             yield return new WaitForSeconds(sequence[i].duration); 
             lastStepGradient = sequence[i].colorGradient;
         }
@@ -266,25 +269,23 @@ public class EgoDeath : MonoBehaviour
     {
         var lines = FMODEvents.instance.dialogueLines;
 
-        if (stepIndex == 0) // DNA
+        if (stepIndex == 0) 
         {
             yield return PlayLineAndWait(lines[0], 5.0f); 
             yield return PlayLineAndWait(lines[1], 5.0f); 
         }
-        else if (stepIndex == 1) // Key
+        else if (stepIndex == 1) 
         {
             yield return PlayLineAndWait(lines[2], 5.0f); 
             yield return PlayLineAndWait(lines[3], 5.0f); 
             yield return PlayLineAndWait(lines[4], 5.0f); 
         }
-        else if (stepIndex == 2) // Skull
+        else if (stepIndex == 2) // NEW: Shortened Skull Phase
         {
-            yield return PlayLineAndWait(lines[5], 6.0f); // Fear of losing...
-            yield return PlayLineAndWait(lines[6], 6.0f); // But look closer...
-            yield return PlayLineAndWait(lines[7], 6.0f); // You're still here...
-            
-            // MASSIVE BUFFER to guarantee no overlap
-            yield return PlayLineAndWait(lines[8], 15.0f); 
+            yield return PlayLineAndWait(lines[5], 5.0f); 
+            yield return PlayLineAndWait(lines[6], 5.0f); 
+            yield return PlayLineAndWait(lines[7], 5.0f); 
+            yield return PlayLineAndWait(lines[8], 4.0f); // Shortened
         }
     }
 
@@ -304,10 +305,6 @@ public class EgoDeath : MonoBehaviour
         float startStick = SafeGetFloat(KEY_STICK_FORCE);
         float startTurb = SafeGetFloat(KEY_TURBULENCE);
 
-        // MUTED Therapist Line 9: "When you're ready..."
-        // if (AudioManager.instance != null && FMODEvents.instance.dialogueLines.Length > 9)
-        //    AudioManager.instance.PlayOneShot(FMODEvents.instance.dialogueLines[9], transform.position);
-
         while (elapsed < shatterDuration)
         {
             elapsed += Time.deltaTime;
@@ -325,16 +322,32 @@ public class EgoDeath : MonoBehaviour
             if (kaleidoscopeComp != null) kaleidoscopeComp.intensity.value = crystalCurve.Evaluate(t);
             yield return null;
         }
+        
+        yield return new WaitForSeconds(0.5f);
 
-        // START Therapist Line 10: "Open your eyes"
-        if (AudioManager.instance != null && FMODEvents.instance.dialogueLines.Length > 10)
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.dialogueLines[10], transform.position);
-            
-        // DROPPED THIS PAUSE DOWN FROM 8.0f TO 2.0f
-        yield return new WaitForSeconds(2.0f);
+        // NEW: TRIGGER MUSIC FADE
+        StartCoroutine(FadeOutMusic(finalTransitionDuration + finalTransitionWaitTime));
 
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformEgoDeathTransition(globalVolume, finalTransitionDuration, finalTransitionWaitTime, nextSceneName);
+    }
+
+    // NEW: Coroutine to handle the volume slide
+    private IEnumerator FadeOutMusic(float duration)
+    {
+        float elapsed = 0;
+        if (kaleidoscopeMusicInstance.isValid())
+        {
+            while (elapsed < duration)
+            {
+                elapsed += Time.deltaTime;
+                float vol = Mathf.Lerp(1f, 0f, elapsed / duration);
+                kaleidoscopeMusicInstance.setVolume(vol);
+                yield return null;
+            }
+            kaleidoscopeMusicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            kaleidoscopeMusicInstance.release();
+        }
     }
 
     private void CacheVolumeComponents()
@@ -360,54 +373,51 @@ public class EgoDeath : MonoBehaviour
     }
 
     private IEnumerator MorphToSDF(SDFSequenceStep step)
-{
-    SafeSetTexture(KEY_SDF, step.sdfTexture);
-    
-    float elapsed = 0;
-    
-    // Capture starting VFX Graph properties
-    float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
-    float startStick = SafeGetFloat(KEY_STICK_FORCE);
-    float startTurb = SafeGetFloat(KEY_TURBULENCE);
-    Vector3 startSdfSize = SafeGetVector3(KEY_SDF_SIZE, Vector3.one * 3f);
-    Vector3 startSdfCenter = SafeGetVector3(KEY_SDF_CENTER, Vector3.zero);
-
-    // Capture starting Transform state
-    Vector3 startPos = vfxGraph.transform.localPosition;
-    Quaternion startRot = vfxGraph.transform.localRotation;
-    Vector3 startScale = vfxGraph.transform.localScale;
-
-    // Target Rotation from Euler
-    Quaternion targetRot = Quaternion.Euler(step.VFXTransform.vfxRotation);
-
-    while (elapsed < morphDuration)
     {
-        elapsed += Time.deltaTime;
-        float t = elapsed / morphDuration;
-        float ease = Mathf.SmoothStep(0, 1, t);
-        
-        // 1. Particle Logic Lerps
-        LerpGradients(lastStepGradient, step.colorGradient, ease);
-        SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
-        SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
-        SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
-        SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
-        
-        // 2. SDF Bounding Box Lerps
-        SafeSetVector3(KEY_SDF_SIZE, Vector3.Lerp(startSdfSize, step.sdfSize, ease));
-        SafeSetVector3(KEY_SDF_CENTER, Vector3.Lerp(startSdfCenter, step.sdfCenter, ease));
-        
-        // 3. Entire VFX Object Transform Lerps
-        if (vfxGraph != null)
+        SafeSetTexture(KEY_SDF, step.sdfTexture);
+        float elapsed = 0;
+        float startAttr = SafeGetFloat(KEY_ATTR_SPEED);
+        float startStick = SafeGetFloat(KEY_STICK_FORCE);
+        float startTurb = SafeGetFloat(KEY_TURBULENCE);
+        Vector3 startSdfSize = SafeGetVector3(KEY_SDF_SIZE, Vector3.one * 3f);
+        Vector3 startSdfCenter = SafeGetVector3(KEY_SDF_CENTER, Vector3.zero);
+        Vector3 startPos = vfxGraph.transform.localPosition;
+        Quaternion startRot = vfxGraph.transform.localRotation;
+        Vector3 startScale = vfxGraph.transform.localScale;
+        Quaternion targetRot = Quaternion.Euler(step.VFXTransform.vfxRotation);
+
+        while (elapsed < morphDuration)
         {
-            vfxGraph.transform.position = Vector3.Lerp(startPos, step.VFXTransform.vfxPosition, ease);
-            vfxGraph.transform.rotation = Quaternion.Slerp(startRot, targetRot, ease);
-            vfxGraph.transform.localScale = Vector3.Lerp(startScale, step.VFXTransform.vfxScale, ease);
-        }
+            elapsed += Time.deltaTime;
+            float t = elapsed / morphDuration;
+            float ease = Mathf.SmoothStep(0, 1, t);
             
-        yield return null;
+            LerpGradients(lastStepGradient, step.colorGradient, ease);
+            SafeSetGradient(KEY_COLOR, currentRuntimeGradient);
+            SafeSetFloat(KEY_ATTR_SPEED, Mathf.Lerp(startAttr, step.attractionSpeed, ease));
+            SafeSetFloat(KEY_STICK_FORCE, Mathf.Lerp(startStick, step.stickForce, ease));
+            SafeSetFloat(KEY_TURBULENCE, Mathf.Lerp(startTurb, step.turbulence, ease));
+            SafeSetVector3(KEY_SDF_SIZE, Vector3.Lerp(startSdfSize, step.sdfSize, ease));
+            SafeSetVector3(KEY_SDF_CENTER, Vector3.Lerp(startSdfCenter, step.sdfCenter, ease));
+            
+            if (vfxGraph != null)
+            {
+                vfxGraph.transform.position = Vector3.Lerp(startPos, step.VFXTransform.vfxPosition, ease);
+                vfxGraph.transform.rotation = Quaternion.Slerp(startRot, targetRot, ease);
+                vfxGraph.transform.localScale = Vector3.Lerp(startScale, step.VFXTransform.vfxScale, ease);
+            }
+            yield return null;
+        }
     }
-}
+
+    private void OnDestroy() // NEW: Clean up music on scene exit
+    {
+        if (kaleidoscopeMusicInstance.isValid())
+        {
+            kaleidoscopeMusicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            kaleidoscopeMusicInstance.release();
+        }
+    }
 
     private void OnApplicationQuit()
     {
@@ -417,7 +427,6 @@ public class EgoDeath : MonoBehaviour
     private void LerpGradients(Gradient a, Gradient b, float t)
     {
         if (a == null || b == null) return;
-        
         GradientColorKey[] colorKeys = new GradientColorKey[5];
         GradientAlphaKey[] alphaKeys = new GradientAlphaKey[5];
         for (int i = 0; i < 5; i++)
