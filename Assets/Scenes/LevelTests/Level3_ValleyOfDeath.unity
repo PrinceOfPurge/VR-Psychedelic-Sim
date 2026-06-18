@@ -16405,8 +16405,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6014b5173afd188418e75f8d79f3f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
-  growSpeed: 0.08
-  maxSize: 0.5
+  growthDuration: 20
+  maxXZSize: 8
+  maxYSize: 1
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  postProcessVolume: {fileID: 1048907567}
+  bloodTintColor: {r: 0.38, g: 0, b: 0, a: 1}
+  visionBloodCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useColorTint: 1
 --- !u!64 &1153205829
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16494,8 +16546,8 @@ Transform:
   m_GameObject: {fileID: 1153205827}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.429, y: 0.05, z: -6.497}
-  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_LocalPosition: {x: 3.429, y: 0.24, z: -6.497}
+  m_LocalScale: {x: 8, y: 10, z: 8}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
