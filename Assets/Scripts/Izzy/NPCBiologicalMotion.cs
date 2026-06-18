@@ -123,9 +123,15 @@ public class NPCBiologicalMotion : MonoBehaviour
         }
     }
 
-    // Helper function to remap ranges (like the Map function in processing/arduino)
+    // Helper function to remap ranges
     private float Map(float value, float fromSource, float toSource, float fromTarget, float toTarget)
     {
+        // Prevent division by zero if the input range min and max are identical
+        if (Mathf.Abs(toSource - fromSource) < Mathf.Epsilon)
+        {
+            return fromTarget; 
+        }
+    
         return (value - fromSource) / (toSource - fromSource) * (toTarget - fromTarget) + fromTarget;
     }
     

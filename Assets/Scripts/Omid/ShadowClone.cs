@@ -98,7 +98,7 @@ public class ShadowClone : MonoBehaviour
             
             // Trigger the floor pool to grow
             BloodPoolGrow pool = FindObjectOfType<BloodPoolGrow>();
-            if (pool != null) pool.StartPool();
+            if (pool != null && !pool.IsGrowing) pool.StartPool();
         }
     }
 

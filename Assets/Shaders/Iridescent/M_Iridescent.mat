@@ -25,7 +25,7 @@ Material:
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords:
-  - _GRADIENTTYPE_A
+  - _GRADIENTTYPE_B
   m_InvalidKeywords: []
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
@@ -61,17 +61,19 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClipping: 0.5
+    - _CircleWobbleFrequency: 0.2
+    - _CircleWobbleStrength: 0.08
     - _EmissionStrength: 0
-    - _FresnelPower: 0.47
-    - _GRADIENTTYPE: 0
-    - _IridescentStrength: 1
-    - _Metallic: 0.34
+    - _FresnelPower: 1
+    - _GRADIENTTYPE: 1
+    - _IridescentStrength: 0.6
+    - _Metallic: 0.553
     - _NormalStrength: 1
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Smoothness: 0.47
+    - _Smoothness: 0
     m_Colors:
-    - _Color: {r: 0, g: 0, b: 0, a: 1}
+    - _Color: {r: 1, g: 0, b: 0, a: 1}
     - _NormalMapOffsetSpeed: {r: 0.002, g: 0.005, b: 0, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

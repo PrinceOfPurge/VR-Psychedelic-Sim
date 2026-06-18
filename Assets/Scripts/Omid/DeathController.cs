@@ -25,7 +25,7 @@ public class DeathController : MonoBehaviour
         if (floorPool == null) return;
 
         // Trigger sequence when the blood pool reaches max size
-        if (!sequenceStarted && floorPool.transform.localScale.x >= floorPool.maxSize - 0.1f)
+        if (!sequenceStarted && floorPool.transform.localScale.x >= floorPool.maxXZSize - 0.1f)
         {
             StartDeathSequence();
         }
