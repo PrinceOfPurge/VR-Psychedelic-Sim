@@ -61,6 +61,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaClipping: 0.5
+    - _CircleWobbleFrequency: 0.2
+    - _CircleWobbleStrength: 0.08
     - _EmissionStrength: 0
     - _FresnelPower: 1
     - _GRADIENTTYPE: 1
