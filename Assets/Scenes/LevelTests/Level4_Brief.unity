@@ -2039,6 +2039,13 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
+  <VOPMusic>k__BackingField:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
   <AfterImage>k__BackingField:
     Guid:
       Data1: 200443437
@@ -2242,6 +2249,7 @@ MonoBehaviour:
   hoganDialogue: []
   healerDialogue: []
   dialogueLines: []
+  integrationLines: []
 --- !u!1 &1040304584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4193,8 +4201,10 @@ MonoBehaviour:
   narrativeText: {fileID: 1815541403}
   canvasGroup: {fileID: 586334764}
   nextSceneName: HogunDescentSandbox
-  fadeDuration: 2
-  extraReadTime: 2
+  fadeDuration: 0.5
+  baseReadTime: 1
+  charReadModifier: 0.04
+  lineGap: 0.3
 --- !u!4 &1994446292
 Transform:
   m_ObjectHideFlags: 0

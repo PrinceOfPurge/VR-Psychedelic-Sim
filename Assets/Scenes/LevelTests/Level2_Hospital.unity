@@ -1628,7 +1628,7 @@ MonoBehaviour:
   minToMaxIntensityDuration: 12
   waitAtMaxDuration: 2
   nextSceneName: Level3_ValleyOfDeath
-  linePadding: 0.5
+  linePadding: 2
   hospitalOrbController: {fileID: 1285650919}
 --- !u!4 &1145371564
 Transform:
@@ -1756,8 +1756,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285650914}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0015355365, y: 0.21743612, z: 0.027171342, w: -0.9756951}
-  m_LocalPosition: {x: 0.029999971, y: -0.87829864, z: -0.5999999}
+  m_LocalRotation: {x: 0.22017251, y: 0.54367024, z: 0.18908112, w: -0.7875247}
+  m_LocalPosition: {x: 0.029999971, y: -1.2268894, z: -0.5999999}
   m_LocalScale: {x: 12, y: 12, z: 12}
   m_ConstrainProportionsScale: 1
   m_Children:

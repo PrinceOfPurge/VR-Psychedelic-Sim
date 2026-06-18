@@ -25227,7 +25227,7 @@ MonoBehaviour:
   healerCloud: {fileID: 1601552732}
   talkingFadeDuration: 0.4
   medicineScript: {fileID: 1706742881}
-  linePadding: 1.5
+  linePadding: 0.5
   keyPreview: {fileID: 151505773}
   tableSocket: {fileID: 931958951}
   pillObject: {fileID: 15985810}
@@ -35472,15 +35472,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.277
+      value: 8.979
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.163
+      value: 0.107
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.141
+      value: 3.378
       objectReference: {fileID: 0}
     - target: {fileID: 7397266679871392536, guid: 74e1474597e75e9498ce8d64c800df26, type: 3}
       propertyPath: m_LocalRotation.w
