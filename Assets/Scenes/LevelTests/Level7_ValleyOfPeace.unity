@@ -3583,8 +3583,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Give Key To Kid
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 032121e44657ba74895fdaf633813d7b, type: 2}
-  m_sharedMaterial: {fileID: -3168804790055349689, guid: 032121e44657ba74895fdaf633813d7b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0577fe85c6eeafe46a5fc0777c8a9202, type: 2}
+  m_sharedMaterial: {fileID: 8177681353991526544, guid: 0577fe85c6eeafe46a5fc0777c8a9202, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -17333,8 +17333,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6014b5173afd188418e75f8d79f3f34a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BloodPoolGrow
-  growSpeed: 0.06
-  maxSize: 0.5
+  growthDuration: 3
+  maxXZSize: 8
+  maxYSize: 5
+  growthCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  postProcessVolume: {fileID: 0}
+  bloodTintColor: {r: 1, g: 0, b: 0, a: 1}
+  visionBloodCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0.5
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  useColorTint: 1
 --- !u!64 &1152730249
 MeshCollider:
   m_ObjectHideFlags: 0

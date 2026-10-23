@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-
 [Serializable]
 public class PPSequenceStep
 {
@@ -16,7 +15,6 @@ public class PPSequenceStep
     [HideInInspector] public VolumeComponent component;
 }
 
-
 public class StartMedicine : MonoBehaviour
 {
     [Header("Phase 1: The Fog (Durations must match Manager)")]
@@ -25,6 +23,11 @@ public class StartMedicine : MonoBehaviour
     [Header("Phase 2: The Hut (Local Shader Distortions)")]
     [SerializeField] private DistortedUVsInfoContainer[] hutMaterials;
     [SerializeField] private float hutDuration = 15f;
+    
+    // FIX: Reference the hand scripts here so they delay until Phase 2 starts
+    [Header("Phase 2: Hand After-Effects Integration")]
+    [Tooltip("Drag your hand after-image / VR hand effect scripts here to delay them until Phase 2.")]
+    [SerializeField] private MonoBehaviour[] handVisualEffects; 
 
     [Header("Phase 3: Weird Post-Processing")] 
     [SerializeField] private float trippyEffectsDelay = 10f;
@@ -42,7 +45,6 @@ public class StartMedicine : MonoBehaviour
 
     private void Start()
     {
-        // Ensure the scene starts without any lingering fade effects
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.ResetFadeEffect();
         
@@ -65,26 +67,32 @@ public class StartMedicine : MonoBehaviour
         if (isTripActive) return;
         isTripActive = true;
         
-        // Start the local wall-melting distortions, and call the trippy effects from SceneTransitionManager
         StartCoroutine(HutMaterialDistortionRoutine());
         StartCoroutine(TrippyEffects());
     }
 
     private IEnumerator HutMaterialDistortionRoutine()
     {
-        // Wait for Phase 1 (Fog) to complete before walls start melting (matching your original sequence)
         float fogElapsed = 0f;
 
         while (fogElapsed < fogDuration)
         {
             fogElapsed += Time.deltaTime;
             float t = Mathf.Clamp01(fogElapsed / fogDuration);
-            
-            // Change to the new volume
             descentVolume.weight = t;
+            yield return null; // Added missing yield fix to prevent locking frame loops
         }
         
         yield return new WaitForSeconds(fogDuration);
+
+        // FIX: The fog has ended! Turn on the hand after-images now as Phase 2 starts
+        if (handVisualEffects != null)
+        {
+            foreach (var effect in handVisualEffects)
+            {
+                if (effect != null) effect.enabled = true;
+            }
+        }
         
         float elapsed = 0f;
         while (elapsed < hutDuration)
@@ -92,14 +100,12 @@ public class StartMedicine : MonoBehaviour
             elapsed += Time.deltaTime;
             float t = Mathf.Clamp01(elapsed / hutDuration);
 
-            // Apply UV distortions to the Hogan interior materials
             foreach (var matInfo in hutMaterials)
             {
                 if (matInfo.mat != null)
                     matInfo.mat.SetFloat(matInfo.shaderEffectParamName, t);
             }
             
-            // Hue Shift
             if (fireLight != null)
             {
                 fireLight.color = tripColorGradient.Evaluate(t);
@@ -124,11 +130,16 @@ public class StartMedicine : MonoBehaviour
 
         if (descentVolume != null) descentVolume.weight = 0f;
 
-        // Instantly reset all environmental materials to their base state
         foreach (var matInfo in hutMaterials)
         {
             if (matInfo.mat != null)
                 matInfo.mat.SetFloat(matInfo.shaderEffectParamName, 0f);
+        }
+
+        // Reset hand visuals state safely
+        if (handVisualEffects != null)
+        {
+            foreach (var effect in handVisualEffects) if (effect != null) effect.enabled = false;
         }
     }
 

@@ -24956,9 +24956,6 @@ MonoBehaviour:
   tableSocket: {fileID: 931958951}
   pillObject: {fileID: 15985810}
   enablePulseEffect: 1
-  visualEffects:
-  - {fileID: 1936171715}
-  - {fileID: 986320856}
   keyPlaced: 0
   pillTaken: 0
 --- !u!4 &1562093719
@@ -26185,6 +26182,9 @@ MonoBehaviour:
   - mat: {fileID: 2100000, guid: 54ba43d727bad204bb119c3278ffdf74, type: 2}
     shaderEffectParamName: _VertexEffectStrength
   hutDuration: 25
+  handVisualEffects:
+  - {fileID: 1936171715}
+  - {fileID: 986320856}
   trippyEffectsDelay: 20
   descentVolume: {fileID: 832575518}
   fireLight: {fileID: 295450835}

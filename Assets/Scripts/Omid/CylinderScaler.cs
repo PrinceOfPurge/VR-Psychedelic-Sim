@@ -52,7 +52,7 @@ public class CylinderScaler : MonoBehaviour
 
         dialoguePages = new string[]
         {
-            "The game is about psychedelic assisted therapy, where a Native man loses touch of his true first nation culture life and working the western life as a locksmith grinding away at a key his whole life, he finds out he gets cancer and this news breaks his spirit, however he decides he must go back to his roots and seek a healing session with his hokake with a psychedelic and there is also a therapist there to help train therapist how to approach this new form of psychedelic training.",
+            "Created by:  Omid Fanaei, Tyler Reeds, Ishaan Kishore, Rachel Marinic\n",
             
             "We hope you enjoy.\n\nCreated by: Omid Fanaei, Tyler Reeds, Ishaan Kishore, Rachel Marinic\n\nSpecial thanks to: David Chandross, Bill Kapralos and Dr. Allen Kalpin for their support and guidance throughout the journey."
         };
@@ -152,6 +152,7 @@ public class CylinderScaler : MonoBehaviour
         }
     }
 
+    /* COMMENTED OUT TO PREVENT DIALOGUE FROM CHANGING ADVANCEMENT
     public void AdvanceDialogueFromSeparateButton()
     {
         currentDialogueIndex++;
@@ -169,6 +170,7 @@ public class CylinderScaler : MonoBehaviour
             CloseAboutPanel();
         }
     }
+    */
 
     public void CloseAboutPanel()
     {

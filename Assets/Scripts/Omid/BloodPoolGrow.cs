@@ -5,7 +5,6 @@ using UnityEngine.Rendering.Universal;
 public class BloodPoolGrow : MonoBehaviour
 {
     [Header("Growth Settings")]
-    [Tooltip("Total duration of the pool's growth in seconds.")]
     public float growthDuration = 3.0f;
     public float maxXZSize = 8.0f; 
     public float maxYSize = 5.0f; 
@@ -26,17 +25,18 @@ public class BloodPoolGrow : MonoBehaviour
     
     private Vector3 startScale;
     private Vector3 targetScale;
+    
+    // FIX: Flags to lock the system from being re-triggered by overlapping clone attacks
+    private bool hasStartedGrowing = false;
+    private bool hasFinishedGrowing = false; 
 
     void Start()
     {
-        // Start as a tiny dot
         startScale = new Vector3(0.01f, 0.01f, 0.01f);
         transform.localScale = startScale;
         
-        // Define the target destination for the scale
         targetScale = new Vector3(maxXZSize, maxYSize, maxXZSize);
         
-        // Initialize Volume Profile components
         if (postProcessVolume == null)
             postProcessVolume = FindFirstObjectByType<Volume>();
 
@@ -46,10 +46,13 @@ public class BloodPoolGrow : MonoBehaviour
 
     public void StartPool()
     {
+        // FIX: If the pool has already been kicked off by a clone, completely ignore subsequent hits
+        if (hasStartedGrowing || hasFinishedGrowing) return;
+
         isGrowing = true;
+        hasStartedGrowing = true;
         timeElapsed = 0.0f;
         
-        // Ensure the post-processing override is active when starting
         if (colorAdjustments != null)
         {
             colorAdjustments.colorFilter.overrideState = true;
@@ -58,37 +61,31 @@ public class BloodPoolGrow : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D))
-            StartPool();
-        
         if (isGrowing)
         {
             timeElapsed += Time.deltaTime;
             float normalizedTime = Mathf.Clamp01(timeElapsed / growthDuration);
             
-            // 1. Handle physical pool growth
             float poolProgress = growthCurve.Evaluate(normalizedTime);
             transform.localScale = Vector3.Lerp(startScale, targetScale, poolProgress);
 
-            // 2. Handle VR screen blood tinting
             if (colorAdjustments != null && useColorTint)
             {
                 float tintIntensity = visionBloodCurve.Evaluate(normalizedTime);
-                
-                // Interpolate from a clean white (no tint) to the target blood color
                 colorAdjustments.colorFilter.value = Color.Lerp(Color.white, bloodTintColor, tintIntensity);
             }
 
             if (normalizedTime >= 1.0f)
             {
                 isGrowing = false;
+                hasFinishedGrowing = true;
+                transform.localScale = targetScale; // Hard-lock the pool at its absolute max scale
             }
         }
     }
     
     private void OnDestroy()
     {
-        // Clean up: Reset the color filter back to normal when scene changes or object is destroyed
         if (colorAdjustments != null)
         {
             colorAdjustments.colorFilter.value = Color.white;

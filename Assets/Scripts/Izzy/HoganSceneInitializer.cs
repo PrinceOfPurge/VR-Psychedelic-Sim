@@ -32,9 +32,6 @@ public class HoganSceneInitializer : MonoBehaviour
     [SerializeField] private GameObject pillObject; 
     [SerializeField] private bool enablePulseEffect = true;
 
-    [Header("After Effects (Hands/Camera)")]
-    [SerializeField] private MonoBehaviour[] visualEffects; 
-
     private EventInstance drumInstance;
     private EventInstance navajoInstance;
     private EventInstance currentDialogueInstance; 
@@ -50,7 +47,6 @@ public class HoganSceneInitializer : MonoBehaviour
     {
         if (FMODEvents.instance != null)
         {
-            // Using your AudioManager to create instances so they are added to its internal list
             if (!FMODEvents.instance.HoganDesMusic.IsNull)
                 drumInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.HoganDesMusic);
             
@@ -60,11 +56,6 @@ public class HoganSceneInitializer : MonoBehaviour
 
         if (keyPreview != null) { originalPreviewScale = keyPreview.transform.localScale; keyPreview.SetActive(false); }
         if (pillObject != null) { pillObject.SetActive(false); }
-
-        if (visualEffects != null)
-        {
-            foreach (var effect in visualEffects) if (effect != null) effect.enabled = false;
-        }
 
         if (SceneTransitionManager.Instance != null)
             SceneTransitionManager.Instance.PerformFade(true, "", true, fadeDuration);
@@ -122,8 +113,8 @@ public class HoganSceneInitializer : MonoBehaviour
 
             yield return PlayLine(healer[2], null);           
             yield return PlayLine(healer[3], null);           
-            yield return PlayLine(h[10], therapistNPC);       
-            yield return PlayLine(h[11], therapistNPC);       
+            yield return h[10].IsNull ? null : PlayLine(h[10], therapistNPC);       
+            yield return h[11].IsNull ? null : PlayLine(h[11], therapistNPC);       
             yield return new WaitForSeconds(3f);
         }
 
@@ -160,14 +151,14 @@ public class HoganSceneInitializer : MonoBehaviour
 
         while (!pillTaken) yield return null;
 
-        foreach (var effect in visualEffects) if (effect != null) effect.enabled = true;
+        // FIX: Removed the immediate hard activation loop from here. 
+        // Hand scripts are now cleanly handed off to StartMedicine's phase sequence.
         if (medicineScript != null) medicineScript.StartTrip();
         
         yield return PlayLine(h[20], therapistNPC); 
         yield return PlayLine(h[21], therapistNPC); 
         yield return PlayLine(h[22], therapistNPC); 
 
-        // Start Music Early
         if (drumInstance.isValid()) drumInstance.start(); 
         if (navajoInstance.isValid()) navajoInstance.start(); 
 
@@ -186,11 +177,19 @@ public class HoganSceneInitializer : MonoBehaviour
         yield return PlayLine(h[26], therapistNPC); 
         yield return PlayLine(h[27], therapistNPC); 
 
-        // --- FINAL SMOOTH EXIT ---
-        StartCoroutine(FadeOutAllMusic(fadeDuration + 2f));
+        GameObject musicCarrier = new GameObject("PersistentMusicCarrier");
+        DontDestroyOnLoad(musicCarrier);
+        var fader = musicCarrier.AddComponent<MusicFaderCarrier>();
+        
+        fader.SetupCarrier(drumInstance, navajoInstance, currentDialogueInstance, fadeDuration + 2f);
+
         if (SceneTransitionManager.Instance != null)
         {
             SceneTransitionManager.Instance.PerformFade(false, nextSceneName, false, fadeDuration + 2f);
+        }
+        else
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene(nextSceneName);
         }
     }
     
@@ -232,21 +231,6 @@ public class HoganSceneInitializer : MonoBehaviour
         npc.talkingWeight = target;
     }
 
-    private IEnumerator FadeOutAllMusic(float duration)
-    {
-        float elapsed = 0;
-        while (elapsed < duration)
-        {
-            elapsed += Time.deltaTime;
-            float vol = Mathf.Lerp(1f, 0f, elapsed / duration);
-            if (drumInstance.isValid()) drumInstance.setVolume(vol);
-            if (navajoInstance.isValid()) navajoInstance.setVolume(vol);
-            if (currentDialogueInstance.isValid()) currentDialogueInstance.setVolume(vol);
-            yield return null;
-        }
-        // Let OnDestroy handle the final release/stop for safety
-    }
-
     private IEnumerator MoveTherapistRoutine()
     {
         float elapsed = 0;
@@ -258,14 +242,6 @@ public class HoganSceneInitializer : MonoBehaviour
             therapistNPC.GetComponent<NPCBiologicalMotion>()?.ResetBasePosition();
             yield return null;
         }
-    }
-
-    private void OnDestroy()
-    {
-        // Immediate cleanup so sounds don't "bleed" into the next scene
-        if (drumInstance.isValid()) { drumInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); drumInstance.release(); }
-        if (navajoInstance.isValid()) { navajoInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); navajoInstance.release(); }
-        if (currentDialogueInstance.isValid()) { currentDialogueInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE); currentDialogueInstance.release(); }
     }
 
     public void SetKeyPlaced(bool v) => keyPlaced = v;

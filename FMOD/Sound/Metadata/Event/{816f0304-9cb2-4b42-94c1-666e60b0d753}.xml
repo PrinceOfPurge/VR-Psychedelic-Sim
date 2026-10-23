@@ -5,7 +5,7 @@
 			<value>Hogano 13</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{b1912360-3619-489f-a2d0-e8f3b7a2cf92}</destination>
@@ -84,7 +84,7 @@
 	</object>
 	<object class="MultiSound" id="{f4ce63d0-c96e-4ee8-bf36-3ce05e5ba104}">
 		<relationship name="sounds">
-			<destination>{4f3d5ea5-b326-4639-8133-5852110ca7a4}</destination>
+			<destination>{cbdaf3cd-14b2-4d40-b541-9596f03b1062}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{e655e6ea-bc62-452e-8fa2-2437192decd3}">
@@ -99,12 +99,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{367d9205-8c3a-4588-810e-7294d3304f3b}" />
-	<object class="SingleSound" id="{4f3d5ea5-b326-4639-8133-5852110ca7a4}">
-		<property name="volume">
-			<value>-8.5</value>
-		</property>
+	<object class="SingleSound" id="{cbdaf3cd-14b2-4d40-b541-9596f03b1062}">
 		<relationship name="audioFile">
-			<destination>{fc28cebc-9eba-4f26-904f-608a6aeaed8e}</destination>
+			<destination>{2b6de2b8-4f7e-4b39-a62e-8c6260020c82}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{f45f8986-3015-4c45-b6bc-8ed22ca22a13}" />

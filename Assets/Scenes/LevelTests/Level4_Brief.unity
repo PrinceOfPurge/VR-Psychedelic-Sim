@@ -3884,8 +3884,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: van
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 032121e44657ba74895fdaf633813d7b, type: 2}
-  m_sharedMaterial: {fileID: -3168804790055349689, guid: 032121e44657ba74895fdaf633813d7b, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0577fe85c6eeafe46a5fc0777c8a9202, type: 2}
+  m_sharedMaterial: {fileID: 8177681353991526544, guid: 0577fe85c6eeafe46a5fc0777c8a9202, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

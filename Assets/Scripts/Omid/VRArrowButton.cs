@@ -73,26 +73,27 @@ public class VRArrowButton : MonoBehaviour
 
     private void OnArrowClicked()
     {
-        // Simple debounce latch so a single button hold down doesn't hyper-skip lines
+        // Simple debounce latch so a single button hold down doesn't hyper-skip
         isClickedThisFrame = true; 
-        Debug.Log("Arrow manual button execution detected!");
+        Debug.Log("Arrow manual button execution detected! Closing About Panel.");
 
+        // FIX: Instead of calling the missing 'Advance' method, we tell it to close the panel cleanly
         if (aboutButtonScript != null)
         {
-            aboutButtonScript.AdvanceDialogueFromSeparateButton();
+            aboutButtonScript.CloseAboutPanel();
         }
         else
         {
             CylinderScaler foundScript = FindFirstObjectByType<CylinderScaler>();
             if (foundScript != null)
             {
-                foundScript.AdvanceDialogueFromSeparateButton();
+                foundScript.CloseAboutPanel();
             }
         }
         
         TriggerArrowHaptic(activeHandNode);
         
-        // Reset the input latch after a brief delay so they can click again for the next page
+        // Reset the input latch after a brief delay so they can click again if needed
         Invoke(nameof(ResetInputLatch), 0.4f);
     }
 

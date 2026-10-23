@@ -5,7 +5,7 @@
 			<value>Doctor 5</value>
 		</property>
 		<property name="outputFormat">
-			<value>1</value>
+			<value>0</value>
 		</property>
 		<relationship name="folder">
 			<destination>{cc147bc3-8ee4-45d0-8a49-6680b8bf5559}</destination>
@@ -84,7 +84,7 @@
 	</object>
 	<object class="MultiSound" id="{755578c0-498c-4553-a8e6-8f6927548eed}">
 		<relationship name="sounds">
-			<destination>{6e8dde8a-7125-4498-a2b7-565978313961}</destination>
+			<destination>{933f1a0f-e1e7-4c53-a91b-ac772a15ba53}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusEffectChain" id="{b9b04ec2-247f-4bea-87d4-fe658e17e5f9}">
@@ -100,9 +100,9 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{d596137f-54fb-4fa1-a0b2-48a41a46e140}" />
-	<object class="SingleSound" id="{6e8dde8a-7125-4498-a2b7-565978313961}">
+	<object class="SingleSound" id="{933f1a0f-e1e7-4c53-a91b-ac772a15ba53}">
 		<relationship name="audioFile">
-			<destination>{09531337-7749-4dc7-9d44-1a3c74c56eef}</destination>
+			<destination>{48c2504b-ac98-470b-a31f-246779b26560}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{6eb616a9-b65f-498b-aac8-04346df13d7b}" />

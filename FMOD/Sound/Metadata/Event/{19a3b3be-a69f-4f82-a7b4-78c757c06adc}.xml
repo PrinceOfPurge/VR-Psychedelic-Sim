@@ -59,7 +59,11 @@
 			<destination>{ad8151dc-434f-40a9-9ea2-2875414b75af}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{c1b2baa7-e06f-4581-8780-ab5036d888fc}" />
+	<object class="EventAutomatableProperties" id="{c1b2baa7-e06f-4581-8780-ab5036d888fc}">
+		<property name="isPersistent">
+			<value>true</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{30986c7d-7a06-47cd-8fe1-6041349b7e81}" />
 	<object class="Timeline" id="{385d45d7-480d-4e91-8562-0bc1730ead62}">
 		<relationship name="modules">
