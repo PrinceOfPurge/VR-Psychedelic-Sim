@@ -3,9 +3,9 @@
 
 #include "SDFLibrary.hlsl"
 
-#define MAX_STEPS 128
-#define MAX_DIST 120
-#define SURF_DIST 0.01
+#define MAX_STEPS 88
+#define MAX_DIST 92
+#define SURF_DIST 0.03
 
 
 float4 GetDist(float3 p, float time)
@@ -209,7 +209,7 @@ float GetAO(float3 p, float3 n, float time)
     float weight = 1.0; // How much the occlusion matters
 
     // Step out from the surface 5 times
-    for (int i = 0; i <= 8; i++)
+    for (int i = 0; i <= 4; i++)
     {
         float dist = stepSize * i;
 
@@ -235,108 +235,14 @@ void RaymarchNode_float(float3 ro, float3 hitPos, float time, out float3 OutColo
     float3 rd = normalize(hitPos - ro); // Ray direction is where we hit minus where our camera is, normalized
     float d = Raymarch(ro, rd, time);
 
-    
-    // ==========================================
-    // VOLUMETRICS (GOD RAYS AND MIST)
-    // ==========================================
-    float accumulatedOpacity = 0.0;
-    float3 accumulatedLight = float3(0,0,0);
-    float3 skyLightColor = float3(2.1, 1.6, 1.2);   // Clean light
-    float3 dustLightColor = float3(1.1, .8, .4);   // Dusty light
-
-    // Light direction
-    #ifndef SHADERGRAPH_PREVIEW
-    Light mainLight = GetMainLight();
-    float3 lightDir = normalize(mainLight.direction);
-    #else
-    float3 lightCol = normalize(float3(0.5, 0.8, 0.2));
-    #endif
-
-    float stepSize = 0.25;
-    float maxSteps = 0;
-
-    float jitter = hash(rd * 43758.4543) * stepSize; // This breaks the uniform stepping which leads to color banding
-
-    // Determine the absolute farthest distance our volume loop can march - if we hit something (d), stop. If not, keep going
-    float maxVolumeDist = min(d, MAX_DIST);
-    for (int i = 0; i < maxSteps; i++)
-    {
-        float currentDist = (stepSize * i) + jitter;
-        if (currentDist >= maxVolumeDist) break; // Break the loop if we reach a solid surface
-
-        float3 p = ro + rd * currentDist;
-
-        // Horizontal mask so the mist is thick at lower heights and fades out as we go high up
-        float heightMask = 1 - smoothstep(-10.0, 30.0, p.y);
-        float noise = fbm(p * 0.25 + float3(time * .17, time * .1, time * .2), 3, 0.5) * 0.5 + 0.5;
-        float carvedNoise = max(0, noise-0.45);
-
-        // Global Base Density - We add a tiny amount of constant density everywhere so light always scatters
-        float baseDensity = 0.002;
-        float density = (carvedNoise * heightMask * 0.03) + baseDensity;
-
-        // Soft shadow march
-        if (density > 0.0)
-        {
-            float shadow = 1.0;
-            float shadowStepDist = 0.04;
-
-            // Step toward the light source to check for occluding geometry (Probably tanks framerate)
-            for(int s = 0; s < 8; s++) 
-            {
-                float dLight = GetDist(p + lightDir * shadowStepDist, time).x;
-                
-                if(dLight < 0.02) 
-                {
-                    shadow = 0.01; // If we hit a wall or ceiling, this point is in shadow
-                    break;
-                }
-                
-                shadowStepDist += max(dLight, 0.05); 
-                
-                if (shadowStepDist > 50.0) break;
-            }
-
-            // Phase Scattering: Make the fog bloom brighter when looking toward the light
-            float sunScattering = max(0, dot(rd, lightDir));
-            float phase = pow(sunScattering, 4.0) * 1.5 + 0.8;
-            
-            // ATMOSPHERIC COLOR LAYERING
-            // We use the heightmask to smoothly transition the color of the light beams
-            float3 dynamicLitFog = lerp(skyLightColor, dustLightColor, heightMask);
-
-            // Shift the shadow ambient color as well
-            float3 dynamicAmbient = lerp(float3(0.03, 0.02, 0.01), float3(0.04, 0.01, 0.0), heightMask);
-
-            // Calculate the final color for this specific step
-            float3 currentFogColor = lerp(dynamicAmbient, dynamicLitFog * phase, shadow);
-            // ==========================================
-
-            // Accumulate light and opacity
-            float stepAlpha = density * stepSize * 0.4;
-            accumulatedLight += currentFogColor * stepAlpha;
-            accumulatedOpacity += stepAlpha;
-        }
-
-        // Early exit the volume becomes completely opaque
-        if (accumulatedOpacity >= 1.0)
-        {
-            accumulatedOpacity = 1.0;
-            break;
-        }
-    }
-    // ==========================================
-
 
     // ==========================================
     // SCENE (DISTANCE FOG AND COLOURING)
     // ==========================================
     // Dynamic sky gradient based on the ray's vertical tilt
     float skyAlpha = clamp(rd.y * 0.5 + 0.5, 0.0, 1.0); // rd.y goes between -1 to 1, so we just bring the value up
-    float3 skyColor = float3(.01,.01,.01);          // Looking straight up
-    float3 horizonColor = float3(.001,.001,.001);     // Looking at the horizon
-    //float3 skyColor = float3(0.9, 0.88, 0.13);
-    //float3 horizonColor = float3(0.4, 0.5, 0.06);
+    float3 skyColor = float3(.01,.01,.01);
+    float3 horizonColor = float3(.001,.001,.001);
     float3 fogCol = lerp(horizonColor, skyColor, skyAlpha);
     
     float fogStart = 80.0;
@@ -345,8 +251,7 @@ void RaymarchNode_float(float3 ro, float3 hitPos, float time, out float3 OutColo
     if (d >= MAX_DIST) 
     {
         // If we didn't hit any geometry, draw the pure fog color to create an infinite horizon
-        OutColor.rgb = fogCol * (1.0 - accumulatedOpacity) + accumulatedLight;
-        //OutColor.rgb = float3(0,0,0);
+        OutColor.rgb = fogCol;
         OutAlpha = 1.0;
     } 
     else 
@@ -356,80 +261,39 @@ void RaymarchNode_float(float3 ro, float3 hitPos, float time, out float3 OutColo
         float diffuse = GetLight(p, time);
         
         #ifndef SHADERGRAPH_PREVIEW
-        Light mainLight = GetMainLight();
-        float3 lightCol = mainLight.color;
+            Light mainLight = GetMainLight();
+            float3 lightCol = mainLight.color;
         #else
-        float3 lightCol = float3(1, 1, 1);
+            float3 lightCol = float3(1, 1, 1);
         #endif
 
         // Link shadow color with horizon color - This ensures unlit areas receive realistic ambient light from the environment
         float3 shadowCol = horizonColor * 0.25;
         float smoothedDiffuse = smoothstep(0.0, 1.0, diffuse);
 
-        // Get the nromal and calculate AO
+        // Get the normal and calculate AO
         float3 n = GetNormal(p, time);
         float ao = GetAO(p, n, time);
         
         // Get the color of the object we just hit: We call GetDist at our exact surface point 'p' to get the float4 data
         float3 objectColor = GetDist(p, time).yzw;
-
-        
-        /* // === DYNAMICALLY CHANGING COLOR FOR FLOORS AND WALLS === //
-        // The megastructure is all one SDF, so I can't change the colors of the walls and floors like regular objects
-        if (n.y > 0.8)
-        {
-            float grimeMask = fbm(p * .3, 3, 0.5);
-            grimeMask = smoothstep(0.3, 0.7, grimeMask); // Remap the noise slightly to create harsher patches and high-contrast streaks
-
-            float3 cleanConcrete = float3(0.35, 0.32, 0.28); // Dehydrated, sand-blasted limestone
-            float3 darkGrimeColor = float3(0.08, 0.04, 0.02); // Burnt, rusty sepia streaks
-
-            float3 cleanSponge = float3(0.9, 0.88, 0.13);
-            float3 dirtySponge = float3(0.73, 0.72, 0.19);
-            
-            objectColor = lerp(cleanSponge, dirtySponge, grimeMask * 0.7);
-        }
-        else if (abs(n.x) > 0.8 || abs(n.z) > 0.8)
-        {
-            // Wall material
-            // Add subtle vertical streaking/grime. By stretching the Y axis of the noise, the noise pulls downward
-            float grimeMask = fbm(float3(p.x * 0.45, p.y * 0.1, p.z * 0.5), 3, 0.5);
-            grimeMask = smoothstep(0.3, 0.8, grimeMask); // Remap the noise slightly to create harsher patches and high-contrast streaks
-
-            float3 cleanConcrete = float3(0.35, 0.32, 0.28); // Dehydrated, sand-blasted limestone
-            float3 darkGrimeColor = float3(0.08, 0.04, 0.02); // Burnt, rusty sepia streaks
-            
-            float3 cleanSponge = float3(0.9, 0.88, 0.13);
-            float3 dirtySponge = float3(0.73, 0.72, 0.19);
-            
-            objectColor = lerp(cleanSponge, dirtySponge, grimeMask * 1.2);
-        } */
-        // ====== //
-
         
         // Apply ao by multiplying it against the lighting gradient so we get darker shadows in tighter spots
         float3 lightingGradient = lerp(shadowCol, lightCol, smoothedDiffuse) * ao;
-        //float3 finalCol = objectColor * lightingGradient;
-
-        float3 baseOpaqueCol = (objectColor*0.2) * lightingGradient; // Keep the base fractal dark
-        float fresnel = pow(1.0 - max(0.0, dot(n, -rd)), 3.0); // Detect silhouettes of the fractal bulbs
-
+        
         // HDR Emission: We multiply the orbit trap color by the fresnel rim factor and boost it into high HDR values
         // Multiply the glow by pow(ao, 3.0). This acts as a shadow mask, instantly killing the glow (and the noise) in tight crevices.
+        float3 baseOpaqueCol = (objectColor*0.2) * lightingGradient; // Keep the base fractal dark
+        float fresnel = pow(1.0 - max(0.0, dot(n, -rd)), 12.0); // Detect silhouettes of the fractal bulbs
         float3 emissiveGlow = objectColor * (fresnel * 4.0 + 0.4) * pow(ao, 4);
-
-        // We add the glowing emission on top of the dark structure
-        float3 finalCol = baseOpaqueCol + emissiveGlow;
+        float3 finalCol = baseOpaqueCol + emissiveGlow; // We add the glowing emission on top of the dark structure
 
         // Apply Depth Fog
         float fogAmount = smoothstep(fogStart, fogEnd, d); // Returns a 0-1 value based on how far 'd' is between fogStart and fogEnd
-
-        // Mix lit color with fog color
-        //finalCol = finalCol;
         float3 opaqueSceneColor = lerp(finalCol, fogCol, fogAmount);
-
-        // Layer the cloud color on top of the final opaque scene based on opacity
-        OutColor.rgb = opaqueSceneColor * (1.0 - accumulatedOpacity) + accumulatedLight;
+        
+        // Output scene
+        OutColor.rgb = opaqueSceneColor;
         OutAlpha = 1.0;
     }
 }

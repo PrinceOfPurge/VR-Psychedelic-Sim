@@ -348,6 +348,9 @@ float sdMegaStructure(float3 p, float time)
 
 float4 sdMengerSponge(float3 p, float time)
 {
+    // Rotate the entire global world space on the XZ plane before anything else happens
+    // p.yz = mul(Rot(time * 0.01), p.yz);
+    
     float3 spacing = float3(42,42,42);
     float3 id = round(p / spacing);
     p = p - spacing * id;
