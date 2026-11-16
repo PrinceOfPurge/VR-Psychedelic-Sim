@@ -4200,7 +4200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   narrativeText: {fileID: 1815541403}
   canvasGroup: {fileID: 586334764}
-  nextSceneName: HogunDescentSandbox
+  nextSceneName: Level5_HogunDescent
   fadeDuration: 0.5
   baseReadTime: 1
   charReadModifier: 0.04
