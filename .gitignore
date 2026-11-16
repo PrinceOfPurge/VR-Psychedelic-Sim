@@ -111,3 +111,8 @@ fmod_editor.log
 **/FMOD/**/.user/
 **/FMOD/**/.unsaved/
 *.fobj
+
+
+/[Aa]ssets/Plugins/FMOD/Resources/FMODStudioCache.asset
+/[Aa]ssets/StreamingAssets/*.bank
+fmod_editor.log
